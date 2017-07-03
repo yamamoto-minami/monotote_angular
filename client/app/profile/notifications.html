@@ -1,0 +1,8 @@
+<div class="profile__item profile__box profile__box-notifications" ng-show="status">
+    <span class="profile__form-success" ng-if="currentView==='profile'">Profile information was successfully updated.</span>
+    <span class="profile__form-success" ng-if="currentView==='referrals'">Connected affiliates were successfully updated.</span>
+    <span class="profile__form-success" ng-if="currentView==='changePassword'">Account password was successfully changed.</span>
+</div>
+<div class="profile__item profile__box profile__box-notifications" ng-show="errors ? errors.static : error">
+    <span class="profile__form-error">{{ errors ? errors.static : error }}</span>
+</div>

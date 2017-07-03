@@ -1,0 +1,30 @@
+<header class="universe__header">
+    <h3 class="universe__title">
+        <a href>{{data.universes[universe]}}</a> <a href ng-click="showProductDetailSection(universe)" class="universe__results">{{ resultCount(universe) | numeraljs:'0a'}} results</a>
+    </h3>
+    <a href class="universe__link" ng-click="showProductDetailSection(universe)" ng-show="resultCount(universe) > 0 || take(getQueryResult(universe).products, 6).length">View products from <span>{{data.universes[universe]}}</span></a>
+</header>
+<div class="universe__main">
+    <ul class="product-list product-list--thumbs">
+        <li class="product-list__item" ng-class="{product__enabled: !product.disabled, product__disabled: product.disabled}" ng-repeat="product in take(getQueryResult(universe).products, 6)">
+            <span class="favs-info" ng-class="{product_liked:1}" ng-show="product.likes">{{product.likes}} <i ng-class="['icon-heart'+(!product.likes?'-o':'')]"></i></span>
+            <div class="product-overview__disabled_info" ng-if="product.disabled">
+                <span>
+                    <i class="icon icon-exclamation"></i>
+                    <h4 ng-if="product.affiliate">This product is not available through {{product.affiliate}}</h4>
+                    <h4 ng-if="!product.affiliate">This product is not available</h4>
+                </span>
+            </div>
+        	<a ng-click="showProductDetailSection(universe, product)">
+                <div custom-img src="{{thumbnail(product.thumb)}}" fallback-src="/assets/images/placeholder.png"></div>
+                <h4 class="product-list__title">{{product.name}}</h4>
+                <span class="product-list__price">
+                    <small ng-if="product.special_price">
+                        <s>{{product.price|CurrencyFilter:product.currency}}</s>
+                    </small>
+                    {{(product.special_price||product.price)|CurrencyFilter:product.currency}}
+                </span>
+        	</a>
+        </li>
+    </ul>
+</div>

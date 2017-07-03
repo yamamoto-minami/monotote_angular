@@ -1,0 +1,62 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<form name="generateLinkForm" ng-submit="generateLink(generateLinkForm)" class="form--centered generate-link" novalidate>
+    <div class="form__item">
+        <label class="form__label" for="pageurl--{{$id}}">Generate shoppable link</label>
+        <input name="url" type="url" class="input" id="pageurl--{{$id}}" placeholder="Paste your link here" ng-model="pageUrl" required/>
+        <div class="o-form__notification o-form__notification--error" ng-show="generateLinkForm.$submitted && generateLinkForm.$invalid">
+            <span class="error" ng-show="generateLinkForm.url.$error.url">Enter a valid URL.</span>
+            <span class="error" ng-show="generateLinkForm.url.$error.required">Enter an URL.</span>
+        </div>
+    </div>
+    <div class="form__item wizard-product" ng-repeat="product in products">
+        <product-detail product="product"></product-detail>
+        <button type="button" class="remove-product" ng-click="removeProduct(product)">
+            <i class="icon icon-bin"></i>
+        </button>
+    </div>
+    <div class="result publish-embed">    
+        <div class="publish__boxed-title"><div class="publish__actions" ng-if="resultLink"><button type="button" ng-click="copy2Clipboard(getText())" ng-class="{copy_active:copyStatusSuccess!=null}">{{copyStatusSuccess!=null?'Copied':'Copy'}} to clipboard</button></div>
+            <p ng-if="resultLink">
+                You can place this link on your website to open those products in the Monotote product details panel.
+            </p>
+            <p ng-if="!resultLink">
+                Add some products and click the "Generate" button. Ensure you have added <a ui-sref="includecode">our plugin</a> to your website for this to work.
+            </p>
+        </div>
+        <div class="result-link" ng-if="(products.length===0&&generateLinkForm.$submitted) || resultLink">
+            {{resultLink}}
+            <div class="o-form__notification o-form__notification--error" ng-show="products.length===0&&generateLinkForm.$submitted">
+                <span class="error">You need to add at least 1 product.</span>
+            </div>
+        </div>
+    </div>
+    <div class="form__actions">
+        <button type="button" class="button--default button--action" ng-click="showProductBrowser()">Add product</button>
+        <button type="submit" class="button--default">Generate</button>
+    </div>
+</form>

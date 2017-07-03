@@ -1,0 +1,64 @@
+<section class="profile__item profile__box">
+    <div class="affiliate-image" ng-if="company.logo">
+        <a ng-href="{{company.website}}" target="_blank"><img ng-src="{{company.logo}}" /></a>
+    </div>
+    <div class="profile__content" ng-show="company.sites">
+        <div class="profile__form">
+
+            <form name="affiliateForm" ng-submit="submit()" novalidate class="profile__affiliate_form">
+                <div class="profile__affiliate_site_border"></div>
+                <h3 class="profile__affiliate_site_name">
+                    {{company.name}} keys
+                    <a ng-href="{{company.website}}" target="_blank"><!-- !!! -->
+                        <i class="icon icon-link"></i>
+                    </a>
+                </h3>
+                <div ng-repeat="site in primarySites" class="profile__affiliate_site_container">
+                    <div class="profile__affiliate_key_container" ng-repeat="key in site.keys">
+                        <label class="profile__form_field profile__affiliate_key" for="ref-{{company.id}}-{{site.id}}-{{key.id}}"><span ng-bind-html="key.description"></span><a ng-if="key.support_link" class="support_link" target="_blank" ng-href="{{key.support_link}}"><i class="icon icon-info"></i></a></label>
+                        <div class="profile__form_control">
+                            <input id="ref-{{company.id}}-{{site.id}}-{{key.id}}" ng-change="updateKeys(site,key)" type="text" name="referral-{{company.id}}-{{site.id}}-{{key.id}}" placeholder="{{key.example}}" ng-model="key.value" autocomplete="off" ng-focus="focusInputKey(site,key)" ng-blur="blurInputKey()" />
+                            <button type="button" class="profile__affiliate_btn_clear" ng-click="removeKeyValue(site, key)" ng-show="key.value || keyValueExists(site.id,key.id)">
+                                <i class="icon icon-bin"></i>
+                            </button>
+                        </div>
+                        <span ng-show="affiliateForm.$submitted || affiliateForm['referral-'+company.id+'-'+site.id+'-'+key.id].$touched">
+                            <p class="profile__form-error" ng-show="viewBag.errors[site.id+'.'+key.id]">{{viewBag.errors[site.id+'.'+key.id].status.text}}</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="profile__affiliate_connected_sites" ng-hide="hideSiteId() || !connectedSites.length">
+                    <div class="profile__affiliate_site_border"></div>
+                    <h3 class="profile__affiliate_connected_sites_label">Available sites</h3>
+                    <div ng-repeat="site in connectedSites" class="profile__affiliate_site_container">
+                        <h3 class="profile__affiliate_site_name">
+                            {{site.name}}
+                            <a ng-href="{{site.website}}" target="_blank"><!-- !!! -->
+                                <i class="icon icon-link"></i>
+                            </a>
+                        </h3>
+                        <div class="profile__affiliate_key_container" ng-repeat="key in site.keys">
+                            <label class="profile__form_field profile__affiliate_key" for="ref-{{company.id}}-{{site.id}}-{{key.id}}"><span ng-bind-html="key.description"></span> <a ng-if="key.support_link" class="support_link" target="_blank" ng-href="{{key.support_link}}"><i class="icon icon-info"></i></a></label>
+                            <div class="profile__form_control">
+                                <input id="ref-{{company.id}}-{{site.id}}-{{key.id}}" ng-change="updateKeys(site,key)" type="text" name="referral-{{company.id}}-{{site.id}}-{{key.id}}" placeholder="{{key.example}}'" ng-model="key.value" autocomplete="off" />
+                                <button type="button" class="profile__affiliate_btn_clear" ng-click="removeKeyValue(site, key)" ng-show="key.value || keyValueExists(site.id,key.id)">
+                                    <i class="icon icon-bin"></i>
+                                </button>
+                            </div>
+                            <span ng-show="affiliateForm.$submitted || affiliateForm['referral-'+company.id+'-'+site.id+'-'+key.id].$touched">
+                                <p class="profile__form-error" ng-show="viewBag.errors[site.id+'.'+key.id]">{{viewBag.errors[site.id+'.'+key.id].status.text}}</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile__affiliate_site_border"></div>
+                <div class="form__actions">
+                    <button type="submit" class="profile__save" ng-disabled="state>0">Apply</button>
+                </div>
+                <div class="profile__item profile__box-notifications" ng-show="viewBag.status==='success'">
+                    <span class="profile__form-success">{{company.name}} Account successfully updated.</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

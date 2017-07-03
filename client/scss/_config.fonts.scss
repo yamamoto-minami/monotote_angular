@@ -1,0 +1,16 @@
+@include font-face("circular-pro-book", "/fonts/lineto-circular-pro-book", $file-formats: eot woff ttf svg);
+@include font-face("circular-pro-bold", "/fonts/lineto-circular-pro-bold", bold, $file-formats: eot woff ttf svg);
+@include font-face("KefaIIPro-Regular", "/fonts/2E23F0_D_0");
+@include font-face("KefaIIPro-Bold", "/fonts/2E23F0_1_0");
+
+$font-regular: 'circular-pro-book', arial, sans-serif;
+$font-bold: 'circular-pro-bold', arial, sans-serif;
+$font-icon: 'icomoon-monotote-app';
+
+$font-alt-regular: 'KefaIIPro-Regular', serif;
+$font-alt-bold: 'KefaIIPro-Bold', serif;
+
+//icomoon font icons
+@import 'icomoon.scss';
+
+$icomoon: 'icomoon-monotote-app';

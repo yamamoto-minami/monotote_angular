@@ -1,0 +1,42 @@
+<form class="form--centered" name="msif" ng-submit="next(msif)" novalidate>
+    <div class="form__item">
+        <label class="form__label" for="msif_title" ng-if="modeForm == 'new'">Enter a name for your new shoppable image</label>
+        <label class="form__label" for="msif_title" ng-if="modeForm == 'edit'">Edit the name for this shoppable image</label>
+        <input type="text" class="input" placeholder="For example: “my new outfit”" id="msif_title" name="msif_title" ng-model="formData.title" ng-required="true" ng-minlength="3">
+        <div class="form__notification" ng-show="msif.$submitted || msif.msif_title.$touched">
+              <span class="error" ng-show="msif.msif_title.$error.required">Please enter a title.</span>
+        </div>
+    </div>
+
+    <div class="form__item">
+        <label class="form__label" for="msif_url">Paste the link to your image</label>
+        <input type="text" class="input" id="msif_url" name="msif_url" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imageUrl" ng-required="!hasImage()">
+    </div>
+
+    <div class="form__item">
+        <label class="form__label" for="msifp_url">Paste links to your preview image(s) (optional)</label>
+        <input type="text" class="input" id="msifp_url" name="msifp_url" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl">
+        <input type="text" class="input" id="msifp_url2" name="msifp_url2" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl2">
+        <input type="text" class="input" id="msifp_url3" name="msifp_url3" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl3">
+    </div>
+
+    <div class="form__item">
+        <div class="form__notification" ng-show="msif.$submitted">
+          <span class="error" ng-show="!hasImage()">Please enter a url or upload an image</span>
+        </div>
+    </div>
+
+    <div class="form__notification" ng-show="error" style="color:#ff2222">
+      <span class="error">{{error}}</span>
+    </div>
+
+    <p class="supporting" ng-if="detectBrandAvailability">We currently support image detection for {{detectBrandAvailability}}.</p>
+
+    <div class="form__actions">
+        <button type="button" class="button--delete" ng-click="deleteShoppable($event, shoppable)" ng-show="shoppable.item_hash" value="delete">Delete shoppable image</button>
+        <a href ng-click="cancel()">Cancel</a>
+        <button type="button" ng-click="save(3)" class="button--draft" ng-if="modeForm == 'edit'">Save Draft</button>
+        <button type="submit" class="button--default" ng-if="modeForm == 'new'">Add buy buttons</button>
+        <button type="submit" class="button--default" ng-if="modeForm == 'edit'">Edit buy buttons</button>
+    </div>
+</form>

@@ -1,0 +1,441 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1" screen-watch="display" screen-watch-init screen-watch-change="pageMenu.mobile=$value === 'none'">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible" style="display: {{ pageMenu.mobile ? 'none !important' : ''}}">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="page-settings" ng-init="pageSettings={visible:false}">
+  <span class="page-settings__toggle-btn" ng-click="!pageSettings.visible?showSettingsPanel():hideSettingsPanel();pageSettings.visible=!pageSettings.visible" ng-hide="$global.navMenu.visible">
+    <i class="icon icon-close-del" ng-show="pageSettings.visible"></i>
+    <i class="icon icon-settings" ng-show="!pageSettings.visible"></i>
+  </span>
+</div>
+<div class="left-area">
+  <div class="row-com-btn">
+    <div class="btn-com active" ng-click="device_selector = 'com-1'" ng-class="device_selector == 'com-1' ? 'active' : ''">
+      <img src="/img/assets/com-1.png">
+    </div>
+    <div class="btn-com" ng-click="device_selector = 'com-2'" ng-class="device_selector == 'com-2' ? 'active' : ''">
+      <img src="/img/assets/com-2.png">
+    </div>
+    <div class="btn-com" ng-click="device_selector = 'com-'" ng-class="device_selector == 'com-' ? 'active' : ''">
+      <img src="/img/assets/com-3.png">
+    </div>
+    <div class="btn-com" ng-click="device_selector = 'com-4'" ng-class="device_selector == 'com-4' ? 'active' : ''">
+      <img src="/img/assets/com-4.png">
+    </div>
+  </div>
+  <div class="row-responsive left-toolbar">
+    <div class="select-list">
+      <div class="selected-value" ng-click="toggleMobileList();$event.stopPropagation();">
+        <p class="phone-type">{{current_mobile}}</p>
+      </div>
+      <div class="list-values" ng-show="mobile_list_show">
+        <div ng-repeat = "mobile in mobile_list" ng-class="mobile !== '' ? 'list-element': 'line'" ng-click="changeMobile(mobile)">
+          {{mobile}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row-responsive right-toolbar">
+    <input type="text" id="m-width" class="input-size" value="400" ng-model='mobile_width' ng-change = "changeSize()" ng-disabled="ff">
+    <span>x</span>
+    <input type="text" id="m-height" class="input-size" value="800" ng-model='mobile_height' ng-change = "changeSize()" ng-disabled="ff">
+
+    <div class="select-list">
+      <div class="selected-value" ng-click="togglePercentList();$event.stopPropagation();">
+        <p class="zoom-value">{{current_percent}}</p>
+      </div>
+      <div class="list-values" ng-show="percent_list_show">
+        <div ng-repeat = "percent in percent_list" ng-class="percent !== '' ? 'list-element': 'line'" ng-click="changePercent(percent)">
+          {{percent}}
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-rotate" ng-click="rotate()">
+      <img src="/img/assets/rot.png">
+    </div>
+  </div>        
+  <iframe id="preview" src="/static/blank.html" style="width: 400px;height: 800px;" iframe-onload="iframeLoadedCallBack(this)"></iframe>
+</div>
+
+<div class="right-bar">
+  <div class="logo-bar">
+    <img class="image-logo" src="/img/assets/logo.png">
+  </div>
+  <div class="btn-group">
+    <button class="btn-normal btn-save" ng-click="save()">SAVE</button>
+    <a ui-sref="themes.list" class="btn-normal btn-delete">CANCEL</a>
+  </div>
+
+  <div class="both"></div>
+
+  <form name="themeSettingsForm" action="javascript:void(0)" novalidate>
+    <div class="select-theme">
+      <div class="row-theme" ng-show="theme.id">
+      <span>ID:</span>
+      <input class="v-middle" type="text" name="id" placeholder="Theme Id" ng-model="theme.id" ng-disabled="true">
+      <i class="fa fa-check v-middle" aria-hidden="true" ng-show="themeSettingsForm.id.$valid"></i>
+      </div>
+      <div class="row-theme">
+      <span>Name:</span>
+      <input class="v-middle" type="text" name="name" placeholder="Theme name" ng-model="theme.name" ng-required="true">
+      <i class="fa fa-check v-middle" aria-hidden="true" ng-show="themeSettingsForm.name.$valid"></i>
+      </div>
+      <div class="row-theme">
+      <span>Parent theme id:</span>
+      <input class="v-middle" type="text" name="parent_id" placeholder="No parent theme" ng-model="theme.parent_theme" ng-disabled="true">
+      <!--<i class="fa fa-check v-middle" aria-hidden="true"></i>-->
+      </div>
+    </div>
+  </form>
+
+  <div class="accordion" ng-repeat = "section in theme.sections" ng-class="{active:accordion.id === $id}">
+    <button class="accordion-button" ng-click="accordion.id = accordion.id === $id ? null : $id">{{section.name}}</button>
+    <div class="panel">
+        <div class="group-panel" ng-repeat="(name, properties) in section.groups">
+          <div class="row-panel">
+            <p class="title">{{name}}</p>
+          </div>
+          <div class="row-panel" ng-repeat = "property in properties track by $index">
+            <div ng-if="property.type == 'color'">
+              {{property.label}}
+              <div class="controller-wrapper">
+                <input type="text" class="input-color" ng-model="property.value" ng-change="updatePreview();" ng-blur="resetToDefault(property)" ng-init="hidePropertyValue(property)" ng-attr-placeholder="{{property.placeholder}}">
+                <img  class="btn-image color-picker" src="/img/assets/ui-colorpicker.png" ng-style="{'background-color':property.value}" ng-click="hideColorpicker = !hideColorpicker" >
+
+              </div>
+
+              <color-picker class="color-picker" ng-show="hideColorpicker" ng-model="property.value" ng-change="updatePreview();"></color-picker>
+            </div>
+
+
+            <div ng-if="property.type == 'image'">
+              {{property.label}}
+              <div class="row-panel">
+                <input type="button" class="input-image" value="LOAD IMAGE" ng-click="selectFile($event)">
+                <i class="fa fa-trash image-recycle" aria-hidden="true" ng-show="property.imageSize" ng-click = "recycleImage(property)"></i>
+              </div>
+              <div class="row-panel image-information" ng-show="property.value !==''">
+                <input type='file' name= "file" ng-model="file" class="imgInp" onchange="angular.element(this).scope().imageChange(this.files, angular.element(this).scope().property)" />
+                <img class="preview" alt="your image" ng-show="property.value !== ''" ng-src="{{property.value}}">
+                <div class="image-size" ng-show="property.imageSize" ng-init="initImage(property)">
+                  <div ng-show="property.value === property.placeholder && forkNewTheme">Inherited from parent theme</div>
+                  <div ng-repeat="(key, value) in property.imageSize">
+                    {{key}}: {{value}}px
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion" ng-class="{active:accordion.id === $id}" ng-if="theme">
+    <button class="accordion-button" ng-click="accordion.id = accordion.id === $id ? null : $id">Custom CSS</button>
+    <div class="panel">
+      <div class="group-panel">
+        <div class="row-panel">
+          <p class="title">CSS Code</p>
+        </div>
+        <div class="row-panel">
+          <textarea class="pure-css" ng-model="theme.custom_css" ng-model-options="{debounce:4000}" ng-change="updatePreview()"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion" ng-class="{active:accordion.id === $id}" ng-if="edit_template && theme">
+    <button class="accordion-button" ng-click="accordion.id = accordion.id === $id ? null : $id">CSS Template</button>
+    <div class="panel" ng-if="theme">
+      <div class="group-panel">
+        <div class="row-panel">
+          <p class="title">CSS Template Code</p>
+        </div>
+        <div class="row-panel">
+          <textarea class="pure-css" ng-model="theme.template_css" ng-model-options="{debounce:4000}" ng-change="updatePreview()"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script id="iframe-config" type="js">
+  var _mnt = {
+    publisherKey: '{publisherKey}',
+    allowMutationObserver: false,
+    onReady: function(){
+      parent.angular.element(parent).triggerHandler('plugin-ready');
+    }
+  };
+  (function (document) { 
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '{pluginUrl}?' + Date.now();
+    document.body.appendChild(s);
+ })(document);
+ (function (document) { 
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '/static/checkout-mockup.js?' + Date.now();
+    document.body.appendChild(s);
+ })(document)
+</script>
+<script id="iframe-contents-head" type="text/html">
+  <link rel="stylesheet" href="/static/theme-preview-style.css" />
+  <style>
+    .sct-image-container {
+      display: block !important;
+    }
+    header {
+      z-index: 1000;
+    }
+  </style>
+</script>
+<script id="iframe-contents-body" type="text/html">
+  <header>
+    <div class="brand-logo"></div>
+    <div class="brand-name"></div>
+    <div class="mobile-menu-button">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </header>
+  <div class="header-offset"></div>
+  <div class="content clearfix" mnt-processed="true">
+    <main>
+      <article class="first">
+        <div class="sct-container sct-image sct-small-container" style="margin-bottom: 10px">
+          <div class="sct-image-container">
+            <div><div class="image-placeholder"></div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-1" id="mnt_12911" style="left: 12%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-2" id="mnt_12912" style="left: 24%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-3" id="mnt_12913" style="left: 36%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-4" id="mnt_12914" style="left: 48%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-5" id="mnt_12915" style="left: 60%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-6" id="mnt_12916" style="left: 72%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+            <div><div class="mnt-hotspot mnt-hotspot-type-1 mnt-hotspot-7" id="mnt_12917" style="left: 84%; top: 50%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              <div class="mnt-hotspot--inner">
+              <div class="mnt-handle">
+                <div></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-4"></div></div>
+      </article>
+      <article class="second">
+        <div class="image-placeholder">
+          <div class="sct-container sct-image sct-small-container">
+            <div class="sct-image-container">
+              <div class="mnt-hotspot mnt-hotspot-type-icon mnt-hotspot-1" onclick="Monotote.getDetailPanel().showProductsOverview()">
+                <div class="mnt-hotspot--inner">
+                  <div class="mnt-handle">
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-8"></div><div class="text-line width-8"></div><div class="text-line width-7"></div><div class="text-line width-1"></div></div>
+      </article>
+      <div><article class="first">
+        <div><div class="sct-container sct-image sct-small-container">
+          <div class="sct-image-container">
+            <div class="image-placeholder"></div>
+            <div class="mnt-hotspot mnt-hotspot-type-3 mnt-hotspot-4" id="mnt_12904" style="left: 39%; top: 70%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--price"> $89.50</div>
+              <div class="mnt-hotspot--inner">
+                <div class="mnt-handle">
+                  <div></div>
+                </div>
+                <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+              </div>
+              <div class="mnt-hotspot--name" style="max-width: 165px;">Product's name</div>
+            </div>
+            <div class="mnt-hotspot mnt-hotspot-type-2 mnt-hotspot-4" id="mnt_12903" style="left: 79%; top: 29%;" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--price">$8.99</div>
+                <div class="mnt-hotspot--inner">
+                  <div class="mnt-handle">
+                    <div></div>
+                  </div>
+                  <div class="mnt-hotspot--label" data-translation="hotspot-label">Order</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-4"></div></div>
+      </article>
+      <article class="second">
+        <div class="image-placeholder"><div class="sct-container sct-image sct-small-container">
+          <div class="sct-image-container">
+            <div class="image-placeholder"></div>
+            <div class="mnt-hotspot mnt-hotspot-type-icon mnt-hotspot-1" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--inner">
+                <div class="mnt-handle">
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-8"></div><div class="text-line width-8"></div><div class="text-line width-7"></div><div class="text-line width-1"></div></div>
+      </article></div>
+      <article>
+        <div class="image-placeholder"><div class="sct-container sct-image sct-small-container">
+          <div class="sct-image-container">
+            <div class="image-placeholder"></div>
+            <div class="mnt-hotspot mnt-hotspot-type-icon mnt-hotspot-1" onclick="Monotote.getDetailPanel().showProductsOverview()">
+              <div class="mnt-hotspot--inner">
+                <div class="mnt-handle">
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-5"></div><div class="text-line width-3"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-9"></div><div class="text-line width-4"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-7"></div><div class="text-line width-3"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-8"></div><div class="text-line width-2"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-5"></div><div class="text-line width-1"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-8"></div><div class="text-line width-9"></div><div class="text-line width-3"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-9"></div><div class="text-line width-9"></div><div class="text-line width-2"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-8"></div><div class="text-line width-3"></div></div>
+      </article>
+    </main>
+    <aside>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-7"></div><div class="text-line width-8"></div><div class="text-line width-3"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-7"></div><div class="text-line width-7"></div><div class="text-line width-2"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-8"></div><div class="text-line width-7"></div><div class="text-line width-4"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-6"></div><div class="text-line width-1"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-9"></div><div class="text-line width-5"></div><div class="text-line width-1"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-8"></div><div class="text-line width-1"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-8"></div><div class="text-line width-7"></div><div class="text-line width-1"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-6"></div><div class="text-line width-8"></div><div class="text-line width-3"></div></div>
+      </article>
+      <article>
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder"><div class="text-line width-10"></div><div class="text-line width-10"></div><div class="text-line width-5"></div><div class="text-line width-7"></div><div class="text-line width-3"></div></div>
+      </article>
+    </aside>
+  </div>
+</script>
+<script id="theme-generator" type="application/generator">
+   <%
+    for(var i = 0; i < properties.length; i++) {
+      var property = properties[i]; 
+   %>
+     <% if(property.value) { %>
+      <%= property.selector %> {
+        <%= property.name %>: <%= property.type === 'image' ? 'url(' + encodeURI(property.value) + ')' : property.value %>;
+      <% } %>
+      }
+   <% } %>
+</script>
+<div class="ngdialog" ng-show="loading">
+  <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+</div>

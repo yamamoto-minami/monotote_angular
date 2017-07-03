@@ -1,0 +1,150 @@
+.publish__boxed-title {
+    background: #FFF;
+    display: block;
+    text-align: left;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: rem(30);
+    border-bottom: 1px solid $color-border;
+    h4 {
+        font-size: rem(18);
+        font-family: $font-bold;
+    }
+}
+
+.publish-main,
+.publish-preview,
+.publish-embed {
+    margin: 0 rem(40) rem(45) rem(40);
+}
+
+.publish-main {
+    text-align: left;
+}
+
+.publish-main__info {
+    @include media($tablet-and-lower) {
+        @include span-columns(12);
+    }
+    @include media($desktop) {
+        @include span-columns(4);
+    }
+}
+
+.publish-main__settings {
+    @include media($tablet-and-lower) {
+        @include span-columns(12);
+    }
+    @include media($desktop) {
+        @include span-columns(8);
+    }
+}
+
+.publish-main__info,
+.publish-main__settings {
+    h4,
+    label {
+        line-height: rem(18);
+        font-size: rem(18);
+        font-family: $font-bold;
+        margin-bottom: rem(30);
+        small {
+
+        }
+    }
+}
+
+.publish-main__info {
+    p {
+        font-size: rem(16);
+        color: #909090;
+        font-family: $font-regular;
+        line-height: rem(24);
+    }
+}
+
+.publish-main__settings {
+    @include clearfix;
+}
+
+.publish-main__settings-width,
+.publish-main__settings-height {
+    float: left;
+    width: 40%;
+}
+
+.publish-main__settings-lock,
+.publish-main__settings-code {
+    float: left;
+    width: 15%;
+}
+
+.publish-main__settings-width,
+.publish-main__settings-height {
+    padding: 0 rem(20);
+    input {
+        width: 100%;
+    }
+}
+
+.publish-main__settings-lock {
+    width: 5%;
+    text-align: center;
+    padding-top: rem(70);
+    span {
+        background: #dedede;
+        color: #FFF;
+        border-radius: 15px;
+        padding: rem(1) rem(5);
+    }
+}
+
+.publish-main__settings-code {
+    button {
+        background: $color-delta;
+        color: #FFF;
+        padding: rem(15);
+        width: 100%;
+        font-size: rem(18);
+        border: 3px;
+        margin-top: rem(50);
+    }
+}
+
+
+.publish-preview,
+.publish-embed {
+    border-radius: 3px;
+    border: 1px solid $color-border;
+    background: #FAFAFA;
+}
+
+.publish-preview {}
+
+.publish-embed {
+    pre {
+        margin: 0;
+        background: none;
+        text-align: left;
+        padding: rem(30);
+        overflow: auto;
+    }
+}
+
+.publish__actions {
+    float: right;
+    button {
+        background: $black;
+        color: #FFF;
+        border-radius: 2px;
+        margin-left: rem(10);
+        text-transform: uppercase;
+        padding: rem(5) rem(10);
+        font-family: $font-regular;
+        font-size: rem(10);
+        vertical-align: middle;
+        span {
+            margin-right: rem(5);
+        }
+    }
+}

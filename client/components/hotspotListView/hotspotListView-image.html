@@ -1,0 +1,32 @@
+<ul class="tags__list">
+
+    <li class="tags__item" ng-repeat="hotspot in hotspots" ng-click="select(hotspot, hotspot.at)">
+        <img class="tags__image" ng-src="{{thumbnail(hotspot.product.sku)}}" fallback-src="/assets/images/product-placeholder-100.png" alt="{{hotspot.product.name}}">
+        <h3 class="tags__title" ng-show="hotspot.product.attention">
+            Product not active or out of stock.
+        </h3>
+        <h3 class="tags__title" ng-show="hotspot.product.notFound">
+            Product not found.
+        </h3>
+        <h3 class="tags__title" ng-show="hotspot.product.attention || hotspot.product.notFound">{{hotspot.product.sku}}</h3>
+        <h3 class="tags__title" ng-show="!hotspot.product.attention || !hotspot.product.notFound">{{hotspot.product.name}}</h3>
+        <h5 class="tags__title tag_disabled" ng-if="hotspot.product.disabled && !hotspot.product.affiliate">Not available</h5>
+        <h5 class="tags__title tag_disabled" ng-if="hotspot.product.disabled && hotspot.product.affiliate">Not available through {{hotspot.product.affiliate}}</h5>
+        <p class="tags__description" ng-show="!hotspot.product.attention || !hotspot.product.notFound">
+            <span class="wizard-product__detail-price tag-list-price">
+                <small ng-if="hotspot.product.special_price">
+                    <s>{{hotspot.product.price|CurrencyFilter:hotspot.product.currency}}</s>
+                </small>
+                {{(hotspot.product.special_price||hotspot.product.price)|CurrencyFilter:hotspot.product.currency}}
+            </span>
+            <span class="wizard-product__detail-brand">{{hotspot.product.brand}}</span>
+            <span class="droplet droplet--size+ droplet--{{ hotspot.color }}">
+                <i class="droplet__icon"></i>
+            </span>
+        </p>
+        <a class="button button--action tag-list-edit">
+            <i class="icon icon-edit"></i>
+        </a>
+    </li>
+
+</ul>

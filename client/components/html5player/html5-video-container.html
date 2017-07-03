@@ -1,0 +1,17 @@
+<div ng-controller="Html5PlayerController">
+	<div class="app-droppable--container html5-video-player" style="position: relative" html-video-url-validate>
+        <video html-video-player ng-src="{{videoUrl}}" width="100%" configure-player="configurePlayer(player)" mnt-processed="true" data-resource-load-callback-error="onShoppableFrameLoadError()" data-resource-load-callback-success="onShoppableFrameLoadSuccess()"></video>
+        <div class="app-droppable--area" ng-drop="true" ng-drop-success="onDropComplete($data, $event, $target, $drop)"></div>
+        <div class="wizard__frame-droplets" ng-click="deselect()">
+            <hotspot-view ng-repeat="hotspot in hotspots"></hotspot-view>
+        </div>
+    </div>
+    <div class="app-video-controls" ng-show="videoLoaded">
+        <div class="wizard__frame-status">
+            <span class="icon-play" ng-click="playVideo()" ng-show="videoTag.paused"></span>
+            <span class="icon-pause" ng-click="pauseVideo()" ng-show="!videoTag.paused"></span>
+        </div>
+        <time class="wizard__frame-time"><span ng-bind="VideoService.formatTime(VideoService.current)"></span> / <span ng-bind="VideoService.formatTime(VideoService.total)"></span></time>
+        <div range-slider range-value="VideoService.current" max="VideoService.total" class="app-video-progress" slide="onVideoRangeSlide(value)"></div>
+    </div>
+</div>

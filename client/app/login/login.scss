@@ -1,0 +1,242 @@
+.ngdialog.login-dialog {
+  background-image: url(/img/assets/desktop-plants.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.login-wrapper {
+  //following styles copied from Monotote corporate site
+
+  color: #727272;
+  max-width: 548px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: "Circular-Pro-Bold";
+    margin: 0 0 1.555555556rem;
+    font-weight: bold;
+    color: #282828;
+    font-size: 30px;
+    font-size: 1.666666667rem;
+    line-height: 1.266666667
+  }
+
+  h3.label {
+    font-family: "Circular-Pro-Bold";
+    color: $color-alpha;
+    margin-bottom: 25px;
+  }
+
+  .box {
+    display: block;
+    padding: 20px 20px 0;
+
+    &.c-signup__header {
+      padding: 28px 28px 0;
+    }
+  }
+
+  .box > :last-child {
+    margin-bottom: 0
+  }
+
+  .btn {
+    display: inline-block;
+    vertical-align: middle;
+    font: inherit;
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+    overflow: visible;
+    padding: 13px 27px;
+    background-color: #5fd278;
+    border: 1px solid #5fd278
+  }
+
+  .btn, .btn:hover, .btn:active, .btn:focus {
+    text-decoration: none;
+    color: #fff
+  }
+
+  .btn::-moz-focus-inner {
+    border: 0;
+    padding: 0
+  }
+
+  .btn--full {
+    width: 100%
+  }
+
+  .btn {
+    font-family: "Circular-Pro-Bold";
+    font-size: .8125rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    background: $color-alpha;
+    border-color: $color-alpha;
+  }
+
+  .btn:hover {
+    background: $color-alpha-hover;
+  }
+
+  .btn--alt {
+    background: #b6b6b6;
+    border-color: #b6b6b6;
+  }
+
+  .btn--alt:hover {
+    background: darken(#b6b6b6, 10);
+  }
+
+  .o-wrapper {
+    margin: 56px 10px 56px;
+    padding: 0 0 20px;
+    border: 2px solid #b6b6b6;
+    background-color: #fff;
+  }
+
+
+  .o-form__field {
+    font-size: 1rem;
+    display: block;
+    margin: 0;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #727272;
+    }
+  }
+
+  .o-form__notification {
+    display: block;
+    font-size: 15px;
+    text-align: right;
+    min-height: 22px;
+  }
+
+  .o-form__notification.o-form__notification--error {
+    color: #e85242
+  }
+
+  .o-form__notification.o-form__notification--success {
+    color: #5fd278
+  }
+
+  input {
+    border: 1px solid #727272;
+    color: #282828;
+    border-radius: 0;
+    font-family: "Circular-Pro-Book";
+    font-size: 14px;
+    height: 40px;
+    padding: 0 14px;
+    width: 100%;
+    outline: 0
+  }
+
+  input:focus {
+    border-color: #727272
+  }
+
+  input.has_error {
+    border-color: $color-danger;
+  }
+
+  .o-form__field--checkbox {
+    position: relative;
+    font-family: "Circular-Pro-Book";
+  }
+
+  .o-form__field--checkbox-wrapper {
+    display: inline-block;
+    position: relative;
+  }
+
+  .o-form__field--checkbox input[type=checkbox] {
+    visibility: hidden;
+    width: 20px;
+    height: 20px;
+
+    & + label:before {
+      content: ' ';
+      position: absolute;
+      left: 0; top: 5px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border: 1px solid #727272;
+      color: $color-alpha;
+      font-size: 20px;
+      /* use !important to prevent issues with browser extensions that change fonts */
+	    font-family: 'icomoon-monotote-app' !important;
+	    speak: none;
+	    font-style: normal;
+	    font-weight: normal;
+	    font-variant: normal;
+	    text-transform: none;
+	    line-height: 1;
+
+	    /* Better Font Rendering =========== */
+	    -webkit-font-smoothing: antialiased;
+	    -moz-osx-font-smoothing: grayscale;
+    }
+
+    &:checked + label:before {
+      content: "\e615";
+    }
+  }
+
+  .c-signup__header {
+    background: #fff;
+    color: #262626;
+    font-family: "Circular-Pro-Book";
+    text-align: center
+  }
+
+  .c-signup__header .icon-monotote {
+    color: inherit;
+    font-size: 20px;
+
+    @media screen and (min-width: 320px) {
+      font-size: 25px;
+    }
+  }
+  
+  .o-form-success, .o-form-fail {
+    .box > p {
+      padding: 10px 20px;
+    }
+  }
+
+  .c-signup__header a {
+    border-bottom: 1px solid #b2b2b2
+  }
+
+  .c-signup__header a:hover {
+    color: #fff
+  }
+
+  .c-signup__form {
+    background: #fff
+  }
+
+  .u-mb- {
+    margin-bottom: 14px !important
+  }
+
+  .u-mv\+ {
+    margin-top: 56px !important;
+    margin-bottom: 56px !important
+  }
+
+  @media screen and (min-width: 45em) {
+    .u-mv\+\+-lap-and-up {
+      margin-top: 112px !important;
+      margin-bottom: 112px !important
+    }
+  }
+
+}

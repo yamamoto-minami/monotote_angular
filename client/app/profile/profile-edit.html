@@ -1,0 +1,215 @@
+<section class="profile__item profile__box">
+
+    <h2 class="profile__title">About you</h2>
+    <div class="profile__content">
+
+        <dl class="profile__form">
+            <dt><label>Your name</label></dt>
+            <dd>
+                <div class="profile__form-split">
+                    <div>
+                        <input type="text" name="firstname" ng-model="profile.user.first_name" placeholder="Your first name"
+                          set-focus="errorType === 'user.first_name'" ng-change="onFieldChange('user.first_name')">
+                        <span ng-show="profileForm.$submitted || profileForm.firstname.$touched">
+                            <p class="profile__form-error" ng-show="errors['user.first_name']">{{errors['user.first_name']}}</p>
+                        </span>
+                    </div>
+                    <div>
+                        <input type="text" name="lastname" ng-model="profile.user.last_name" placeholder="Your last name"
+                          set-focus="errorType === 'user.last_name'" ng-change="onFieldChange('user.last_name')">
+                        <span class="profile__form-error" ng-show="profileForm.$submitted || profileForm.lastname.$touched">
+                            <p class="profile__form-error" ng-show="errors['user.last_name']">{{errors['user.last_name']}}</p>
+                        </span>
+                    </div>
+                </div>
+            </dd>
+
+            <dt><label for="useremail">Your email address</label></dt>
+            <dd>
+                <input type="email" id="useremail" name="useremail" ng-model="profile.user.email" placeholder="Your email address"
+                  set-focus="errorType === 'user.email'" ng-change="onFieldChange('user.email')">
+                <span ng-show="profileForm.$submitted || profileForm.useremail.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.email']">{{errors['user.email']}}</p>
+                    <p class="profile__form-error" ng-show="profileForm.useremail.$error.email">Please enter a valid email address.</p>
+                </span>
+            </dd>
+
+            <dt><label for="userimage">Your profile image (optional)</label></dt>
+            <dd>
+                <div class="profile__select-picture-box">
+
+                    <div ng-file-drop ng-file-select ng-model="profile.avatar_file" class="profile__select-picture button--default button--dropbox" hide-on-drop-not-available="true"
+                    drag-over-class="dropbox--over" ng-multiple="false" allow-dir="true">Drop image here or click to select image.</div>
+
+                    <div class="profile__picture-preview">
+                        <img ng-src="{{profileImage()}}" alt="Profile picture"/>
+                    </div>
+                </div>
+                <span ng-show="images.avatar.error">
+                    <p class="profile__form-error" ng-show="images.avatar.error">Image upload failed.</p>
+                </span>
+            </dd>
+
+            <dt><label for="userphone">Your phone number</label></dt>
+            <dd>
+                <input type="text" id="userphone" name="userphone" ng-model="profile.user.phone" placeholder="Your phone number"
+                  set-focus="errorType === 'user.phone'" ng-change="onFieldChange('user.phone')">
+                <span ng-show="profileForm.$submitted || profileForm.userphone.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.phone']">{{errors['user.phone']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="userstreet">Your street address</label></dt>
+            <dd>
+                <input type="text" id="userstreet" name="userstreet" ng-model="profile.user.street" placeholder="Your street address"
+                  set-focus="errorType === 'user.street'" ng-change="onFieldChange('user.street')">
+                <span ng-show="profileForm.$submitted || profileForm.userstreet.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.street']">{{errors['user.street']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="usercity">Your city</label></dt>
+            <dd>
+                <input type="text" id="usercity" name="usercity" ng-model="profile.user.city" placeholder="Your city"
+                  set-focus="errorType === 'user.city'" ng-change="onFieldChange('user.city')">
+                <span ng-show="profileForm.$submitted || profileForm.usercity.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.city']">{{errors['user.city']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="userpostalcode">Your postal code</label></dt>
+            <dd>
+                <input type="text" id="userpostalcode" name="userpostalcode" ng-model="profile.user.postal_code" placeholder="Your postal code"
+                  set-focus="errorType === 'user.postal_code'" ng-change="onFieldChange('user.postal_code')">
+                <span ng-show="profileForm.$submitted || profileForm.userpostalcode.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.postal_code']">{{errors['user.postal_code']}}</p>
+                </span>
+            </dd>
+
+            <dt ng-if="profile.user.country"><label for="userstate">Your {{userCountry.state_label}}</label></dt>
+            <dd ng-if="profile.user.country">
+                <item-select class="form__state-selector" placeholder="{{userCountry.state_label}}" name="user_state" ng-model="profile.user.state" data-disabled="!userCountryStates" 
+                  set-focus="errorType === 'user.state'" ng-change="onFieldChange('user.state')">
+                  <item-option value="{{item.code}}" ng-repeat="item in userCountryStates" ng-bind-html="item.code|translate" select="profile.user.state===item.code"></item-option>
+                </item-select>
+                <span ng-show="profileForm.$submitted || profileForm.user_state.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.state']">{{errors['user.state']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="usercountry">Location</label></dt>
+            <dd>
+                <item-select class="form__country-selector" placeholder="Country" name="user_country" ng-model="profile.user.country" ng-change="onUserCountryChange(true)"
+                  set-focus="errorType === 'user.country'" ng-change="onFieldChange('user.country')">
+                  <item-option value="{{item.code}}" ng-repeat="item in countries" ng-bind-html="item.code|translate" select="profile.user.country===item.code"></item-option>
+                </item-select>
+                <span ng-show="profileForm.$submitted || profileForm.user_country.$touched">
+                    <p class="profile__form-error" ng-show="errors['user.country']">{{errors['user.country']}}</p>
+                </span>
+            </dd>
+
+        </dl>
+    </div>
+</section>
+
+<section class="profile__item profile__box">
+    <h2 class="profile__title">Your company or blog</h2>
+
+    <div class="profile__content">
+        <dl class="profile__form">
+
+            <dt><label for="company">Name</label></dt>
+            <dd>
+                <input type="text" id="company" name="company" ng-model="profile.company.name" placeholder="Company or blog name"
+                  set-focus="errorType === 'company.email'" ng-change="onFieldChange('company.email')">
+                <span class="o-form__notification o-form__notification--error" ng-show="profileForm.$submitted || profileForm.company.$touched">
+                  <p class="profile__form-error" ng-show="errors['company.name']">{{errors['company.name']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="url">Website URL</label></dt>
+            <dd>
+                <input type="text" id="url" name="websiteurl" ng-model="profile.company.website" placeholder="Website URL"
+                  set-focus="errorType === 'company.email'" ng-change="onFieldChange('company.website')">
+                <span ng-show="profileForm.$submitted || profileForm.websiteurl.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.website']">{{errors['company.website']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="companylogo">Company logo (optional)</label></dt>
+            <dd>
+                <div class="profile__select-picture-box">
+
+                    <div ng-file-drop ng-file-select ng-model="profile.logo_file" class="profile__select-picture button--default button--dropbox" hide-on-drop-not-available="true"
+                    drag-over-class="dropbox--over" ng-multiple="false" allow-dir="true">Drop image here or click to select image.</div>
+
+                    <div class="profile__picture-preview">
+                        <img ng-src="{{companyImage()}}" alt="Profile picture"/>
+                    </div>
+                </div>
+                <span ng-show="images.logo.error">
+                    <p class="profile__form-error" ng-show="images.logo.error">Image upload failed.</p>
+                </span>
+            </dd>
+
+            <dt><label for="companyphone">Phone number</label></dt>
+            <dd>
+                <input type="text" id="companyphone" name="companyphone" ng-model="profile.company.phone" placeholder="Company phone number"
+                  set-focus="errorType === 'company.email'" ng-change="onFieldChange('company.phone')">
+                <span ng-show="profileForm.$submitted || profileForm.companyphone.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.phone']">{{errors['company.phone']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="companystreet">Street address</label></dt>
+            <dd>
+                <input type="text" id="companystreet" name="companystreet" ng-model="profile.company.street" placeholder="Company street address"
+                  set-focus="errorType === 'company.street'" ng-change="onFieldChange('company.street')">
+                <span ng-show="profileForm.$submitted || profileForm.companystreet.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.street']">{{errors['company.street']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="companycity">City</label></dt>
+            <dd>
+                <input type="text" id="companycity" name="companycity" ng-model="profile.company.city" placeholder="Company city"
+                  set-focus="errorType === 'company.city'" ng-change="onFieldChange('company.city')">
+                <span ng-show="profileForm.$submitted || profileForm.companycity.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.city']">{{errors['company.city']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="companypostalcode">Postal code</label></dt>
+            <dd>
+                <input type="text" id="companypostalcode" name="companypostalcode" ng-model="profile.company.postal_code" placeholder="Company postal code"
+                  set-focus="errorType === 'company.postal_code'" ng-change="onFieldChange('company.postal_code')">
+                <span ng-show="profileForm.$submitted || profileForm.companypostalcode.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.postal_code']">{{errors['company.postal_code']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="state">{{companyCountry.state_label}}</label></dt>
+            <dd>
+                <item-select class="form__state-selector" placeholder="{{companyCountry.state_label}}" name="company_state" ng-model="profile.company.state" data-disabled="!companyCountryStates" 
+                  set-focus="errorType === 'company.state'" ng-change="onFieldChange('company.state')">
+                  <item-option value="{{item.code}}" ng-repeat="item in companyCountryStates" ng-bind-html="item.code|translate" select="profile.company.state===item.code"></item-option>
+                </item-select>
+                <span ng-show="profileForm.$submitted || profileForm.company_state.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.state']">{{errors['company.state']}}</p>
+                </span>
+            </dd>
+
+            <dt><label for="companycountry">Location</label></dt>
+            <dd>
+                <item-select class="form__country-selector" placeholder="Country" name="company_country" ng-model="profile.company.country" ng-change="onCompanyCountryChange(true)"
+                  set-focus="errorType === 'company.country'" ng-change="onFieldChange('company.country');onCompanyCountryChange()">
+                  <item-option value="{{item.code}}" ng-repeat="item in countries"  ng-bind-html="item.code|translate" select="profile.company.country===item.code"></item-option>
+                </item-select>
+                <span ng-show="profileForm.$submitted || profileForm.company_country.$touched">
+                    <p class="profile__form-error" ng-show="errors['company.country']">{{errors['company.country']}}</p>
+                </span>
+            </dd>
+
+        </dl>
+    </div>
+</section>

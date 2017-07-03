@@ -1,0 +1,49 @@
+<div class="login-wrapper">
+  <div class="o-wrapper o-wrapper--small">
+    <div class="c-signup">
+
+      <header class="c-signup__header box">
+        <div class="u-mb-"><i class="icon-monotote"></i></div>
+      </header>
+
+      <form class="o-form c-login__form" name="loginForm" ng-submit="login(loginForm)" novalidate>
+
+        <div class="box">
+          <h2 class="delta">Login</h2>
+
+          <div class="o-form__field">
+            <label for="login_email">Email</label>
+            <input id="login_email" type="email" class="input" ng-class="{has_error: loginForm.$submitted && (loginForm.loginForm_email.$error.required || loginForm.loginForm_email.$error.email)}" placeholder="Your email" name="loginForm_email" ng-model="user.email"
+                   ng-required="true">
+
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="loginForm.$submitted && loginForm.loginForm_email.$error.required">Please enter your email.</span>
+              <span class="error" ng-show="loginForm.$submitted && loginForm.loginForm_email.$error.email">Please enter a valid email.</span>
+            </div>
+          </div>
+
+          <div class="o-form__field u-mb-">
+            <label for="login_password">Password</label>
+            <input id="login_password" type="password" class="input" ng-class="{has_error: loginForm.$submitted && loginForm.loginForm_password.$error.required}" placeholder="Your password" name="loginForm_password"
+                   ng-model="user.password" ng-required="true">
+
+            <div class="o-form__notification o-form__notification--error">
+            <span class="error"
+                  ng-show="loginForm.$submitted && loginForm.loginForm_password.$error.required">Please enter your password.</span>
+            </div>
+            <a ui-sref="passwordReset">Forgot password?</a>
+          </div>
+          <div class="o-form__notification o-form__notification--error" ng-show="errors">
+            <span class="error">{{ errors }}</span>
+          </div>
+
+
+          <button type="submit" class="btn btn--full u-mb-">Login</button>
+
+          <a ui-sref="signup" class="btn btn--full btn--alt">Sign up</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

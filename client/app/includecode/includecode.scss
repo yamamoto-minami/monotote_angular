@@ -1,0 +1,45 @@
+.includecode__copy_active {
+    background-color: #64cdcd !important;
+}
+
+.plugin__check {
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .input-field {
+        overflow: auto;
+        input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #64cdcd;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    .test-plugin-btn {
+        float: right;
+        height: 50px;
+        background: #64cdcd;
+        color: #fff;
+        padding-left: 10px;
+        padding-right: 10px;
+        
+    }
+
+    form.ng-invalid {
+        .input-field input {
+            border-color: #777;
+        }
+        .test-plugin-btn {
+            background: #777;
+        }
+    }
+
+    .status .icon-spinner {
+        @include animation(mnt-rotation-anim 1s linear infinite);
+        display: inline-block;
+        margin: 10px;
+    }
+}

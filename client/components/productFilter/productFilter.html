@@ -1,0 +1,46 @@
+<!--
+<pre ng-click="preHide=true" ng-hide="preHide">{{filters.query|json}}</pre>
+<pre ng-click="preHide2=true" ng-hide="preHide2">filters: {{filters|json}}</pre>
+-->
+
+<div class="product-filter" ng-repeat="filter in filters.results" ng-init="setupFilterItems(filter)"> <!--ng-if="!filterIsEmpty(filter)">-->
+
+    <div class="product-filter__header">
+        <h4 class="product-filter__title">Filter by {{filter.display_name}}</h4>
+    </div>
+
+    <div class="product-filter__container product-filter__container-select" ng-if="filter.type==='select'&&universe==='amazon'">
+        <div class="filter__select">
+            <select class="filter__select" ng-model="data.department">
+                <option ng-repeat="option in filter.facets" ng-value="option.value">{{option.display_name}}</option>
+            </select>
+            <label ng-bind="data.facetsByKey[data.department].display_name"></label>
+        </div>
+    </div>
+    
+    <div class="product-filter__container product-filter__container-select" ng-if="filter.type==='select'&&universe!=='amazon'">
+        <div class="filter__select">
+            <select class="filter__select" ng-model="value" ng-change="updatefilter($event, filter, {value:value})" ng-init="value=selection[filter.key]">
+                <option ng-repeat="option in filter.facets" ng-value="option.value">{{option.display_name}}</option>
+            </select>
+            <label ng-bind="data.facetsByKey[value].display_name"></label>
+        </div>
+    </div>
+
+    <div class="product-filter__container product-filter__container-box" ng-if="filter.type!=='select'">
+
+        <ul class="product-filter__main " ng-class="['product-filter__' + filter.type, 'product-filter__' + filter.key]" ng-if="filter.key!=='category' && filter.type!=='select'">
+            <li class="product-filter__item" ng-repeat="f in filter.facets" ng-class="['product-filter__item--level' + f.level, {active:(selection && selection[filter.key] || result[filter.key]) == f.value, unavailable: !f.count, partially__active: f.show}]" data-item="{{f.value}}">
+                <a ng-click="f.count && updatefilter($event, filter, f)" href>{{f.display_name}}</a>
+            </li>
+        </ul>
+        <ul ng-if="filter.key==='category'" class="product-filter__main " ng-class="['product-filter__' + filter.type, 'product-filter__' + filter.key]">
+            <li class="product-filter__item" ng-repeat="item in filter.facets" data-item="{{item.value}}" ng-class="['product-filter__item--level' + item.level, {active:(selection && selection[filter.key] || result[filter.key]) == item.value, unavailable: !item.count, partially__active: item.show}]" ng-show="item.level < 2 || item.show || (item.parent && item.parent.show)">
+                <a ng-click="item.count && updatefilter($event, filter, item)" href>{{item.display_name}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+

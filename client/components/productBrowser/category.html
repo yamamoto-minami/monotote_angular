@@ -1,0 +1,46 @@
+<div class="product-browser__main product-browser__container">
+
+    <section class="search__item">
+        <h3 class="search__title">Search</h3>
+        <form name="productSearchForm" ng-submit="doSearch()" novalidate>
+    		<input type="text" placeholder="Search for a product..." ng-model="data.queryKeywords" >
+            <select id="universe" name="universe" ng-model="data.universe" ng-options="k as v for (k, v) in data.universes" ng-change="changeUniverse(data.universe)">
+                <option value="">All</option>
+            </select>
+            <button type="submit" ng-disabled="data.queryKeywords.length < 2"><span>Search</span></button>
+         </form>
+
+         <div class="o-form__notification o-form__notification--error" ng-show="data.error">
+             <span class="error" >{{data.error}}</span>
+         </div>
+    </section>
+
+    <section class="search-tags__main">
+        <ul class="search-tags__list">
+            <li class="search-tags__item" ng-repeat="keyword in data.keywords">{{keyword}}<a ng-click="removeKeyword(keyword)" class="search-tags__remove">x</a></li>
+        </ul>
+    </section>
+
+    <section class="universe__item" ng-repeat="universe in data.queryUniverses" ng-show="data.queryResult || !data.queryHasResult">
+        <ng-include src="templates.universeQueryLoading" ng-show="!data.queryHasResult"></ng-include>
+        <ng-include src="templates.universeQueryResult" ng-show="data.queryResult"></ng-include>
+    </section>
+
+    <section class="category__item" ng-show="!!data.universe && !data.queryKeywords && !data.queryResult">
+      <h3 ng-show="data.universeCategories[data.universe]">Or browse a product category</h3>
+        <ul class="category-list">
+            <li class="category-list__item" ng-repeat="(category, subcategories) in data.universeCategories[data.universe]">{{category}}
+                <ul class="category-list-sub">
+                    <li class="category-list-sub__item" ng-repeat="(subcategory, item) in subcategories ">
+                      <a href="#" class="category-list-sub__link" ng-click="showUniverseCategory(data.universe, subcategory, item)">{{subcategory}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <div class="ngdialog" ng-show="data.queryLoading">
+        <ng-include src="templates.loadingIndicator"></ng-include>
+    </div>
+
+</div>

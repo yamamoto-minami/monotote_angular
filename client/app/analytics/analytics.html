@@ -1,0 +1,49 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<section class="main">
+  <section id="date-filter">
+    <h1 class="heading">Analytics</h1>
+    <div class="date-filter">
+      <span class="from-date date" pikaday="fromDatePicker" on-select="setFromDate()">{{attributes.from}}</span>
+      <span class="to">-</span>
+      <span class="to-date date" pikaday="toDatePicker" on-select="setToDate()">{{attributes.to}}</span>
+    </div>
+    <select ng-model="attributes.unit" ng-show="unitSelectorShown">
+      <option value="hour">Hour</option>
+      <option value="day">Day</option>
+      <option value="week">Week</option>
+      <option value="month">Month</option>
+    </select>
+  </section>
+
+  <ng-include src="'app/analytics/tabs.html'"></ng-include>
+
+  <div class="ngdialog" ng-show="!revenueData">
+      <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+  </div>
+
+</section>

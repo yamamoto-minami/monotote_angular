@@ -1,0 +1,71 @@
+$full-star: "\e61c";
+$empty-star: "\e61b";
+.rating {
+    font-size: rem(12);
+    line-height: rem(12);
+    
+    &.rating-1 {
+        .rating__stars {
+            &:before {
+                content: $full-star;
+            }
+            &:after {
+                content: $full-star $full-star $full-star $full-star;
+            }
+        }
+    }
+    &.rating-2 {
+        .rating__stars {
+           &:before {
+                content: $full-star $full-star;
+            }
+            &:after {
+                content: $full-star $full-star $full-star;
+            }
+        }
+    }
+    &.rating-3 {
+        .rating__stars {
+            &:before {
+                content: $full-star $full-star $full-star;
+            }
+            &:after {
+                content: $full-star $full-star;
+            }
+        }
+    }
+    &.rating-4 {
+        .rating__stars {
+            &:before {
+                content: $full-star $full-star $full-star $full-star;
+            }
+            &:after {
+                content: $full-star;
+            }
+        }
+    }
+    &.rating-5 {
+        .rating__stars {
+            &:before {
+                content: $full-star $full-star $full-star $full-star $full-star;
+            }
+        }
+    }
+}
+
+.rating__stars {
+    font-family: $icomoon;
+    letter-spacing: rem(2);
+    padding-right: 10px;
+    &:before {
+        color: #000;
+    }
+    &:after {
+        color: #CCC;
+    }
+}
+
+.rating__numreviews {
+    font-family: $font-bold;
+    color: $color-border;
+}

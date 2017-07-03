@@ -1,0 +1,6 @@
+<span class="item-selector" ng-class="class">
+    <input type="text" ng-class="{'has-value':value}" placeholder="{{placeholder}}" ng-model="value" ng-required="required" ng-disabled="disabled" readonly ng-focus="showList = true; onFocus()" ng-blur="showList = false" ng-click="showList = true; onFocus()" ng-keydown="onKeyDown($event)" ng-keypress="onKeyUp($event)" />
+    <i class="icon-arrow-down" ng-click="focus()"></i>
+    <ul class="dropdown" ng-transclude ng-show="showList">
+    </ul>
+</span>

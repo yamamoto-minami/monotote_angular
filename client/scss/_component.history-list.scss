@@ -1,0 +1,44 @@
+.history-list {
+    list-style: none;
+    margin: 0;
+    padding: rem(40) 0;
+    @include clearfix;
+}
+
+.history-list__item {
+	border: 1px solid $color-border;
+	border-bottom-width: 0;
+    @include media($tablet) {
+        border-bottom-width: 1px;
+        @include span-columns(3);
+    }
+    padding: rem(25) rem(20);
+}
+
+
+.history-list__image {
+    width: 100%;
+    margin: rem(10) 0;
+}
+
+
+.history-list__supplier {
+	color: $color-echo;
+}
+
+
+.history-list__title {
+    color: $black;
+    font-family: $font-bold;
+    margin: 0 0 rem(5) 0;
+}
+
+
+.history-list__price {
+    color: $color-echo;
+}
+
+.history-list--thumbs {
+    text-align: left;
+    font-size: rem(13);
+}

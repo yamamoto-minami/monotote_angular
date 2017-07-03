@@ -1,0 +1,23 @@
+<div class="graph">
+  <div class="graph-labels">
+    <form>
+      <ul>
+        <li ng-cloak="events" ng-repeat="event in events">
+          <label>
+            <span class="graph-label-color" ng-style="{'background-color': event.color}">
+              <input ng-change="updateChart(true)" type="checkbox" ng-model="selectedEventNames[event.id]" />
+            </span> {{event.name}}
+          </label>
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="graph-content">
+    <div class="graph-datapoint-info">
+      <div class="spec-title">{{ item.title }}</div>
+      <span class="spec-date">{{ item.date | date: displayDateFormat }}: </span>
+      <span class="spec-value">{{ item.value }}</span>
+    </div>
+    <div class="graph-canvas"></div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.pagination__main {
+    clear: both;
+    padding: 0 0 rem(70) 0;
+    text-align: center;
+    line-height: rem(14);
+}
+
+.pagination__total {
+    font-size: rem(14);
+    color: #6E6E6E;
+}
+
+.pagination__prev,
+.pagination__next {
+    float: right;
+    color: #ABABAB;
+    text-transform: uppercase;
+    font-size: rem(12);
+}
+
+.pagination__next {
+    &:after {
+        content: "\e60b";
+        color: #000;
+        font-family: $icomoon;
+        margin-left: rem(18);
+    }
+}
+
+.pagination__prev {
+    float: left;
+    &:before {
+        content: "\e616";
+        color: #000;
+        font-family: $icomoon;
+        margin-right: rem(18);
+    }
+}
+
+.pagination__disabled {
+    // color: $color-border-light;
+    color: #fff!important;
+    cursor: default;
+    background-color: #64cdcd!important;
+    &:before,
+    &:after {
+        color: $color-border-light;
+    }
+}
+
+.pagination__boxed {
+    @include media($desktop) {
+        margin: rem(70) rem(-40) 0 rem(-40);
+        border-top: 1px solid $color-border;
+        .pagination__prev,
+        .pagination__next {
+            width: 40%;
+            padding: rem(40) rem(75);
+        }
+        .pagination__total {
+            padding: rem(40) 0;
+            display: inline-block;
+        }
+        .pagination__prev {
+            text-align: left;
+            border-right: 1px solid $color-border;
+        }
+        .pagination__next {
+            text-align: right;
+            border-left: 1px solid $color-border;
+        }
+    }
+}
+
+.pagination__with_items {
+    min-height: rem(14);
+    position: relative;
+
+    .pagination__total {
+        display: block;
+        position: absolute;
+        left: 100px;
+        right: 100px;
+    }
+
+    .pagination__prev,
+    .pagination__next {
+        max-width: 100px;
+    }
+
+    .pagination__pages {
+        display: block;
+        margin-top: 20px;
+        float: right;
+    }
+
+    .pagination__btn {
+        margin: 0 3px;
+        display: inline-block;
+        color: #727272;
+        cursor: pointer;
+        background: #fff;
+        padding: 8px 5px;
+        text-align: center;
+        min-width: 30px;
+        float: left;
+        
+        &.active {
+            color: inherit;
+            background: inherit;
+        }
+    }
+}

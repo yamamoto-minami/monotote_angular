@@ -1,0 +1,35 @@
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+h1 {
+    font-size: rem(20);
+    margin: 0 0 rem(20) 0;
+}
+
+.heading {
+    font-family: $font-bold;
+    // color: $black;
+    color: $grey-text-color;
+
+    @include media($tablet) {
+        // font-size: rem(52);
+        font-size: rem(24);
+    }
+
+    @include media($desktop) {
+        // font-size: rem(52);
+        font-size: rem(24);
+    }
+    
+    @include media($tablet-and-lower) {
+        padding-top: rem(16);
+        margin-bottom: rem(16)!important;
+    }
+}
+
+
+h3 {
+    font-size: rem(20);
+    color: $black;
+}

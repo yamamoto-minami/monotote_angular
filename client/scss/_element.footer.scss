@@ -1,0 +1,76 @@
+.footer {
+    
+}
+
+
+.footer-1 {
+    
+    @include clearfix;
+    
+    .footer-main,
+    .footer-nav {
+        text-align: left;
+        padding: rem(25);
+    }
+    @include media($desktop) {
+        margin-left: 350px;
+        .footer-main,
+        .footer-nav {
+            text-align: left;
+            float: left;
+            padding: rem(75) 0 rem(75) rem(75);
+        }
+        .footer-main {
+            width: 40%;
+            padding-bottom: rem(100);
+            border-right: 1px solid $color-border;
+        }
+        .footer-nav {
+            width: 20%;
+            padding-bottom: 0;
+        }
+    } 
+    
+    .footer-main {
+        i {
+            color: $black;
+            font-size: rem(15);
+        }
+        p {
+            font-family: $font-alt-regular;
+            font-size: rem(14);
+            line-height: rem(22);
+            color: #6E6E6E;
+            max-width: 60%;
+        }
+    }
+    .footer-nav {
+        h4 {
+            font-weight: rem(14);
+            font-family: $font-bold;
+            color: $black;
+            margin-bottom: rem(16);
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: $font-alt-regular;
+            font-size: rem(14);
+            line-height: rem(32);
+            a {
+                color: $grey-alt;
+            }
+        }
+    }
+}
+.footer-1 {
+    margin-left: 0;
+}
+.footer-2 {
+    background: $black;
+    padding: rem(15) 0;
+    p {
+        margin: 0;
+    }
+}

@@ -1,0 +1,11 @@
+
+    <div class="tour-tip {{ ttClass }}">
+        <div id="tour-tip-cover" class="tour-tip-cover"></div>
+        <span class="tour-arrow tt-{{ ttPlacement }}" ng-hide="centered" tourtip-arrow></span>
+        <div class="tour-content-wrapper">
+            <div tour-content></div>
+            <a tour-click="{{ttLButton}}" class="small button tour-lbutton" ng-bind="ttLButtonText" ng-if="ttLButton"></a>
+            <a tour-click="{{ttRButton||'proceed()'}}" class="small button tour-rbutton" ng-bind="ttRButtonText||'Next'"></a>
+            <a ng-click="closeTour()" class="tour-close-tip">×</a>
+        </div>
+    </div>

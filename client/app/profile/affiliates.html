@@ -1,0 +1,59 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container" ng-init="currentView='affiliates'">
+    <form name="profileForm" ng-submit="submit()" novalidate>
+        <h1 class="heading">Your account</h1>
+
+        <div class="overview container">
+
+            <section class="profile__header">
+                <div class="profile__nav" ng-include="'app/profile/profile-navigation.html'"></div>
+            </section>
+
+            <div class="profile__item profile__box" ng-if="!appDashboardReady">
+                Please set up affiliate keys for your account. We will enable the website connected to this key.
+            </div>
+
+            <section class="profile__box profile__affiliate_selector_large">
+                <span class="profile__affilaite_selector_large">
+                    Available affiliates
+                </span>
+                <span class="profile__affiliate_item_large" ng-class="{current_affiliate:input.selectedAffiliate===company.id}" ng-click="companyChange(company.id)" ng-repeat="company in companies">
+                    {{company.name}}
+                </span>
+            </section>
+            <section class="profile__affiliate_generic">
+                <ng-include src="templates.notifications"></ng-include>
+                <ng-include src="templates.edit"></ng-include>
+                <ng-include src="templates.notifications"></ng-include>
+            </section>
+        </div>
+    </form>
+    <div class="ngdialog" ng-show="!companies.length">
+      <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+  </div>
+</div>

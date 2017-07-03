@@ -1,0 +1,57 @@
+.form--centered {
+    text-align: center;
+
+    .form__label {
+        display: block;
+    }
+}
+
+.form__label {
+    font-size: rem(25);
+    line-height: 2.5;
+    font-family: $font-bold;
+    color: $black;
+}
+
+.form__item {
+    margin-bottom: rem(50);
+}
+
+.input {
+    padding: rem(20) rem(20);
+    min-width: 60%;
+    font-size: rem(16);
+}
+
+.supporting {
+    i {
+        color: $grey-alt;
+        font-size: rem(25);
+        margin-left: rem(25);
+    }
+    font-size: rem(14);
+}
+
+.form__item {
+    .button--dropbox {
+        display: table;
+        margin: 0 auto;
+        min-width: 60%;
+    }
+    .button--dropbox-over {
+        background-color: #7b7b7b;
+    }
+}
+
+
+.form__state-selector {
+    input.has-value, .dropdown > li {
+        text-transform: capitalize;
+    }
+}
+
+.form__country-selector {
+    input.has-value, .dropdown > li {
+        text-transform: uppercase;
+    }
+}

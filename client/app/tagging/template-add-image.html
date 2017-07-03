@@ -1,0 +1,86 @@
+<form class="form--centered" name="msia" ng-submit="next(msia)" novalidate>
+    <div class="droplets">
+        <p>Drag &amp; drop buy buttons on the image</p>
+        <div class="container">
+            <span class="droplet droplet--{{droplet.color}} droplet--size+++" ng-repeat="droplet in droplets" style="min-width:36px;">
+                <i class="droplet__icon" ng-drag="true" ng-drag-data="droplet" data-allow-transform="false" ng-center-anchor="true"></i>
+            </span>
+
+        </div>
+    </div>
+
+    <div class="wizard" ng-hide="frameSourceLoadFailed||!resourceIsReady">
+        <div class="wizard__frame" style="position: relative;">
+            <img ng-src="{{ imageSrc() }}" mnt-processed="true" data-resource-load-callback-error="onShoppableFrameLoadError()" data-resource-load-callback-success="onShoppableFrameLoadSuccess($width, $height)" />
+            <div class="app-droppable--area" ng-drop="true" ng-drop-success="onDropComplete($data, $event, $target, $drop)"></div>
+            <div class="wizard__frame-droplets" ng-click="deselect()">
+                <hotspot-view ng-repeat="hotspot in hotspots"></hotspot-view>
+            </div>
+        </div>
+
+        <tabpane prefix="wizard">
+            <tab heading="All buy buttons" data-enabled="hotspots.length">
+                <div class="wizard__list_filter" ng-if="hotspotAttentionExists">
+                    <span class="wizard__list_filter_label">{{hotspotShowAttentionsOnly ? 'Needs attention' : ''}}</span>
+                    <button type="button" ng-click="hotspotToggleShowAttentionsOnly()">
+                        {{hotspotShowAttentionsOnly ? 'show all' : 'needs attention'}}
+                    </button>
+                </div>
+                <hotspot-list-view type="image" hotspots="filteredHotspots"></hotspot-list-view>
+            </tab>
+            <tab heading="Edit buy button">
+                <div class="wizard-edit">
+                    <div ng-show="!activeHotspot">
+                        <p>Please drop a buy button on the editorial or select the existing one to continue</p>
+                        <p ng-if="enableAutoTagging">OR</p>
+                        <button type="button" class="button--draft" ng-click="detectProducts()" ng-if="enableAutoTagging">
+                            Auto-detect products
+                        </button>
+                        <div class="wizard__info-warning" ng-if="autoTagFailed && enableAutoTagging">
+                            <span ng-if="hotspots.length">Sorry, we couldn’t detect any new products on this picture.</span>
+                            <span ng-if="!hotspots.length">Sorry, we couldn’t detect any products on this picture</span>
+                        </div>
+                    </div>
+                    <div ng-show="activeHotspot">
+                        <button type="button" class="button--draft" ng-click="detectProducts()" ng-if="enableAutoTagging">
+                            Auto-detect products
+                        </button>
+                        <div class="wizard__info-warning" ng-if="autoTagFailed && enableAutoTagging">
+                            <span ng-if="hotspots.length">Sorry, we couldn’t detect any new products on this picture.</span>
+                            <span ng-if="!hotspots.length">Sorry, we couldn’t detect any products on this picture</span>
+                        </div>
+                        <div class="wizard-droplets">
+                            <p>Buy Button Properties</p>
+                            <hotspot-panel> </hotspot-panel>
+                        </div>
+                        <div class="wizard-product">
+                            <p ng-show="!activeHotspot.product">Attach a product</p>
+                            <product-detail product="activeHotspot.product"></product-detail>
+                            <button ng-show="activeHotspot" class="button button--product-browser" ng-click="showProductBrowser($event)">Launch product browser</button>
+                        </div>
+                        <div class="wizard-actions">
+                            <button alt="delete buy button" ng-click="deleteHotspot($event)"><span class="icon-bin"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabpane>
+
+        <div class="form__notification" ng-show="error" style="color:#ff2222">
+            <span class="error">{{error}}</span>
+        </div>
+
+        <div class="form__actions" style="padding:15px 0;">
+            <a href ng-click="cancel()">Cancel</a>
+            <a ng-show="shoppable.item.status!==3" href ng-click="save(3)" class="button--draft">Draft</a>
+            <a ng-show="shoppable.item.status!==2" href ng-click="save(2)" class="button--draft">Pause</a>
+            <button type="submit" class="button--default">Publish</button>
+        </div>
+    </div>
+    <div class="wizard frame_load_error" ng-if="frameSourceLoadFailed">
+        <i class="icon icon-exclamation"></i> Failed to load an image from the URL. <a ui-sref="tagging.existing-image({targetStep:undefined})">Edit</a>
+    </div>
+    <div class="ngdialog" ng-show="!resourceIsReady || detectingProducts">
+        <ng-include src="loadingIndicatorTemplate"></ng-include>
+    </div>
+</form>

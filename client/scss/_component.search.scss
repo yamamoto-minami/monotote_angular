@@ -1,0 +1,115 @@
+.search__item {
+    margin: 0;
+    margin-bottom: rem(40);
+    padding: rem(120) 0 rem(50) 0;
+    @include clearfix;
+    border-bottom: 1px solid $color-border;
+    input {
+        font-family: $font-bold;
+        width: 85%;
+        @include media($tablet-and-lower) {
+            line-height: rem(20);
+            font-size: rem(20);
+            padding: 4px 4px 0 4px;
+        }
+        @include media($desktop) {
+            line-height: rem(41);
+            font-size: rem(41);
+            width: 70%;
+            padding: 7px 5px 0 5px;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    select {
+        font-family: $font-bold;
+        border-radius: 0;
+        color: #aaa;
+        display: inline-block;
+        background: transparent;
+        width: 85%;
+        vertical-align: top;
+        padding: 9px;
+        background:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACZJREFUeNpiZGBg+M+ABzBCaVyKGBmROP+xav7/H0X8P7pCgAADAIyZB/7WMQPdAAAAAElFTkSuQmCC') 90% 50% no-repeat;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        &:focus {
+            outline: none;
+        }
+        
+        @include media($tablet-and-lower) {
+            line-height: rem(20);
+            font-size: rem(16);
+            padding: 4px;
+            background-position-x: 97%;
+        }
+        @include media($desktop) {
+            line-height: rem(41);
+            font-size: rem(21);
+            width: 19%;
+        }
+    }
+    button {
+        float: right;
+        width: 10%;
+        background: none;
+        @include media($tablet-and-lower) {
+            margin-top: rem(-16);
+        }
+        span {
+            display: none;
+        }
+        &:after {
+            font-family: $icomoon;
+            color: #000;
+            content: "\e61d";
+            display: table;
+            float: right;
+            @include media($tablet-and-lower) {
+                line-height: rem(20);
+                font-size: rem(20);
+            }
+            line-height: rem(41);
+            font-size: rem(41);
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+
+.search__title {
+	display: none;
+}
+
+.search__item input {
+
+
+}
+
+.search-tags__list {
+	list-style: none;
+	margin: 0;
+    padding: 0 0 rem(40) 0;
+    @include clearfix;
+}
+
+.search-tags__item {
+    cursor: pointer;
+	float: left;
+	background: $color-alpha;
+	color: $white;
+	padding: rem(15) rem(20);
+	margin: 0 rem(15) rem(15) 0;
+	&:hover {
+		background: $color-bravo;
+	}
+}
+
+.search-tags__remove {
+	color: $white;
+	margin: 0 0 0 rem(10);
+}

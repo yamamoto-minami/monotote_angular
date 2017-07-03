@@ -1,0 +1,48 @@
+.item-selector {
+    display: block;
+    position: relative;
+    input {
+        height: 50px;
+        width: 100%;
+        cursor: pointer;
+        padding-right: 25px !important;
+    }
+
+    .icon-arrow-down {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .dropdown {
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        background: #fff;
+        border: 1px solid #777;
+        z-index: 10000000;
+        margin: 0;
+        padding: 5px 0 5px 0;
+
+        &.upward {
+            top: auto;
+            bottom: 100%;
+        }
+
+        & > li {
+            display: block;
+            padding: 5px 15px;
+            cursor: pointer;
+            word-wrap: break-word;
+
+            &.focus {
+                background: #eee;
+            }
+        }
+    }
+}
+

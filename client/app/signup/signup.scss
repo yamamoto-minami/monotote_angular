@@ -1,0 +1,103 @@
+.login-wrapper.signup-wrapper {  
+  @include media($desktop) {
+    width: 768px;
+    max-width: initial;
+  }
+}
+
+.ngdialog.login-dialog.signup-success {
+  background-image: url(/img/assets/man-on-bench.jpg) !important;
+}
+
+.o-wrapper--signup {
+
+  @include clearfix();
+
+  .affiliate-image {
+    text-align: center;
+    padding: 10px 0;
+    img {
+      width: 100%;
+      max-width: 260px;
+    }
+  }
+
+  .support_link {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .btn--signup {
+    margin-top: 15px;
+
+    @include media($desktop) {
+      width: 48%;
+      float: left;
+
+      & + .btn--signup {
+        float: right;
+      }
+    }
+  }
+
+  .tos_preview {
+    width:100%;
+    height: 200px;
+    border: 1px solid #282828;
+    margin: 10px 0;
+    /*
+    @include media($desktop) {
+      height: 400px;
+    }
+    */
+  }
+
+  input[type=checkbox] {
+    width: 15px;
+    padding: 0;
+    margin: 0 4px 0 0;
+    height: 15px;
+    min-width: auto;
+
+    & + label {
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    word-wrap: break-word;
+  }
+
+  .o-form__field {
+    @include media($desktop) {
+      @include clearfix();
+
+      label {
+        width: 35%;
+        float: left;
+        line-height: 40px;
+      }
+
+      input:not([type=checkbox]) {
+        width: 65%;
+      }
+
+    }
+  }
+
+  .o-form__tos_field {
+    .o-form__notification {
+      min-height: initial;
+      text-align: left;
+    }
+  }
+  
+  .o-form-label {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+}
+

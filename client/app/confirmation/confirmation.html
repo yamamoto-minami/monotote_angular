@@ -1,0 +1,32 @@
+<div class="login-wrapper">
+  <div class="o-wrapper o-wrapper--small">
+    <div class="c-signup">
+
+      <header class="c-signup__header box">
+        <div class="u-mb-"><i class="icon-monotote"></i></div>
+      </header>
+
+      <form class="o-form c-login__form" name="confirmationForm" ng-submit="confirm(confirmationForm)" novalidate>
+
+        <div class="box">
+          <h2 class="delta">Please enter your password to confirm your account</h2>
+
+          <div class="o-form__field">
+            <input type="password" class="input" placeholder="Your password" name="confirmForm_password"  ng-class="{has_error:errors}"
+                   ng-model="data.password" ng-required="true">
+          </div>
+          <div class="o-form__notification o-form__notification--error">
+            <span class="error" ng-show="errors">{{ errors }}</span>
+          </div>
+
+          <button type="submit" class="btn btn--full u-mb-">Submit</button>
+        </div>
+
+        <div class="ngdialog" ng-show="submitting">
+          <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

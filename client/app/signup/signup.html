@@ -1,0 +1,135 @@
+<div class="login-wrapper signup-wrapper" ng-if="!result">
+  <div class="o-wrapper o-wrapper--small o-wrapper--signup">
+    <div class="c-signup">
+
+      <header class="c-signup__header box">
+        <i class="icon-monotote"></i>
+      </header>
+
+      <form class="o-form" name="signupForm" ng-submit="signup(signupForm, $event)" novalidate>
+        <div class="box">
+          <h2 class="delta">Register</h2>
+
+          <h3 class="label">Account information</h3>
+
+          <div class="o-form__field">
+            <label for="signup_user_email">Email</label>
+            <input id="signup_user_email" tabindex="1" type="email" class="input" ng-class="{has_error:errors['user.email']}" placeholder="Email" name="user_email" ng-model="data.user.email"
+              set-focus="errorType === 'user.email'">
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="!signupForm.user_email.$error.email && errors['user.email']">{{errors['user.email']}}</span>
+            </div>
+          </div>
+
+          <div class="o-form__field">
+            <label for="signup_first_name">First name</label>
+            <input id="signup_first_name" tabindex="2" type="text" class="input" ng-class="{has_error:errors['user.first_name']}" placeholder="First name" name="first_name" ng-model="data.user.first_name"
+                set-focus="errorType === 'user.first_name'">
+
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="errors['user.first_name']">{{errors['user.first_name']}}</span>
+            </div>
+          </div>
+            
+          <div class="o-form__field">
+            <label for="signup_last_name">Last name</label>
+            <input id="signup_last_name" tabindex="3" type="text" class="input" ng-class="{has_error:errors['user.last_name']}" placeholder="Last name" name="last_name" ng-model="data.user.last_name"
+              set-focus="errorType === 'user.last_name'">
+
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="errors['user.last_name']">{{errors['user.last_name']}}</span>
+            </div>
+          </div>
+
+          <div class="o-form__field">
+            <label for="signup_website">Company website</label>
+            <input id="signup_website" tabindex="4" type="text" class="input" ng-class="{has_error:errors['company.website']}" placeholder="https://www.monotote.com" name="company_website" ng-model="data.company.website"
+              set-focus="errorType === 'company.website'" ng-blur="validateCompanyUrl()">
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="errors['company.website']">{{errors['company.website']}}</span>
+            </div>
+          </div>
+
+          <div ng-if="affiliate">
+            <hr/>
+
+            <div class="affiliate-image">
+              <img ng-src="{{affiliate.logo}}" mnt-processed/>
+            </div>
+
+            <div class="o-form__field" ng-repeat="key in affiliate.keys track by $index">
+              <label for="affiliate_key_{{key.id}}"><span ng-if="key.description" ng-bind-html="key.description"></span> <a ng-href="{{key.support_link}}" class="support_link" ng-if="key.support_link" target="_blank"><i class="icon icon-info"></i></a></label>
+              <input tabindex="5" id="affiliate_key_{{key.id}}" type="text" class="input affiliate_field" ng-class="{has_error:errors['keys.'+key.id]}" placeholder="{{key.example}}" name="affiliate_key_{{key.id}}" ng-model="data.keys[key.id]"
+                set-focus="errorType === 'keys.'+key.id">
+
+              <div class="o-form__notification o-form__notification--error">
+                <span class="error" ng-show="errors['keys.'+key.id]">{{errors['keys.'+key.id]}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="o-form__tos_field o-form__field--checkbox">
+            <iframe class="tos_preview" src="https://s3.amazonaws.com/cdn.monotote.com/documents/terms-of-service.html"></iframe>
+            <span class="o-form__field--checkbox-wrapper">
+              <input tabindex="6" type="checkbox" id="accept-tos" class="input" name="company_website" ng-model="data.accept_tos"
+                set-focus="errorType === 'accept_tos'"> <label for="accept-tos">Accept Terms of Service</label>
+            </span>
+            <a ng-href="https://s3.amazonaws.com/cdn.monotote.com/documents/terms-of-service.pdf" class="support_link" target="_blank">Download PDF <i class="icon icon-file-pdf"></i></a>
+            <div class="o-form__notification o-form__notification--error">
+              <span class="error" ng-show="errors['accept_tos']">{{errors['accept_tos']}}</span>
+            </div>
+          </div>
+
+          <div class="clearfix" ng-hide="submitting">
+            <div class="o-form__notification o-form__notification--error" ng-show="errors.static">
+              <span class="error">{{ errors.static }}</span>
+            </div>
+            <div class="btn--signup btn--signup-cancel">
+              <a ui-sref="login" class="btn btn--full btn--alt">Cancel</a>
+            </div>
+            <div class="btn--signup btn--signup-register">
+              <button type="submit" class="btn btn--full">Register</button>
+            </div>
+          </div>
+          <div class="ngdialog" ng-show="submitting">
+            <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="login-wrapper" ng-if="result==='success'">
+  <div class="o-wrapper o-wrapper--small">
+    <div class="c-signup">
+      <header class="c-signup__header box">
+        <i class="icon-monotote"></i>
+      </header>
+      <div class="o-form o-form-success">
+        <div class="box">
+          <p align="center">
+            Thank you for applying to Monotote, we have successfully received your application. You will receive a confirmation email from us soon.
+          </p>
+          <a ui-sref="login" class="btn btn--full btn--alt">Go back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="login-wrapper" ng-if="result==='affiliate-error'">
+  <div class="o-wrapper o-wrapper--small">
+    <div class="c-signup">
+      <header class="c-signup__header box">
+        <i class="icon-monotote"></i>
+      </header>
+      <div class="o-form o-form-fail">
+        <div class="box">
+          <p ng-bind-html="errors"></p>
+          <div class="btn--signup btn--signup-cancel">
+            <button type="button" class="btn btn--full u-mb-" ng-click="backToSignup()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

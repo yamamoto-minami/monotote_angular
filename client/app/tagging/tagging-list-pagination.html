@@ -1,0 +1,14 @@
+<div class="pagination__main pagination__with_items" ng-if="range && range.total">
+    <span class="pagination__pages clearfix" ng-if="pagination.last != 1">
+    	<a class="pagination__btn pagination-prev fa fa-step-backward" aria-hidden="true" ng-click="pagination.current = 1 && setPage(1)"></a>
+
+  		<a class="pagination__btn pagination-prev fa fa-chevron-left" aria-hidden="true" ng-click="pagination.current > 1 && setPage(pagination.current - 1)" ng-hide="pagination.current == 1 "></a>
+
+      <a class="pagination__btn" ng-class="{active: pagination.current === page, pagination__disabled: pagination.current === page}" ng-repeat="page in pagination.pages" ng-click="pagination.current !== page && setPage(page)">{{page}}</a>
+
+      <i class="pagination__btn pagination-prev fa fa-chevron-right" aria-hidden="true" ng-click="pagination.current < pagination.last && setPage(pagination.current + 1)" ng-hide="pagination.current == pagination.last"></i>
+
+      <a class="pagination__btn pagination-prev fa fa-step-forward" aria-hidden="true" ng-click="pagination.current = pagination.last && setPage(pagination.last)"></a>
+    </span>
+
+</div>

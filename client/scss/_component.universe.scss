@@ -1,0 +1,53 @@
+.universe__item {
+    margin: 0 0 rem(40) 0;
+    padding: 0 0 rem(40) 0;
+    border-bottom: 1px solid $grey;
+}
+
+
+.universe__header {
+    @include clearfix;
+    padding: rem(15) 0;
+}
+
+.universe__title {
+    margin: 0;
+    float: left;
+    a { 
+	    color: $black;
+    }
+}
+
+
+
+.universe__link {
+    float: right;
+    color: $product-browser__link;
+    border-bottom: 1px solid $product-browser__border;
+    line-height: 1.8;
+
+    &:hover {
+        color: $black;
+    }
+    span {
+        display: none;
+    }
+    @include media($tablet) {
+        span {
+            display: inline-block;
+        }
+    }
+}
+
+
+.universe__results {
+    font-size: rem(14);
+    border: 1px solid $product-browser__border;
+    border-radius: rem(14);
+    padding: rem(2) rem(8);
+    margin-left: rem(10);
+
+	&:hover {
+	    
+	}
+}

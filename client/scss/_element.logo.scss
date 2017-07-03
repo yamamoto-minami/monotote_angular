@@ -1,0 +1,23 @@
+.logo {
+    height: 80px;
+    display: inline-block;
+    width: 30%;
+    float: left;
+    min-width: 200px;
+    text-align: center;
+    text-indent: -9000px;
+    color: #FFF;
+
+    background: $black url('/img/monotote-alt.png') no-repeat 20% center;
+    background-size: 150px 17px;
+
+    @include media($tablet) {
+        width: 25%;
+        min-width: 150px;
+        background: $white url('/img/monotote.png') no-repeat 20% center;
+        background-size: 150px 17px;
+    }
+
+    background: $black url('/img/monotote-alt.png') no-repeat 20% center;
+    background-size: 150px 17px;
+}

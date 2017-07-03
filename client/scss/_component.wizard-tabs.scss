@@ -1,0 +1,30 @@
+.wizard-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: table;
+    width: 100%;
+}
+
+
+.wizard-tabs__tab {
+    width: 50%;
+    display: table-cell;
+    text-align: center;
+    color: #9e9e9e;
+    line-height: rem(60);
+
+    text-transform: uppercase;
+    font-size: rem(13);
+    font-family: $font-bold;
+
+    opacity: 0.4;
+}
+
+
+.wizard-tabs__tab--active {
+    background: $white;
+    color: $black;
+    opacity: 1;
+}

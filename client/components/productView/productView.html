@@ -1,0 +1,17 @@
+<div class="app-products__image">
+    <img ng-src="{{ thumbnail(product._source.sku) }}">
+    <div class="app-overlay">
+        <div class="app-overlay__title">
+            <span class="app-overlay-name__key">Name</span>
+            <span class="app-overlay-name__value" ng-bind-html="product._source.name"></span>
+        </div>
+        <div class="app-overlay__brand" ng-show="hasBrand(product)">
+            <span class="app-overlay-brand__key">Brand</span>
+            <span class="app-overlay-brand__value">{{ product._source.partner_name }}</span>
+        </div>
+        <div class="app-overlay__price">
+            <span class="app-overlay-price__key">Price</span>
+            <span class="app-overlay-price__value">{{ product._source.currency }}{{ product._source.price }}</span>
+        </div>
+    </div>
+</div>

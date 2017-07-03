@@ -1,0 +1,7 @@
+$small-tablet-limit: new-breakpoint(max-width rem(550));
+$small-tablet: new-breakpoint(min-width rem(550));
+$tablet: new-breakpoint(min-width rem(600));
+$tablet-and-lower: new-breakpoint(max-width rem(800));
+$desktop: new-breakpoint(min-width rem(800));
+$large-desktop: new-breakpoint(min-width rem(1240));
+$xlarge-desktop: new-breakpoint(min-width rem(1600));

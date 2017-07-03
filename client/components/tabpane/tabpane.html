@@ -1,0 +1,8 @@
+<div ng-class="getClass('__panel')">
+    <ul ng-class="getClass('-tabs')">
+        <li ng-repeat="pane in panes" ng-class="getClass('-tabs__tab', pane.selected)">
+          <a ng-href="{{pane.uiStateHRef}}" ng-click="switchToPane(pane, $event)">{{pane.heading}}</a>
+        </li>
+    </ul>
+    <div ng-class="getClass('__main')" ng-transclude></div>
+</div>

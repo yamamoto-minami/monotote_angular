@@ -1,0 +1,186 @@
+<div class="page-settings" ng-init="settingsMenu={visible:null,inlineView:null};"  watch="settingsMenu.visible" watch-change="toggleHideScrollbars(settingsMenu.visible)" ng-class="{active:settingsMenu.visible&&!$global.navMenu.visible}">
+  <span class="page-settings__toggle-btn" ng-click="settingsMenu.visible=!settingsMenu.visible" ng-hide="$global.navMenu.visible">
+    <i class="icon icon-close-del" ng-show="settingsMenu.visible"></i>
+    <i class="icon icon-settings" ng-show="!settingsMenu.visible"></i>
+  </span>
+
+  <!-- Start of Filter bar for Mobile View -->
+  <div class="page-settings__view" ng-show="settingsMenu.visible" screen-watch="position" screen-watch-change="settingsMenu.visible = $value !== 'fixed' ? !1 : settingsMenu.visible">
+    <div class="content-filter__wrapper">
+      <div class="content-filter__container">
+        <div class="content-filter__item app-search-bar">
+          <div class="content-filter__label">FILTERS:</div>
+          <div class="app-search-bar-wrapper">
+            <input type="text" ng-model="filter.search" ng-model-options="{debounce:1000}" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="content-filter__item" ng-init="statusFilter = false">
+          <label class="content-filter__label" ng-class="statusFilter ? 'active': ''"  ng-click="statusFilter = !statusFilter">
+            STATUS <span class="icon" ng-class="statusFilter ? 'icon-up': 'icon-down'"></span>
+          </label>
+          <div class="content-filter__select content-mobile" ng-show="statusFilter">
+            <span class="content-filter__facet" ng-repeat="(item,value) in shoppable_status" ng-class="{active:filter.status===value}" ng-click="filter.status=filter.status===value?null:value">{{statusLabels[item]}}</span>
+          </div>
+        </div>
+
+        <div class="content-filter__item" ng-init="conentFilter = false">
+          <label class="content-filter__label" ng-class="conentFilter ? 'active': ''"  ng-click="conentFilter = !conentFilter">
+            CONTENT <span class="icon" ng-class="conentFilter ? 'icon-up': 'icon-down'"></span>
+          </label>
+          <div class="content-filter__select content-mobile" ng-show="conentFilter">
+            <span class="content-filter__facet" ng-repeat="item in filter.types" ng-class="{active:filter.type===item.value}" ng-click="filter.type=filter.type===item.value?null:item.value;">{{item.label}}</span>
+          </div>
+        </div>
+
+        <div class="content-filter__item" ng-init="updatedByFilter = filter.user ? false : true">
+          <label class="content-filter__label" ng-class="updatedByFilter ? 'active': ''" ng-click="updatedByFilter = !updatedByFilter">
+            UPDATED BY <span class="icon" ng-class="updatedByFilter ? 'icon-up': 'icon-down'"></span>
+          </label>
+          <div class="content-filter__select content-mobile" ng-class="{active:filter.user}"  ng-show="updatedByFilter">
+            <span class="content-filter__facet" ng-repeat="item in users" ng-class="{active:filter.user===item.hash}" ng-click="filter.user=filter.user===item.hash?null:item.hash">
+              {{item.name}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="content-filter__container content-sort">
+        <div class="content-filter__label content-filter__item">SORT BY:</div>
+        <div class="content-filter__item content-sort" ng-repeat="item in sortby">
+          <label class="content-filter__label" ng-click="toggleOrder(item)">
+            <span class="caption" ng-class="{active: item === filter.sort}">{{item.label}}</span> <!--<span class="icon icon-down"></span>-->
+            <span class="icon" ng-class="{'active icon-up': item === filter.sort && filter.order === true , 'active icon-down': item === filter.sort && filter.order === false }"></span>
+            <!-- <span class="icon icon-up" ng-class="{active: item === filter.sort && filter.order === true }" ng-show="item === filter.sort && filter.order === true"></span>
+            <span class="icon icon-down" ng-class="{active: item === filter.sort && filter.order === false}" ng-show="filter.sort && filter.order === false"></span> -->
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Filter bar for Mobile View -->
+
+  <div class="page-settings__inline">
+    <div class="content-filter__wrapper">
+      <div class="content-filter__container content-sort">
+        <div class="content-filter__label">SORT BY:</div>
+        <div class="content-filter__item content-sort" ng-repeat="item in sortby">
+          <label class="content-filter__label" ng-click="toggleOrder(item)">
+            <span class="caption" ng-class="{active: item === filter.sort}">{{item.label}}</span> <!--<span class="icon icon-down"></span>-->
+            <span class="icon icon-up" ng-class="{active: item === filter.sort && filter.order === true }"></span>
+            <span class="icon icon-down" ng-class="{active: item === filter.sort && filter.order === false}"></span>
+          </label>
+        </div>
+      </div>
+      <div class="content-filter__container">
+        <div class="content-filter__label">FILTERS:</div>
+        <div class="content-filter__item app-search-bar">
+          <label class="content-filter__label" ng-class="{active: filter.search}" ng-click="settingsMenu.inlineView = settingsMenu.inlineView === 'search' ? '' : 'search'">
+            SEARCH <span class="icon icon-{{settingsMenu.inlineView === 'search' ? 'up' : 'down'}}"></span>
+          </label>
+        </div>
+
+        <div class="content-filter__item">
+          <label class="content-filter__label" ng-class="{active: filter.status!=null}" ng-click="settingsMenu.inlineView = settingsMenu.inlineView === 'status' ? '' : 'status'">
+            STATUS <span class="icon icon-{{settingsMenu.inlineView === 'status' ? 'up' : 'down'}}"></span>
+          </label>
+        </div>
+
+        <div class="content-filter__item">
+          <label class="content-filter__label" ng-class="{active:filter.type}" ng-click="settingsMenu.inlineView = settingsMenu.inlineView === 'content' ? '' : 'content'">
+            CONTENT <span class="icon icon-{{settingsMenu.inlineView === 'content' ? 'up' : 'down'}}"></span>
+          </label>
+        </div>
+
+        <div class="content-filter__item">
+          <label class="content-filter__label" ng-class="{active: filter.user}" ng-click="settingsMenu.inlineView = settingsMenu.inlineView === 'user' ? '' : 'user'">
+            UPDATED BY <span class="icon icon-{{settingsMenu.inlineView === 'user' ? 'up' : 'down'}}"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="content-filter__view content-mobile" ng-show="settingsMenu.inlineView">
+      <div class="content-filter__frame app-search-bar" ng-show="settingsMenu.inlineView === 'search'">
+        <div class="app-search-bar-wrapper">
+          <input type="text" ng-model="filter.search" ng-model-options="{debounce:1000}" placeholder="Search..." />
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="content-filter__frame" ng-show="settingsMenu.inlineView === 'status'">
+        <div class="content-filter__select">
+          <span class="content-filter__facet" ng-repeat="(item,value) in shoppable_status" ng-class="{active:filter.status===value}" ng-click="filter.status=filter.status===value?null:value">{{statusLabels[item]}}</span>
+        </div>
+      </div>
+      <div class="content-filter__frame" ng-show="settingsMenu.inlineView === 'content'">
+        <div class="content-filter__select">
+            <span class="content-filter__facet" ng-repeat="item in filter.types" ng-class="{active:filter.type===item.value}" ng-click="filter.type=filter.type===item.value?null:item.value;">{{item.label}}</span>
+          </div>
+      </div>
+      <div class="content-filter__frame" ng-show="settingsMenu.inlineView === 'user'">
+        <div class="content-filter__select" ng-class="{active:filter.user}">
+          <span class="content-filter__facet" ng-repeat="item in users" ng-class="{active:filter.user===item.hash}" ng-click="filter.user=filter.user===item.hash?null:item.hash">
+            {{item.name}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <h1 class="heading overview__heading">Your tagged content</h1>
+
+  <div class="overview__totals">
+    <div ng-repeat="(k, v) in shoppablesMeta.stats track by $index" class="overview__info">
+      <em>{{v.label}}:</em>
+      <span>{{v.value}}</span>
+    </div>
+  </div>
+
+  <div class="overview__alert" ng-show="shoppablesMeta&&!shoppablesMeta.total_items">
+    <div class="no_shoppables overview__alert_info" ng-show="!shoppablesMetaFirstLoad.total_items">
+      Looks like you haven’t added any shoppables yet.
+      <a class="button button--cta" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <span>Click here to add a shoppable image</span>
+      </a>
+    </div>
+    <div class="no_shoppables_found overview__alert_info" ng-show="shoppablesMetaFirstLoad.total_items">
+      We couldn’t find any shoppables.
+    </div>
+  </div>
+
+  <div class="overview overview-shoppables container" ng-show="shoppablesMeta.total_items">
+    <shoppable-view ng-repeat="shoppable in shoppables"></shoppable-view>
+  </div>
+
+  <ng-include src="'app/tagging/tagging-list-pagination.html'" ng-show="shoppablesMeta.total_items"></ng-include>
+
+  <div class="ngdialog" ng-show="loadingShoppables">
+    <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+  </div>
+</div>

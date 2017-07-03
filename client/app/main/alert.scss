@@ -1,0 +1,11 @@
+.app-alert--info {
+  color: $white;
+  background-color: $gray;
+  border-color: $gray-middle;
+}
+.app-alert {
+  padding: $size-x2;
+  margin-top:  $size-x2;
+  margin-bottom:  $size-x2;
+  border: 1px solid transparent;
+}

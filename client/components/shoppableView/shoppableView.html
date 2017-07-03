@@ -1,0 +1,78 @@
+<div class="overview__item" ng-mouseover="previewShoppable(shoppable, $index)">
+  <div class="overview__box">
+    <a href="javascript:void(0)" ng-click="select($event, shoppable)">
+      <div class="overview__overlay"></div>
+
+      <img actual-src="{{thumbnail(shoppable)}}" ng-src="/assets/images/placeholder.png" alt="" class="overview__image">
+      
+      <h3 class="overview__title">
+        {{shoppable.item.title}}
+      </h3>
+
+      <span class="count green">
+        <span>{{hotspotCount(shoppable)-productActionCount(shoppable)}}</span>
+        <span class="tooltip">Active products</span> 
+      </span>
+
+      <span class="count red">
+        <span>{{productActionCount(shoppable)}}</span>
+        <span class="tooltip">Disabled products</span> 
+      </span>
+      
+      <time class="overview__time">
+        Updated {{shoppable.item.updated | momentFromNow}}
+        by {{shoppable.item.user.first_name}} {{shoppable.item.user.last_name}}
+      </time>
+
+      <i class="icon icon-image2" aria-hidden="true" ng-if="iconClass(shoppable) == 'icon-image'">
+        <span class="shoppable-status" ng-if="(productActionCount(shoppable)<=0)">{{stateLabel(shoppable)}}</span>
+        <span class="shoppable-status" ng-if="(productActionCount(shoppable)>0)">Attention</span>
+      </i>
+      <i class="icon icon-video2" aria-hidden="true" ng-if="iconClass(shoppable) == 'icon-video'">
+        <span class="shoppable-status" ng-if="(productActionCount(shoppable)<=0)">{{stateLabel(shoppable)}}</span>
+        <span class="shoppable-status" ng-if="(productActionCount(shoppable)>0)">Attention</span>
+      </i>
+
+      <div class="preview-widget active">
+
+        <!-- <div class="status" ng-if="(productActionCount(shoppable)<=0)">{{stateLabel(shoppable)}}</div>
+        -->
+
+        <div class="shoppable-info clearfix">
+          <div class="sub-info">
+            <i class="icon icon-buy"></i>
+            <span>{{shoppable.item.order_stats.total_no_sales}}</span>
+          </div>
+          <div class="sub-info">
+            <i class="icon icon-heart-o2"></i>
+            <span> {{shoppable.item.likes.length}}</span>
+          </div>
+          <div class="sub-info last">
+            <i class="icon icon-bin" ng-click="deleteShoppable($event , shoppable)"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="preview-widget mobile-shoppable-preview">
+        <div class="shoppable-info clearfix">
+          <div class="sub-info">
+            <i class="icon icon-buy"></i>
+            <span>{{shoppable.item.bought||0}}</span>
+          </div>
+          <div class="sub-info">
+            <i class="icon icon-usd"></i>
+            <span>{{shoppable.item.earned||0}}$</span>
+          </div>
+          <div class="sub-info">
+            <i class="icon icon-heart-o2"></i>
+            <span>{{shoppable.item.likes.length}}</span>
+          </div>
+          <div class="sub-info" ng-if="(productActionCount(shoppable)>0)">
+            <i class="icon icon-asterisk"></i>
+            <span>{{productActionCount(shoppable)}}</span>
+          </div>
+        </div>
+      </div> -->
+    </a>
+  </div>
+</div>

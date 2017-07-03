@@ -1,0 +1,142 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="product-lookup">
+	<div class="content">
+		<div ng-show="search_panel">
+			<div class="title">Find a single product in Monotote by looking for it’s original retailer SKU or product URL.</div>
+			<div class="search-fields">
+				<div class="sku-search">
+					<div class="wrapper-fields">
+						<span>SKU</span>
+						<div><input type="text" ng-model="product_sku" placeholder="Product SKU"></div>
+					</div>
+				</div>
+				<div class="indicator">
+					<span>or</span>
+				</div>
+				<div class="url-search">
+					<div class="wrapper-fields">
+						<span>URL</span>
+						<div><input type="text" ng-model="product_url" placeholder="Product URL"></div>
+					</div>
+				</div>
+			</div>
+			<span class="lookup-button back-button" ng-click="!product_sku && !product_url ? '' : lookup()" ng-disabled = "!product_sku && !product_url">Find product</span>
+		</div>
+	</div>
+</div>
+
+<hr class="border-line" />
+
+<div class="product-lookup">
+	<div class="content">
+		<div ng-show="search_panel">
+			<div class="result" ng-show="notFound">
+				<div class="title not-found">Product not found</div>
+			</div>
+
+			<div class="result found clearfix" ng-show="!notFound">
+				<div class="hint">
+					You searched for {{key}}, and we found
+				</div>
+				<div class="row-col-4">
+					<img ng-src="{{product.thumb}}" class="product-image">
+					<a class="lookup-button open" ng-href="{{product.original_url}}" target="_blank">Open original product</a>
+					<span class="lookup-button open" ng-click="download()">Download product images</span>
+				</div>
+				<div class="row-col-8">
+
+					<!-- Product Name -->
+					<div class="row">
+						<div class="row-col-4 caption">Name:</div>
+						<div class="row-col-8 value">{{product.name}}</div>
+					</div>
+
+					<!-- Product SKU -->
+					<div class="row">
+						<div class="row-col-4 caption">Original SKU:</div>
+						<div class="row-col-8 value">{{product.original_sku}}</div>
+					</div>
+
+					<!-- Monotote SKU -->
+					<div class="row">
+						<div class="row-col-4 caption">Monotote SKU:</div>
+						<div class="row-col-8 value">{{product.internal_sku}}</div>
+					</div>
+
+					<!-- Price -->
+					<div class="row">
+						<div class="row-col-4 caption">Price:</div>
+						<div class="row-col-8 value" ng-bind-html="product.price"></div>
+					</div>
+
+					<!-- Description -->
+					<div class="row">
+						<div class="row-col-4 caption">Description:</div>
+						<div class="row-col-8 value">
+							{{product.description}}
+						</div>
+					</div>
+
+					<!-- Original URL -->
+					<div class="row">
+						<div class="row-col-4 caption">Original URL:</div>
+						<div class="row-col-8 value">
+							<a class="short-link" ng-href="{{product.original_url}}" target="_blank">{{product.original_url}}</a>
+							<div class="logo-wrapper">
+								<div class="logo-container">
+									<img ng-src={{product.retailer.logo}}>
+								</div>
+								<span class="lookup-button" clipboard supported="supported" text="product.original_url" on-copied="success()" on-error="fail(err)">Copy to clipboard</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Affiliate URL -->
+					<div class="row">
+						<div class="row-col-4 caption">Affiliate URL:</div>
+						<div class="row-col-8 value">
+							<a class="short-link" ng-href="{{product.affiliate.url}}" target="_blank">{{product.affiliate.url}}</a>
+							<div class="logo-wrapper">
+								<div class="logo-container">
+									<img ng-src={{product.affiliate.logo}}>
+								</div>
+								<span class="lookup-button" clipboard supported="supported" text="product.affiliate.url" on-copied="success()" on-error="fail(err)">Copy to clipboard</span>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ngdialog" ng-show="loading">
+		<ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+	</div>
+</div>

@@ -1,0 +1,137 @@
+button {
+    cursor: pointer;
+    border: 0;
+}
+
+.form__actions {
+    padding: rem(40) 0;
+    
+    > * {
+        margin: 0 rem(5);
+    }
+    > *:last-child {
+        margin: 0 0 0 rem(5);
+    }
+}
+
+
+.button--link {
+    background: none;
+    color: $color-alpha;
+}
+
+.button--product-browser {
+    display: block;
+    text-align: center;
+    width: 180px;
+    margin: rem(5) auto;
+    background: $color-alpha;
+    color: $white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: rem(12);
+    padding: rem(16) rem(20);
+}
+
+.button--default,
+.button--delete {
+    cursor: pointer;
+    background: $color-delta;
+    color: $white;
+    padding: rem(10) rem(20);
+    font-size: rem(18);
+    line-height: rem(40);
+    border-radius: 4px;
+}
+
+.button--cta {
+    background: $color-alpha;
+    color: $white;
+    text-transform: uppercase;
+    line-height: $header-height;
+    display: inline-block;
+    padding: 0 10px;
+    text-align: center;
+    font-size: rem(13);
+
+    &.button--dropdown {
+        display: none;
+        @include media($desktop) {
+            display: block;
+        }
+    }
+
+    
+    .page-content-menu__item & {
+        position: relative;
+        padding-right: 50px;
+        background: $color-alpha-darken;
+        display: block;
+        color: #262626;
+
+        @include media($desktop) {
+            color: $white;
+        }
+
+        &:hover {
+            background: $color-alpha-hover;
+        }
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+            font-size: 24px;
+            color: #fff;
+            
+            @include media($desktop){
+                transform: translateY(-50%);
+                right: 10px;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .page-content-menu__item.gray & {
+        color: $white;
+        background: #b6b6b6;
+
+        &:hover {
+            background: #969696;
+        }
+    } 
+
+    .header & {
+        text-align: center;
+    }
+
+    @include media($desktop) {
+        display: block;
+    }
+
+    &:hover {
+        background: $color-alpha-hover;
+    }
+}
+
+.button--draft,
+.button--action {
+    cursor: pointer;
+    background: #666;
+    color: #FFF;
+    border-radius: 4px;
+    .icon {
+        font-size: rem(12);
+    }
+}
+
+.button--draft {
+    padding: rem(10) rem(20);
+    font-size: rem(18);
+    line-height: rem(40);
+}
+
+.button--delete {
+    background: $color-charlie;
+}

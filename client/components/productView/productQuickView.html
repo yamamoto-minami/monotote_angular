@@ -1,0 +1,63 @@
+<div class="product-overview-quickview__main">
+    <h3 class="product-overview-quickview__title">{{realProduct.name}}</h3>
+    <span class="product-overview-quickview__price">
+        <small ng-if="product.special_price">
+            <s>{{product.price|CurrencyFilter:product.currency}}</s>
+        </small>
+        {{(product.special_price||product.price)|CurrencyFilter:product.currency}}
+    </span> <span class="product-overview-quickview__likes" ng-class="{product_liked:product.likes}"><i ng-class="['icon-heart'+(!product.likes?'-o':'')]"></i> {{product.likes}}</span>
+    <div class="product-overview-quickview__description" ng-bind-html="product.attributes.description"></div>
+    <h4 class="product-overview-quickview__subtitle">Details *</h4>
+    <dl class="product-overview-quickview__details product-details-list">
+        <div class="product-details-list__item">
+            <span>SKU</span>
+            <span>{{product.parent_sku}}</span>
+        </div>
+        <div class="product-details-list__item">
+            <span>Original SKU</span>
+            <span>{{product.sku_public}}</span>
+        </div>
+        <div class="product-details-list__item" ng-show="product.attributes.size">
+            <span>Size</span>
+            <span>{{product.attributes.size}}</span>
+        </div>
+        <div class="product-details-list__item" ng-show="product.attributes.color">
+            <span>Color</span>
+            <span>{{product.attributes.color}}</span>
+        </div>
+        <div class="product-details-list__item" ng-show="detail.colors.length > 1">
+            <span>Available colors</span>
+            <span><ul class="colors"><li ng-click="show('attributes.color', color);" ng-repeat="color in detail.colors">{{color}}</li></ul></span>
+        </div>
+        <div class="product-details-list__item" ng-show="detail.sizes.length > 1">
+            <span>Available sizes</span>
+            <span><ul class="sizes"><li ng-repeat="size in detail.sizes" ng-click="show('attributes.size', size);">{{size}}</li></ul></span>
+        </div>
+        <div class="product-details-list__item" ng-show="product.stock >= 1">
+            <span>In Stock</span>
+            <span>{{product.stock}}</span>
+        </div>
+        <div class="product-details-list__item" ng-show="product.stock === 0">
+            <span class="danger">Out of Stock</span>
+        </div>
+        <div class="product-details-list__item" ng-show="product.attributes.partner_name">
+            <span>Sold by</span>
+            <span><a ng-href="{{product.url}}" target="_blank">{{product.attributes.partner_name}}</a></span>
+        </div>
+        <div class="product-details-list__item">
+            <span>Product URL</span>
+            <span>
+                <a ng-href="{{product.url}}" target="_blank">{{product.url}}</a>
+            </span>
+        </div>
+    </dl>
+
+    <a href class="product-overview-quickview__download" ng-show="!downloadProductImagesUrl" ng-click="getProductImages()" remove-focus>Download product images</a>
+    <a href class="product-overview-quickview__download" ng-show="downloadProductImagesUrl" ng-click="temporalyUnlockPageLeave()" ng-href="{{downloadProductImagesUrl}}">Download product images</a>
+    
+    <affiliate-product product="product" ng-if="product"></affiliate-product>
+
+    <div class="ngdialog" ng-show="loading.show">
+        <ng-include src="loading.loadingIndicator"></ng-include>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="colorpicker">
+    <div class="colorpicker-container colorpicker-sl">
+        <canvas sl-palette class="colorpicker_component colorpicker_satval" ng-model="hsla" width="300" height="300"></canvas>
+        <div class="colorpicker-cursor" ng-style="{top: (1-hsla.l) * 100+'%', left: hsla.s * 100+'%'}"></div>
+    </div>
+    <div class="colorpicker-container colorpicker-hue">
+        <canvas hue-palette class="colorpicker_component colorpicker_hue" ng-model="hsla.h" width="40" height="300"></canvas>
+        <div class="colorpicker-cursor" ng-style="{top: hsla.h*100+'%'}"></div>
+    </div>
+    <div class="colorpicker-container colorpicker-alpha">
+        <canvas alpha-palette class="colorpicker_component colorpicker_alpha" ng-model="hsla" width="40" height="300"></canvas>
+        <div class="colorpicker-cursor" ng-style="{top: (1-hsla.a)*100+'%'}"></div>
+    </div>
+</div>
+<div class="colorpicker-cover" ng-show="dragging"></div>

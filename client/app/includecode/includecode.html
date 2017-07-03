@@ -1,0 +1,65 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<section style="padding-top:30px;" class="main">
+  <div class="publish-embed">
+    <div class="publish__boxed-title"><div class="publish__actions"><button type="button" ng-click="copy2Clipboard(getEmbedCode('advertisement'))" ng-class="{includecode__copy_active:copyStatusSuccess!=null}">{{copyStatusSuccess!=null?'Copied':'Copy'}} to clipboard</button></div>
+    <h4>Embed code</h4>
+    <p>
+        Place this one-time include code before the closing <code style="color:#64cdcd">&lt;/body&gt;</code> tag to activate the Monotote plugin on your website.
+    </p>
+    </div>
+
+    <pre data-code="advertisement" style='color:#000000;background:#ffffff;'>
+      <span style='color:#696969; '>&lt;!-- monotote.com tag --></span>
+        <span style='color:#808030; '>&lt;</span>script<span style='color:#808030; '>></span>
+          <span style='color:rgb(0, 0, 255);'>var</span> _mnt <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span>
+              publisherKey<span style='color:#800080; '>:</span> <span style='color:#800000; '></span><span style='color:rgb(163, 21, 21)'>'{{ident()['api-key']}}'</span><span style='color:#800000; '></span><span ng-if="useTheme"><span style="color:rgb(0, 0, 0)">,</span>
+              theme<span style='color:#800080; '>:</span> <span style='color:#800000; '></span><span style='color:rgb(163, 21, 21)'>{{useTheme}}</span><span style='color:#800000; '></span></span>
+          <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+          <span style="color:rgb(0, 0, 0)">(</span><span style="color:rgb(0, 0, 0)"><span style="color:rgb(0, 0, 255)">function</span> (<span>document</span>) </span><span style="color:rgb(0, 0, 0)">{ </span><span style="color:rgb(0, 0, 255)">var</span><span style="color:rgb(0, 0, 0)"> s = </span><span style="color:rgb(0, 0, 255)">document</span><span style="color:rgb(0, 0, 0)">.createElement(</span><span style="color:rgb(163, 21, 21)">'script'</span><span style="color:rgb(0, 0, 0)">); s.async = </span><span style="color:rgb(163, 21, 21)">true</span><span style="color:rgb(0, 0, 0)">; s.src = </span><span style="color:rgb(163, 21, 21)">'{{pluginURL}}?'</span><span style="color:rgb(0, 0, 0)"> + </span><span style="color:rgb(0, 0, 255)">Date</span><span style="color:rgb(0, 0, 0)">.now(); </span><span style="color:rgb(0, 0, 255)">document</span><span style="color:rgb(0, 0, 0)">.body.appendChild(s); })(</span><span style="color:rgb(0, 0, 255)">document</span><span style="color:rgb(0, 0, 0)">)</span>
+        <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>/</span>script<span style='color:#808030; '>></span>
+      <span style='color:#696969; '>&lt;!-- End monotote.com tag --></span>
+    </pre>
+  </div>
+
+  <div class="plugin__check publish-embed">
+    <form name="pluginCheckForm" class="publish__boxed-title" action="javascript:void(0)" ng-submit="pluginCheckForm.$valid && testPluginConnection()" novalidate>
+      <button class="test-plugin-btn" ng-disable="pluginCheckForm.$invalid">
+        Test plugin
+      </button>
+      <div class="input-field">
+        <input type="url" name="websiteUrl" placeholder="https://monotote.com" ng-model="pluginCheckInput.url" ng-required="true" />
+      </div>
+    </form>
+    <div class="publish__boxed-title status" ng-class="[pluginConnectStatus, {'danger':pluginConnectStatus==='https-error'}]" ng-if="pluginConnectStatus">
+      <span ng-show="pluginConnectStatus==='success'">The plugin is installed correctly</span>
+      <span ng-show="pluginConnectStatus==='danger'">The plugin is not installed correctly</span>
+      <span ng-show="pluginConnectStatus==='https-error'">Automatic plugin validation is only available when your website is hosted with SSL</span>
+      <span ng-show="pluginConnectStatus==='checking'"><i class="icon icon-spinner"></i> Checking...</span>
+    </div>
+  </div>
+</section>

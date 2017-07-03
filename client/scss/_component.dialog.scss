@@ -1,0 +1,25 @@
+.ngdialog-theme-default {
+
+    .ngdialog-content {
+        margin: 30% auto;
+        width: 50%;
+        text-align: center;
+        padding: rem(50);
+    }
+
+    .ngdialog-content > * {
+        margin: 0.625rem;
+    }
+
+    .ngdialog-close {
+        right: rem(25);
+        top: rem(25);
+        position: absolute;
+        border-radius: 50%;
+        width: rem(30);
+        height: rem(30);
+        line-height: rem(26);
+        text-align: center;
+        border: 1px solid $color-border;
+    }
+}

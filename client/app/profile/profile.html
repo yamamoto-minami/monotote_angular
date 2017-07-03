@@ -1,0 +1,48 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container" ng-init="currentView='profile'">
+    <form name="profileForm" ng-submit="submit()" novalidate>
+        <h1 class="heading">Your account</h1>
+
+        <div class="overview container">
+
+            <section class="profile__header">
+                <div class="profile__nav" ng-include="'app/profile/profile-navigation.html'"></div>
+                <button type="submit" class="profile__save" ng-disabled="state>0||!profileForm.$dirty">Save changes</button>
+            </section>
+
+            <ng-include src="templates.notifications"></ng-include>
+            <ng-include src="templates.edit"></ng-include>
+            <ng-include src="templates.notifications"></ng-include>
+
+            <section class="profile__footer">
+                <button type="submit" class="profile__save" ng-disabled="state>0||!profileForm.$dirty">Save changes</button>
+            </section>
+
+        </div>
+    </form>
+</div>

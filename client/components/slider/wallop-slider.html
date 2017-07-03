@@ -1,0 +1,7 @@
+<div class="wallop-slider" ng-class="animationClass">
+  <ul class="wallop-slider__list">
+      <li class="wallop-slider__item" ng-class="itemClasses[$index]" ng-repeat="img in images">
+        <img ng-src="{{imageSize(img)}}" fallback-src="/assets/images/placeholder.png">
+      </li>
+  </ul>
+</div>

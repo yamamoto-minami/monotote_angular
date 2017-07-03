@@ -1,0 +1,38 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <h1 class="heading" ng-if="modeForm == 'new'">Create a new {{state.media}} buy button</h1>
+  <h1 class="heading" ng-if="modeForm == 'edit'">Edit this {{state.media}} buy button</h1>
+</div>
+<div class="main__content main__content--bottom">
+  <ul class="tabs">
+      <li ng-repeat="step in steps" class="tabs__item tabs__item--{{step.state}}">{{step.title}}</li>
+  </ul>
+  <div class="tabs__container" >
+    <div class="tab__content" ng-include="template"></div>
+  </div>
+</div>

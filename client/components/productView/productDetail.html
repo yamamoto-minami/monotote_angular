@@ -1,0 +1,13 @@
+<div class="wizard-product__detail" ng-show="product.sku" ng-class="{'wizard-product__detail_clickable':$parent.openInProductBrowser&&!product.notFound}" ng-click="$parent.openInProductBrowser && !product.notFound && $parent.openInProductBrowser(product.sku)">
+    <img ng-src="{{thumbnail(product.sku)}}" fallback-src="/assets/images/product-placeholder-100.png" alt="{{product.sku}}">
+    <div class="wizard-product__detail-info">
+        <span class="wizard-product__detail-title">{{product.name}}</span>
+        <span class="wizard-product__detail-price">
+            <small ng-if="product.special_price">
+                <s>{{product.price|CurrencyFilter:product.currency}}</s>
+            </small>
+            {{(product.special_price||product.price)|CurrencyFilter:product.currency}}
+        </span>
+        <span class="wizard-product__detail-brand">{{product.brand}}</span>
+    </div>
+</div>

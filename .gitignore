@@ -1,0 +1,10 @@
+.DS_Store
+.idea/*
+.tmp/
+.sass-cache/
+node_modules/
+dist/
+ssh.json
+client/config/envConfig.js
+env.sh
+client/vendor/

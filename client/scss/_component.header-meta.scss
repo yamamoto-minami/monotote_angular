@@ -1,0 +1,176 @@
+.header-meta {
+    float: right;
+    
+    @media screen and (max-width:$sm-screen) {
+        float: none;
+    }
+}
+
+.header-meta__list {
+    @include clearfix;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li > a {
+        display: none;
+
+        &.logout {
+            display: block;
+        }
+    }
+
+    > li:last-child:before {
+        content: '';
+        display: block;
+        height: 2px;
+        background: #b6b6b6;
+        margin-left: -110px;
+
+        @include media($desktop) {
+            display: none;
+        }
+    }
+
+    @include media($desktop) {
+        position: absolute;
+        display: block;
+        right: 0;
+        top: 100%;
+        white-space: nowrap;
+        background: $color-alpha-darken;
+
+        > li > a {
+            display: block;
+            margin: 0;
+            padding: 0 10px;
+            color: $white;
+            font-size: 14px;
+            line-height: $header-height*0.85;
+            &.logout {
+                background: #b6b6b6;
+
+                &:hover {
+                    background: #969696;
+                }
+            }
+
+            &:hover {
+                background: $color-alpha-hover;
+            }
+
+
+        }
+    }
+}
+
+.nav-header-profile__list .link.header-meta__profile {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    left: auto;
+    width: auto;
+    pointer-events: none;
+
+    @include media($desktop) {
+        pointer-events: all;
+        position: relative;
+        top: auto;
+        right: auto;
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+
+.header-profile-info {
+    position: absolute;
+    display: inline-block;
+    top: 50px;
+    right: 5px;
+    font-size: 14px;
+
+    @include media($desktop) {
+        display: none;
+    }
+}
+
+.header-meta__image {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.header-meta__item_text {
+    display: none;
+    
+    @include media($desktop) {
+        display: inline-block;
+    }
+}
+
+.nav-header-profile__list {
+    @include media($desktop) {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    
+    .header-meta__profile_btn {
+        margin-top: 0;
+        @include media($desktop) {
+            display: none;
+        }
+    }
+}
+
+.header-meta__item_icon {
+    font-size: 2em !important;
+    display: inline-block;
+    vertical-align: middle;
+    
+    @include media($desktop) {
+        display: none !important;
+    }
+}
+
+.nav-language-switch {
+    display: none;
+    font-size: 12px;
+    text-transform: uppercase;
+
+    @include media($desktop) {
+        display: inline-block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 60px;
+        line-height: $header-height;
+        background: #343434;
+        z-index: 1001;
+        color: $white;
+        text-align: center;
+    }
+
+    .icon {
+        display: inline-block;
+        position: relative;
+        top: 0.2em;
+        text-transform: none;
+    }
+}
+
+.nav_invisible {
+    @include media($desktop) {
+        display: none;
+    }
+
+    .nav-header__list.active .nav_invisible {
+        display: block;
+        @include media($desktop) {
+          display: none;
+        }
+    }
+}

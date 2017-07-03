@@ -1,0 +1,11 @@
+<div>
+    <p>Color</p>
+    <span class="droplet droplet--{{droplet.color}} droplet--size++" ng-repeat="droplet in droplets" ng-class="{'droplet--active': hotspot.color === droplet.color}" ng-click="color(droplet.color)">
+        <i class="droplet__icon"></i>
+    </span>
+    <p>Style</p>
+    <div ng-repeat="style in styles" class="hotspot-type-selection" ng-click="type(style.type)">
+        <label><input type="radio" value="{{style.type}}" ng-model="hotspot.type" name="hotspotType" id="hotspotType" ng-checked="isChecked(style.type)" /> {{style.name}}</label> - {{style.description}}
+    </div>
+</div>
+

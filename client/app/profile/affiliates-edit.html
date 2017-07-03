@@ -1,0 +1,8 @@
+<div class="profile__box">
+    <item-select class="profile__affiliate_selector" ng-model="input.selectedAffiliate"
+        data-disabled="!companies.length" ng-change="companyChange()">
+        <item-option value="{{company.id}}" ng-repeat="company in companies" ng-bind="company.name" select="input.selectedAffiliate!=null?company.id===input.selectedAffiliate:$first"></item-option>
+    </item-select>
+</div>
+
+<affiliate-settings company="(companies|filter:{id:input.selectedAffiliate})[0]" view-bag="viewBag[input.selectedAffiliate]" ng-if="input.selectedAffiliate!=null"></affiliate-settings>

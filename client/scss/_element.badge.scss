@@ -1,0 +1,47 @@
+.badge {
+    background: $color-alpha;
+    border-radius: rem(2);
+    font-size: rem(14);
+    display: inline-block;
+    color: #FFF;
+    padding-right: rem(6);
+
+    span {
+        display: inline-block;
+        padding: rem(4) rem(6);
+        border-right: 1px solid rgba($white, 0.5);
+        padding-right: rem(30);
+        position: relative;
+        &:after {
+            font-family: $font-icon;
+            content: "\e60e";
+            font-size: 6px;
+            margin-left: rem(8);
+
+            position: absolute;
+            right: 10px;
+            top: 9px;
+        }
+    }
+}
+
+
+.badge--attention {
+    background-color: $color-bravo;
+}
+
+.badge--like {
+    background-color: $color-foxtrot;
+
+    span:after {
+        content: "\e903";
+        font-size: 14px;
+        top: 50%;
+        margin-top: -7px;
+    }
+}
+
+
+.badge--inactive {
+    background-color: rgba($black, 0.4);
+}

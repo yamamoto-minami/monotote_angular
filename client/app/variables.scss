@@ -1,0 +1,52 @@
+$white:                  #FFFFFF;
+$gray-base:              #000000;
+$gray-darker:            lighten($gray-base, 13.5%);
+$gray-dark:              lighten($gray-base, 20%);
+$gray-middle:            lighten($gray-base, 35%);
+$gray:                   lighten($gray-base, 75.0%);
+$gray-light:             lighten($gray-base, 85.0%);
+$gray-lighter:           lighten($gray-base, 93.5%); // #eee
+
+$size-base:              12px;
+$size-x1:                $size-base;
+$size-x2:                $size-base*2;
+$size-x3:                $size-base*3;
+$size-x4:                $size-base*4;
+$size-x10:               $size-base*10;
+$size-s2:                $size-base/2;
+$size-s3:                $size-base/3;
+
+$gutter: 30px !global;
+$column: 70px !global;
+$grid-columns: 12 !global;
+$max-width: 1200px;
+
+$header-height: rem(60);
+$mini-header-height: $header-height;
+
+$header-page-menu-width-desktop: 230px;
+
+$font-family-serif:      serif;
+$font-family-sans-serif: sans-serif;
+$font-family-helvetica:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$font-size-base:         12px;
+$font-size-x1:           $font-size-base;
+$font-size-x2:           round($font-size-base*1.166);
+$font-size-x3:           $font-size-base*2;
+
+// fontawesome
+.fa-x1 { font-size: 1.25em; }
+.fa-x2 { font-size: 2em; }
+.fa-x3 { font-size: 3em; }
+.fa-x4 { font-size: 4em; }
+
+$mobile: 360px;
+$desktop: 800px;
+$loader-image: '${path}img/default/loading.svg'; //ToDo: fix this
+$xs-screen: 360px;
+$sm-screen: 600px;
+$md-screen: 800px;
+$lg-screen: 1100px;
+$xlg-screen: 1900px;
+

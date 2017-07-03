@@ -1,0 +1,13 @@
+<div class="get-affiliate-link" ng-if="link">
+    <div class="affiliate-link publish-embed">    
+        <div class="publish__boxed-title"><div class="publish__actions"><button type="button" ng-click="copy2Clipboard(getText())" ng-class="{active:copyStatusSuccess!=null}">{{copyStatusSuccess!=null?'Copied':'Copy'}} to clipboard</button></div>
+            <h4>Affiliate link</h4>
+            <p>
+                You can optionally place this link on your website to open this product in the Monotote product details panel.
+            </p>
+        </div>
+        <div id="code-{{objectId}}" class="affiliate-code">
+            &lt;a href="{{link}}" target="_blank" data-mnt-product="{{product_sku}}"&gt;{{product.name}}&lt;/a&gt;
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="data-grid" style="width:100%;" ng-style="pageWidth">
+  <div ng-if="orders.length > 0" style="padding: 20px;">
+    <div style="text-align: right;">CSV <a ng-click="download('csv')">download csv of this data</a> </div>
+    <div style="text-align: right;">XLS <a ng-click="download('xls')">download xls of this data</a> </div>
+  </div>
+  <div class="table-viewport">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th ng-repeat="(key, value) in headers">
+            <a style="margin-right:5px;text-decoration:none;" ng-click="sortOrder(key)">{{value}}
+              <span class="fa" ng-class="(sort.column !== key)?'fa-sort':(sort.asc== true)?'fa-sort-asc':'fa-sort-desc'"></span>
+            </a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in orders track by $index">
+          <td ng-repeat="(key, value) in headers">
+            <span ng-if="key!=='products'&&key!=='ordered_at'">{{order[key]}}</span>
+            <span ng-if="key==='ordered_at'">{{order[key] | date:'yyyy-MM-dd H:mm'}}</span>
+            <ul class="tags__list" style="height:auto;" ng-if="key==='products'">
+              <li ng-repeat="product in order[key]" ng-style="border(order[key].length)">
+                <h4 ng-click="display[product.sku].toggle=!display[product.sku].toggle">{{product.name}}</h4>
+                <div ng-show="display[product.sku].toggle" id="{{product.sku}}">
+                  <img ng-src="{{thumbnail(product.sku)}}" fallback-src="/assets/images/product-placeholder-100.png" alt="{{product.name}}">
+                  <div class="tags__description" style="color:#000;">
+                    <div ng-if="product.size"><strong>Size:</strong> {{product.size}}</div>
+                    <div ng-if="product.color"><strong>Color:</strong> {{product.color}}</div>
+                    <div><strong>Qty:</strong> {{product.quantity}}</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ng-if="orders.length > 0" style="padding: 20px;">
+    <div style="text-align: right;">CSV <a ng-click="download('csv')">download csv of this data</a> </div>
+    <div style="text-align: right;">XLS <a ng-click="download('xls')">download xls of this data</a> </div>
+  </div>
+</div>

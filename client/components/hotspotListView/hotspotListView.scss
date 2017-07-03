@@ -1,0 +1,42 @@
+.app-hotspot--list {
+
+  .app-button-delete {
+    cursor: pointer;
+  }
+
+  .app-spec-timing {
+    width: 75%;
+  }
+
+  .app-spec-title, .app-spec-sku {
+    div {
+      max-width: 128px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: $size-x3;
+    }
+  }
+
+  .app-spec-time {
+    cursor: pointer;
+  }
+
+  .app-action--delete {
+    line-height: $size-x3;
+  }
+
+}
+
+.tags__description .droplet{
+  float:left;
+  margin-bottom: 3px;
+}
+
+.tag-list-edit {
+  padding: 0 8px 3px;
+}
+
+.tag-list-price {
+  margin-right: 10px;
+}

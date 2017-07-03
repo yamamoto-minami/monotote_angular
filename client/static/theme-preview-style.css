@@ -1,0 +1,128 @@
+html, body {
+    margin: 0;
+    background: #eee;
+}
+
+header {
+    background: #cfcfcf;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 40px;
+}
+
+body {
+    padding: 10px 10px 60px;
+}
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+header .mobile-menu-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+}
+
+header .mobile-menu-button .line {
+    height: 5px;
+    margin-top: 5px;
+    background: #fff;
+}
+
+header .mobile-menu-button .line:first-child {
+    margin: 0;
+}
+
+header .brand-logo {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+header .brand-name {
+    position: absolute;
+    left: 45px;
+    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 20px;
+    background: #fff;
+}
+
+.header-offset {
+    height: 30px;
+}
+
+main {
+    padding: 20px;
+}
+
+article {
+    clear: both;
+    padding: 10px 0;
+}
+
+article:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+article .image-placeholder {
+    width: 33.3%;
+    float: left;
+}
+
+article .text-placeholder {
+    width: 60%;
+    float: right;
+}
+
+.image-placeholder {
+    height: calc(100vw * 0.3);
+    background: #aaa;
+    position: relative;
+}
+
+article.first .image-placeholder {
+    height: calc(100vw * 0.5);
+    width: auto;
+    float: none;
+}
+
+article.first .text-placeholder {
+    float: none;
+    width: auto;
+}
+
+.text-placeholder {
+    margin-top: 10px;
+}
+
+.text-placeholder .text-line {
+    background: #aaa;
+    height: calc(100vw * 0.025);
+    margin-bottom: calc(100vw * 0.025);
+}
+
+.width-4 {
+    width: 33.33%;
+}
+
+.width-10 {
+    width: 83.33%;
+}
+

@@ -1,0 +1,71 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<section class="main">
+  <section id="date-filter">
+    <h1 class="heading">Orders Report</h1>
+    <button class="button" ng-click="post()">Update Data</button>
+    <div class="date-filter" ng-show="filters.selected.period==='c'">
+      <span class="from-date date" pikaday="fromDatePicker" on-select="setFromDate()">{{filters.selected['start-date']}}</span>
+      <span class="to">-</span>
+      <span class="to-date date" pikaday="toDatePicker" on-select="setToDate()">{{filters.selected['end-date']}}</span>
+    </div>
+    <div class="date-filter" ng-show="filters.selected.period!=='c'">
+      <span class="from-date date">{{filters.selected['start-date']}}</span>
+      <span class="to">-</span>
+      <span class="to-date date">{{filters.selected['end-date']}}</span>
+    </div>
+    <select ng-model="filters.selected.period" ng-change="updateDates()">
+      <option
+          ng-selected="{{filters.selected.period===period.name}}"
+          ng-repeat="period in filters.available.periods"
+          value="{{period.name}}">{{period.value}}</option>
+    </select>
+    <div class="menu-wrap">
+      <a class="droptarget" ng-click="retailers.open = !retailers.open">Retailers &nbsp; &nbsp;</a>
+
+      <ul class="sub-menu" ng-class="{'active':retailers.open}">
+        <li class="retailers" ng-repeat="retailer in filters.available.retailers">
+          <label ng-class="{'selected':filters.selected.retailers.indexOf(retailer.name) > -1}">
+            <input
+              type="checkbox"
+              value="{{retailer.value}}"
+              ng-checked="filters.selected.retailers.indexOf(retailer.name) > -1"
+              ng-click="toggleSelection(retailer)"
+            > {{retailer.value}}
+          </label>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <ng-include src="'app/analytics/tabs.html'"></ng-include>
+
+  <div class="ngdialog" ng-show="!orders">
+    <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+  </div>  
+
+</section>

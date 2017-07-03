@@ -1,0 +1,121 @@
+.product-overview-quickview__item {
+    margin: rem(70) 0;
+    @include clearfix;
+}
+
+.product-overview-quickview__main {
+    @include media($desktop) {
+        float: right;
+        width: 40%;
+    }
+}
+
+.product-overview-quickview__side {
+    @include media($desktop) {
+        float: left;
+        width: 60%;
+        padding-right: rem(45);
+    }
+}
+
+.product-overview-quickview__title {
+    font-size: rem(32);
+    font-family: $font-bold;
+    margin-bottom: rem(16);
+}
+
+.product-overview-quickview__price {
+    font-size: rem(24);
+    font-family: $font-bold;
+    color: #C6C6C6;
+    margin-bottom: rem(34);
+    margin-right: rem(10);
+    display: inline-block;
+}
+
+.product-overview-quickview__likes {
+    font-size: rem(24);
+    font-family: $font-bold;
+    color: #C6C6C6;
+    margin-bottom: rem(34);
+    margin-right: rem(10);
+    display: inline-block;
+
+    &.product_liked {
+        color: #d9534f;
+    }
+}
+
+.product-overview-quickview__subtitle {
+    font-size: rem(15);
+    font-family: $font-bold;
+    color: #000;
+    margin-bottom: rem(20);
+}
+
+.product-overview-quickview__description {
+    font-family: $font-alt-regular;
+    font-size: rem(16);
+    margin-bottom: rem(40);
+}
+
+.product-overview-quickview__details {
+    margin-bottom: rem(10);
+}
+
+.product-overview-quickview__small {
+    font-size: rem(12);
+    font-family: $font-alt-regular;
+    color: #9b9b9b;
+}
+
+.product-overview-quickview__slider {
+    margin-bottom: rem(40);
+    img {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.product-overview-quickview__thumbs {
+    margin-bottom: rem(40);
+    text-align: center;
+    @include clearfix;
+    img {
+        max-width: 60px;
+    }
+    div {
+        display: inline-block;
+    }
+}
+
+.product-overview-quickview__buy {
+    display: block;
+    text-align: center;
+    width: 180px;
+    margin: rem(5) auto;
+    background: $color-alpha;
+    color: $white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: rem(12);
+    padding: rem(16) rem(20);
+}
+
+.get-affiliate-link {
+    margin-top: 30px;
+}
+
+.affiliate-link {
+    margin: 0 0 10px !important;
+    .publish__boxed-title, .affiliate-code {
+        padding: 1rem;
+    }
+    .affiliate-code {
+        color: #64cdcd;
+        word-wrap: break-word;
+    }
+    .active {
+        background-color: #64cdcd;
+    }
+}

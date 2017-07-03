@@ -1,0 +1,33 @@
+.jHidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.jShow {
+  display: block !important;
+}
+
+.ngdialog.ngdialog-monotote-wizard .ngdialog-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.ngdialog.ngdialog-monotote-wizard .ngdialog-content {
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  font-family: 'Helvetica',sans-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 1em;
+  position: relative;
+  width: 400px;
+}
+.ngdialog.ngdialog-monotote-wizard {
+  padding-bottom: 160px;
+  padding-top: 160px;
+}
+
+.ngdialog.ngdialog-monotote-wizard .selection__item {
+  cursor: pointer;
+}

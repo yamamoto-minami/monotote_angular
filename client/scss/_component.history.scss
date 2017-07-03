@@ -1,0 +1,36 @@
+.history__item {
+    margin: 0 0 rem(20) 0;
+    padding: 0 0 rem(20) 0;
+}
+
+
+.history__header {
+    @include clearfix;
+    padding: rem(15) 0;
+}
+
+.history__title {
+    margin: 0;
+    float: left;
+}
+
+/*
+.history__link {
+    float: right;
+    color: $product-browser__link;
+    border-bottom: 1px solid $product-browser__border;
+    line-height: 1.8;
+
+    &:hover {
+        color: $black;
+    }
+}
+*/
+
+.history__results {
+    font-size: rem(14);
+    border: 1px solid $product-browser__border;
+    border-radius: rem(14);
+    padding: rem(2) rem(8);
+    margin-left: rem(10);
+}

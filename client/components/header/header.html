@@ -1,0 +1,285 @@
+<header role="banner" id="app-header" class="header" ng-init="navMenu=$global.navMenu={visible:null,supportDropDownMenu:false};" watch="navMenu.visible" watch-change="toggleHideScrollbars(navMenu.visible)" ng-controller="AppTourController as appTourController">
+    <nav class="nav-header">
+        <a class="nav-logo" ui-sref="tagging.list">
+            <i class="icon icon-monotote"></i>
+        </a>
+        <span class="nav-header__toggle" ng-click="navMenu.visible=!navMenu.visible">
+            <i class="icon-menu2" ng-if="!navMenu.visible || navMenu.visible == null"></i>
+            <i class="icon-close-del" ng-if="navMenu.visible"></i>
+        </span>
+        <ul class="nav-header__list" ng-class="{active: navMenu.visible}" tutorial-open="navMenu.visible=!0" screen-watch="position" screen-watch-change="navMenu.visible=$value!=='fixed'?!1:navMenu.visible">
+            <li class="nav-header__list_container">
+                <ul class="nav-header__list_dynamic">
+                    <span class="nav-header__arrow left" ng-click="scrollLeft()">
+                        <i class="icon-left"></i>
+                    </span>
+                    <li class="nav-header__list_item" ng-class="{visible:navMenu.visible}" ng-repeat="item in menu">
+                        <a id="menu_item_{{item.name}}" ng-click="navMenu.visible=!1" ng-if="item.sref && (!item.permission || permissions[item.permission])" ui-sref="{{item.sref}}" ng-class="{'nav-header__list_item--active':isActive(item.link)}">
+                            {{item.title}} <i class="icon icon-{{item.name}}"></i>
+                        </a>
+                    </li>
+                    <li class="nav-header__list_item">
+                        <span class="nav-button" id="menu_item_support" ng-click="navMenu.supportDropDownMenu=!navMenu.supportDropDownMenu;navMenu.supportDropDownPositionLeft=getSupportButtonRect().left + 'px'" ng-class="{'nav-header__list_item--active':navMenu.supportDropDownMenu}" pseudo-focus="navMenu.supportDropDownMenu" on-pseudo-blur="navMenu.supportDropDownMenu=!!0;navMenu.supportDropDownPositionLeft=null">
+                            Support <i class="icon icon-help"></i>
+                            <span class="menu_dropdown_toggle">
+                                <i class="icon icon-down" ng-show="!navMenu.supportDropDownMenu"></i>
+                                <i class="icon icon-up" ng-show="navMenu.supportDropDownMenu"></i>
+                            </span>
+                        </span>
+                        <ul class="menu_item_dropdown_list" ng-class="{active:navMenu.supportDropDownMenu}" ng-style="{left: navMenu.supportDropDownPositionLeft}">
+                            <li><a ng-href="{{currentRouteState.supportLink||'https://support.monotote.com/'}}" target="_blank">FAQ</a></li>
+                            <li ng-hide="appTourController.disabled"><span ng-click="appTourController.startTour()">TOUR</span></li>
+                            <li><a href="https://support.monotote.com/hc/en-us/sections/115000882605-Tutorial-videos" target="_blank">HOW TO VIDEOS</a></li>
+                        </ul>
+                    </li>
+                    <span class="nav-header__arrow" ng-click="scrollRight()">
+                        <i class="icon-left"></i>
+                    </span>
+                </ul>
+            </li>
+            <li class="nav-header__list_item nav-header-profile__list" ng-init="profileMenu={visible:!!0}">
+                <span class="header-profile-info">Signed in as {{username}}</span>
+                <a class="header-meta__profile_btn" ui-sref="profile" ng-click="navMenu.visible=!1">
+                    Settings <i class="icon icon-user"></i>
+                </a>
+                <a class="link header-meta__profile" ng-click="profileMenu.visible=!profileMenu.visible" pseudo-focus="profileMenu.visible" on-pseudo-blur="profileMenu.visible=!!0">
+                    <img class="header-meta__image" ng-src="{{profileImageThumb()}}" alt="">
+                </a>
+                <ul class="header-meta__list" ng-class="{nav_invisible:!profileMenu.visible}">
+                    <li><a ui-sref="profile">Edit profile</a></li>
+                    <li><a ui-sref="changePassword">Change password</a></li>
+                    <li><a ui-sref="affiliates">Available affiliate networks</a></li>
+                    <li><a ui-sref="availableRetailers">Available retailers</a></li>
+                    <li><a ng-click="logout()" class="logout">Logout <i class="icon icon-logout"></i></a>
+                </ul>
+            </li>
+            
+        </ul>
+    </nav>
+
+    <tour step="appTourController.startFromStep" post-tour="appTourController.closeTour(); navMenu.visible=!1" ng-if="menu.length" on-init="appTourController.ctrl = $ctrl">
+        <virtual-step
+        tourtip
+        tourtip-right-button="proceed(7)"
+        tourtip-right-button-text="Begin"
+        tourtip-placement="center"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#hidden-surface"
+        on-show="$global.navMenu.visible=!1">
+            <p>
+                Beginner user?
+            </p>
+            <p>
+                Click here for a tour of your dashboard
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="proceed(2)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-offset-vertical="250"
+        tourtip-element="#app-header"
+        on-show="$global.navMenu.visible=!1;appTourController.$state.go('tagging.list',{},{replace:true})">
+            <p>
+                Welcome to your Monotote dashboard!  Here you will be able to add/edit tagged content, create new shoppable content, access analytical data and find the help you need from our support desk.  Now let’s give you a tour!
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="setCurrentStep(appTourController.moreInfoStep - 3)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.moreInfoStep = appTourController.generateTourStep()"
+        tourtip-element="#app-header">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/theme-designer-fork-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/theme-designer-fork-desktop.jpg"/>
+            <p>
+                Click this button to create a new theme based on selected current theme.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="setCurrentStep(appTourController.moreInfoStep - 2)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.moreInfoStep = appTourController.generateTourStep()"
+        tourtip-element="#app-header">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/theme-designer-edit-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/theme-designer-edit-desktop.jpg"/>
+            <p>
+                Click this button to edit selected current theme.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="setCurrentStep(appTourController.moreInfoStep - 1)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.moreInfoStep = appTourController.generateTourStep()"
+        tourtip-element="#app-header">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/theme-designer-remove-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/theme-designer-remove-desktop.jpg"/>
+            <p>
+                Click this button to remove selected current theme.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="setCurrentStep(appTourController.nextStep)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.moreInfoStep = appTourController.generateTourStep()"
+        tourtip-element="#app-header">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/theme-designer-lock-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/theme-designer-lock-desktop.jpg"/>
+            <p>
+                If you can see this icon , it means this theme was locked so you are not able to edit this theme.
+                <br />However, you can create a new theme based on this one or remove this theme.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-right-button="setCurrentStep(appTourController.nextStep)"
+        tourtip-right-button-text="Next"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.moreInfoStep = appTourController.generateTourStep()"
+        tourtip-element="#app-header">
+            <p>
+                Paste the embed code on the main html template/layout of your website before <strong>&lt;/body&gt;</strong> tag to activate the Monotote plugin on your website. It's a similar process to <i>Google Analytics</i>.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('tagging.list',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/mycontent-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/mycontent-desktop.jpg"/>
+            <p>
+                On your home page, you will have access to all aspects of your dashboard. All tagged content will be displayed on your home page so that you can easily add or update buy buttons simply by clicking on the relevant image or video. To add a new shoppable image or video you just need to click on the <strong>add content</strong> button, which is in the top right hand corner of the page if you’re on a desktop or on the icons at the top if you’re using a mobile. For a summary of your active, inactive, paused or draft items you can look at the summary bar displayed in the top right hand corner of the page.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-min-width="700"
+        tourtip-skip-if="!permissions['show-analytics']"
+        on-show="appTourController.$state.go('analytics',{},{replace:true})">
+            <p>
+                Just click the Analytics button to view a real time summary of revenue, segmentation and orders.  For more information, check out the Monotote user manual to walk through all detailed data analytics shown and further customize your views.
+            </p>
+        </virtual-step>
+        <!-- Tour for theme editor -->
+        <virtual-step
+        tourtip
+        tourtip-left-button="appTourController.nextStep=getCurrentStep()+1;setCurrentStep(appTourController.moreInfoStep - 4)"
+        tourtip-left-button-text="More info"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('themes.list',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/theme-editor-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/theme-editor-desktop.jpg"/>
+            <p>
+                Click here to edit the theme. You can edit the current theme , create a new theme based on existing theme and remove current theme.
+            </p>
+        </virtual-step>
+
+        <!-- Tour for Include code -->
+        <virtual-step
+        tourtip
+        tourtip-left-button="appTourController.nextStep=getCurrentStep()+1;setCurrentStep(appTourController.moreInfoStep)"
+        tourtip-left-button-text="More info"
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('includecode',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/include-code-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/include-code-desktop.jpg"/>
+            <p>
+                Click here to retrieve your embed code. Place this one-time include code before the closing &lt;/body&gt; tag, within your page source, to activate the Monotote plugin on your website.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('generatelink',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/dashboard-add-shoppable-link-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/dashboard-add-content-desktop.jpg"/>
+            <p>
+                If you would prefer to include a shoppable link under your image instead of placing a buy button on top of the image, you can do so by simply clicking this button and pasting your shoppable link where notated. Easy as 1, 2, 3...
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-min-width="700"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        on-show="appTourController.$state.go('profile',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/dashboard-settings-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/dashboard-settings-desktop.jpg"/>
+            <p>
+                To access your account info, click on this button and you can update your photo or profile info, connect a new affiliate account to Monotote or sign out of your account for security purposes. 
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="350"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-right-button-text="Next"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('tagging.list',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/dashboard-livechat-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/dashboard-livechat-desktop.jpg"/>
+            <p>
+                If you want to do Live chat , click on this button and you can see chat widget.
+                If Support is online, you can do live chat. Otherwise you can submit a message and will get response soon.
+            </p>
+        </virtual-step>
+        <virtual-step
+        tourtip
+        tourtip-placement="center"
+        tourtip-offset-vertical="250"
+        tourtip-step="appTourController.generateTourStep()"
+        tourtip-element="#app-header"
+        tourtip-right-button-text="Got it!"
+        tourtip-min-width="700"
+        on-show="appTourController.$state.go('tagging.list',{},{replace:true})">
+            <img mnt-processed="true" class="visual-hint mobile" src="img/assets/tour/dashboard-support-mobile.jpg"/>
+            <img mnt-processed="true" class="visual-hint desktop" src="img/assets/tour/dashboard-support-desktop.jpg"/>
+            <p>
+                We are here to support you anytime!  Just click the support button and you will be able to find answers to all of your questions or contact a team representative who can further assist you.  Thanks for stopping by!
+            </p>
+        </virtual-step>
+    </tour>
+</header>
+<div class="nav-language-switch">
+    <span class="nav-language-switch__btn">
+        En <i class="icon icon-down"></i>
+    </span>
+</div>

@@ -1,0 +1,222 @@
+
+.wizard {
+    background: $grey;
+    font-size: rem(20);
+    @include outer-container;
+    &.frame_load_error {
+        padding: 20px;
+        background: #c41;
+        color: #fff;
+        a {
+            color: inherit;
+            border: 2px solid #fff;
+            display: inline-block;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    }
+}
+.wizard__frame {
+    img {
+        width: 100%;
+        display: block;
+    }
+
+    width: 65%;
+    float: left;
+
+    position: relative;
+
+    .wizard__frame-status {
+        position: absolute;
+        bottom: rem(65);
+        left: rem(30);
+        display: block;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #000;
+        text-align: center;
+        background: rgba(0,0,0,0.6);
+        cursor: pointer;
+        span {
+            font-size: rem(16);
+            line-height: rem(35);
+            color: #FFF;
+        }
+    }
+
+    .wizard__frame-time {
+        background: rgba($black, .5);
+        border-radius: rem(3);
+        color: rgba($white, .9);
+        text-shadow: 1px 1px 0 rgba($black, .6);
+        padding: rem(2) rem(5) rem(3);
+        font-size: rem(12);
+        position: absolute;
+        bottom: rem(65);
+        right: rem(30);
+        display: block;
+    }
+}
+
+.wizard__panel {
+    width: 35%;
+    margin-left: 65%;
+    padding: rem(15);
+}
+
+
+.wizard__main {
+    background: $white;
+}
+
+
+.wizard-edit {
+    text-align: center;
+
+    > div {
+        padding: rem(20) rem(10);
+    }
+}
+
+.wizard__info {
+    text-align: center;
+    margin: rem(36) 0;
+    font-size: rem(16);
+    font-family: $font-regular;
+    strong {
+        font-family: $font-bold;
+    }
+}
+
+.wizard__info-type {
+    font-family: $font-alt-regular;
+    font-style: oblique;
+    margin-left: rem(16);
+}
+
+.wizard-actions {
+    text-align: right;
+    padding-right: rem(20) !important;
+    button {
+        background: $grey;
+        color: #8f8f8f;
+        border: 0;
+        margin-left: rem(10);
+        padding: rem(15) rem(20);
+        border-radius: rem(3);
+        font-size: rem(16);
+        font-family: $font-bold;
+        &.action {
+            background: $color-alpha;
+            color: #FFF;
+        }
+    }
+}
+
+.tags__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    overflow-y: scroll;
+    height:460px;
+}
+
+
+.tags__item {
+    position: relative;
+    min-height: rem(115);
+    border-bottom: 1px solid $color-border;
+    padding: rem(15) 0 rem(15) 35%;
+    text-align: left;
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    .button--action {
+        display: none;
+        position: absolute;
+        right: rem(15);
+        top: rem(15);
+    }
+
+    &:hover .button--action {
+        display: block;
+    }
+
+}
+
+.tags__image {
+    position: absolute;
+    left: rem(15);
+    top: rem(15);
+}
+
+
+.tags__title {
+    margin: 0 0 rem(10);
+    font-size: rem(18);
+    font-family: $font-bold;
+}
+
+.tags__title.tag_disabled {
+  background: #c41;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: rem(14);
+}
+
+
+.tags__description {
+    margin: 0;
+    font-size: rem(13);
+    color: #c5c5c5;
+    .droplet__inline {
+        margin-right: rem(10);
+    }
+    em {
+        color: #7a7a7a;
+        margin-left: rem(15);
+        font-style: normal;
+    }
+}
+
+.publish-main {
+    list-style: none;
+    margin: 0;
+    padding: rem(40) 0;
+    @include clearfix;
+}
+
+.publish-main__item {
+    color: #000;
+    font-size: rem(12);
+    line-height: 1.8;
+    text-transform: uppercase;
+    @include media($tablet-and-lower) {
+        @include span-columns(6);
+        @include omega(2n);
+    }
+    @include media($desktop) {
+        @include span-columns(4);
+        @include omega(3n);
+    }
+}
+
+.publish-main label span {
+    color: #444;
+    font-size: rem(10);
+}
+
+.publish-code {
+    text-align: left;
+    padding: rem(40) rem(60);
+}
+
+.publish-code pre {
+    font-size: rem(14);
+}
+

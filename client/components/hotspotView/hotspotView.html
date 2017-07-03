@@ -1,0 +1,16 @@
+<div class="droplet droplet--size+++" ng-click="select($event, hotspot)">
+    <i class="droplet__icon" ng-class="{'droplet--active': active}" ng-drag="true" ng-drag-data="hotspot" data-allow-transform="false" ng-center-anchor="false" ng-drag-success="onDragComplete($data,$event);"></i>
+    <div ng-if="hotspot.type===2" class="droplet--price">
+        <small ng-if="hotspot.product.special_price">
+            <s>{{hotspot.product.price|CurrencyFilter:hotspot.product.currency}}</s>
+        </small>
+        {{(hotspot.product.special_price||hotspot.product.price)|CurrencyFilter:hotspot.product.currency}}
+    </div>
+    <div ng-if="hotspot.type===3" class="droplet--name">{{hotspot.product.name}}</div>
+    <div ng-if="hotspot.type===3" class="droplet--price">- <span>
+        <small ng-if="hotspot.product.special_price">
+            <s>{{hotspot.product.price|CurrencyFilter:hotspot.product.currency}}</s>
+        </small>
+        {{(hotspot.product.special_price||hotspot.product.price)|CurrencyFilter:hotspot.product.currency}}
+    </span></div>
+</div>

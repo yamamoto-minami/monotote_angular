@@ -1,0 +1,29 @@
+<div class="product-browser">
+
+    <header class="product-browser__header">
+        <div class="product-browser__container">
+            <div class="product-browser__logo">
+                <i class="icon icon-monotote"></i> <em class="tagline">Product Browser</em>
+            </div>
+            <div class="product-browser__close">
+                Close product browser <i class="icon icon-close"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="product-browser__main product-browser__container">
+
+        <section class="category__item">
+	        <h3>Product categories</h3>
+
+          <ul class="category-list">
+
+              <li class="category-list__item" ng-repeat="(category, subcategories) in categories">
+                  <a ui-sref=".product">{{category}}</a>
+              </li>
+
+		  	  </ul>
+        </section>
+
+    </div>
+</div>

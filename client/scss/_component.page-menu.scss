@@ -1,0 +1,122 @@
+.page-header-menu {
+    @include media($desktop) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: $header-page-menu-width-desktop;
+        height: $header-height;
+        z-index: 1000;
+        padding-right: 60px;
+
+        .button--cta {
+            line-height: $header-height;
+        }
+    }
+}
+
+.page-content-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: table;
+    width: 100%;
+
+    &.ng-hide {
+        display: table !important;
+    }
+
+    @include media($desktop) {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        min-width: $header-page-menu-width-desktop;
+        display: block;
+        width: auto;
+
+        &.ng-hide {
+            display: none !important;
+        }
+    }
+
+    .page-content-menu__item {
+        display: table-cell;
+
+
+        .button-link {
+            line-height: 1.5rem;
+            vertical-align: middle;
+        }
+
+        span {
+            vertical-align: middle;
+        }
+        
+        @include media($desktop) {
+            display: block;
+        }
+    }
+
+    .button--cta {
+
+        &.button-image, &.button-video, &.button-link {
+            height: $header-height;
+
+            span {
+                display: none;
+
+                @include media($desktop) {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+.page-settings__toggle-btn {
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: $header-height;
+    line-height: $header-height;
+    font-size: 20px;
+    z-index: 1002;
+    cursor: pointer;
+
+    .page-settings.active & {
+        background: #262626;
+    }
+
+    @include media($desktop) {
+        display: none;
+    }
+}
+
+.page-settings__view {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: $header-height;
+    bottom: 0;
+    background: #262626;
+    z-index: 100;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #cccccc;
+
+
+    @include media($desktop) {
+        position: static;
+        left: auto;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        z-index: auto;
+
+        &.ng-hide {
+            display: block !important;
+        }
+    }
+}
+

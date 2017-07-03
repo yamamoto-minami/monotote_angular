@@ -1,0 +1,111 @@
+.droplets {
+    text-align: center;
+    font-size: rem(17);
+    color: $grey-alt;
+    margin-bottom: rem(30);
+
+}
+
+.droplets .droplet {
+    margin: 0 rem(8);
+    text-align: center;
+    cursor: pointer;
+}
+
+.droplet {
+    display: inline-block;
+}
+
+@for $i from 1 through length($droplets) {
+    $this-color: nth($droplets, $i);
+    .droplet--#{$i} {
+        color: $this-color;
+
+        &.droplet--size\+ .droplet__icon,
+        &.droplet--size\+\+ .droplet__icon {
+            background: $this-color;
+        }
+    }
+}
+
+.droplet__icon {
+    opacity: .65;
+    display: inline-block;
+}
+
+
+.droplet--size\+ {
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    .droplet__icon {
+        width: 6px;
+        height: 6px;
+        border-radius: 6px;
+    }
+}
+
+.droplet--size\+\+ {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 24px;
+    .droplet__icon {
+        width: 12px;
+        height: 12px;
+        border-radius: 12px;
+    }
+}
+
+.droplet--size\+\+\+ {
+    font-size: rem(36);
+    .droplet__icon:before {
+        font-family: $icomoon;
+        content: "\e60f";
+        font-style: normal;
+    }
+}
+
+.droplet--active {
+    opacity: 1;
+}
+
+// Hotspot types
+.droplet-type--2,
+.droplet-type--3 {
+    padding: 5px 7px 0;
+    border-radius: 30px;
+    background: #63cecf;
+}
+
+// Hotspot offsets (TEMP, fix in JS)
+.droplet-type--1 {
+    //margin: -18px 0 0 -18px;
+}
+.droplet-type--2 {
+    margin: -18px 0 0 -50px;
+}
+.droplet-type--3 {
+    margin: -18px 0 0 -140px;
+}
+
+// Product details
+.droplet--price {
+    display: inline-block;
+    padding-bottom: 13px;
+    vertical-align: middle;
+    font-size: 15px;
+    color: #fff;
+}
+
+.droplet--name {
+    display: inline-block;
+    white-space:nowrap;
+    max-width: 100px;
+    padding-bottom: 14px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    color: #fff;
+}

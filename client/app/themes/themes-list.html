@@ -1,0 +1,217 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+	<span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+	 on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+	<ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+		<li class="page-content-menu__item">
+			<a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+				<i class="icon icon-image2"></i>
+				<span>Shoppable Image</span>
+			</a>
+		</li>
+		<li class="page-content-menu__item">
+			<a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+				<i class="icon icon-video2"></i>
+				<span>Shoppable Video</span>
+			</a>
+		</li>
+		<li class="page-content-menu__item">
+			<a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+				<i class="icon icon-link3"></i>
+				<span>Shoppable social media link</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="themes-management" ng-show="view =='desktop'">
+	<div class="top clearfix">
+		<div class="title">Themes</div>
+		<a ui-sref="themes.designer" class="button--cta create-theme" ng-hide="true">Create Theme</a>
+	</div>
+	<div class="content">
+		<div class="theme-col column-header clearfix">
+			<div class="col-caption theme-col-2">ID</div>
+			<div class="col-caption theme-col-3">Name</div>
+			<div class="col-caption theme-col-2">Parent Theme</div>
+			<div class="col-caption theme-col-1">Revision</div>
+			<div class="col-caption theme-col-2">Last Time Updated</div>
+			<div class="col-caption theme-col-2"></div>
+		</div>
+
+		<div class="theme-col clearfix" ng-repeat="theme in themes">
+			<div class="col-caption theme-col-2">
+				<img src="/img/assets/lock.png" class="lock-icon" ng-if="theme.locked == 1">
+				<span class="theme-id">{{theme.id}}</span>
+			</div>
+			<div class="col-caption theme-col-3">
+				<div class="theme-name">{{theme.name}}</div>
+				<div class="ribbons ng-hide">
+					<span class="ribbon"></span>
+					<span class="ribbon"></span>
+					<span class="ribbon"></span>
+				</div>
+			</div>
+			<div class="col-caption theme-col-2">{{theme.parent_theme}}</div>
+			<div class="col-caption theme-col-1">{{theme.version}}</div>
+			<div class="col-caption theme-col-2">{{theme.updated_at | date: 'mediumDate'}}</div>
+			<div class="col-caption theme-col-2">
+				<div class="button-wrapper">
+					<div class="action-button" title="Create Theme">
+						<a class="fa fa-code-fork" ui-sref="themes.designer({themeID: theme.id, fork: true})"></a>
+					</div>
+					<div class="action-button" ng-click="duplicate(theme)" ng-hide="true" title="Duplicate Theme">
+						<i class="fa fa-code" aria-hidden="true"></i>
+					</div>
+					<div class="action-button" title="Preview Theme" ng-hide="true" ng-click="makePreviewTheme(theme)">
+						<i class="fa fa-eye" aria-hidden="true"></i>
+					</div>
+					<div class="action-button" title="Edit Theme" ng-if="theme.locked != 1">
+						<a class="fa fa-pencil" aria-hidden="true" ui-sref="themes.designer({themeID: theme.id})" ng-class="theme.locked == 1 ? 'disabled' : ''"></a>
+					</div>
+					<div class="action-button" ng-if="theme.locked != 1" ng-click="deleteTheme(theme)" title="Delete Theme">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog" ng-show="loading">
+		<ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+	</div>
+</div>
+
+<div class="themes-mobile-middle" ng-show="view =='mobile_middle'">
+	<div class="container">
+		<div class="headers">
+			<div class="header-text">Themes</div>
+			<a ui-sref="themes.designer" class="button--cta create-theme" ng-hide="true" ng-hide="true">Create Theme</a>
+		</div>
+		<div class="content">
+			<div class="theme" ng-repeat="theme in themes">
+				<div class="row">
+					<div class="theme-item theme-col-5">ID</div>
+					<div class="theme-item theme-value theme-col-7">
+						<img src="/img/assets/lock.png" class="lock-icon" ng-if="theme.locked == 1">
+						<span class="theme-id">{{theme.id}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="theme-item theme-col-5">Name</div>
+					<div class="theme-item theme-value theme-col-7">
+						<div class="theme-name has-ribbon">{{theme.name}}</div>
+						<div class="ribbons ng-hide">
+							<span class="ribbon"></span>
+							<span class="ribbon"></span>
+							<span class="ribbon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="theme-item theme-col-5">Parent Theme</div>
+					<div class="theme-item theme-value theme-col-7">{{theme.parent_theme}}</div>
+				</div>
+				<div class="row">
+					<div class="theme-item theme-col-5">Revision</div>
+					<div class="theme-item theme-value theme-col-7">{{theme.version}}</div>
+				</div>
+				<div class="row">
+					<div class="theme-item theme-col-5">Last Time Updated</div>
+					<div class="theme-item theme-value theme-col-7">{{theme.updated_at | date: 'mediumDate'}}</div>
+				</div>
+				<div class="row">
+					<div class="theme-item theme-col-12">
+						<div class="button-wrapper">
+							<div class="action-button" title="Create Theme">
+								<a class="fa fa-code-fork" ui-sref="themes.designer({themeID: theme.id, fork: true})"></a>
+							</div>
+							<div class="action-button" ng-click="duplicate(theme)" ng-hide="true" title="Duplicate Theme">
+								<i class="fa fa-code" aria-hidden="true"></i>
+							</div>
+							<div class="action-button" title="Preview Theme" ng-hide="true" ng-click="makePreviewTheme(theme)">
+								<i class="fa fa-eye" aria-hidden="true"></i>
+							</div>
+							<div class="action-button" title="Edit Theme"  ng-if="theme.locked != 1">
+								<a class="fa fa-pencil" aria-hidden="true" ui-sref="themes.designer({themeID: theme.id})" ng-class="theme.locked == 1 ? 'disabled' : ''"></a>
+							</div>
+							<div class="action-button" ng-if="theme.locked != 1"  ng-click="deleteTheme(theme)" title="Delete Theme">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog" ng-show="loading">
+		<ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+	</div>
+</div>
+
+<div class="themes-mobile-small" ng-show="view =='mobile_small'">
+	<div class="container">
+		<div class="headers">
+			<div class="header-text">Themes</div>
+			<a ui-sref="themes.designer" class="button--cta create-theme" ng-hide="true">Create Theme</a>
+		</div>
+		<div class="content">
+			<div class="theme" ng-repeat="theme in themes">
+				<div class="row">
+					<div class="row-header">ID</div>
+					<div class="row-content">
+						<img src="/img/assets/lock.png" class="lock-icon" ng-if="theme.locked == 1">
+						<span class="theme-id">{{theme.id}}</span>
+					</div>
+				</div>
+				<div class="row clearfix flex-grid-view padding-sides-only">
+					<div class="theme-col-12 padding-top-botton-only-20">
+						<div class="row-header">Name</div>
+						<div class="row-content">{{theme.name}}</div>
+					</div>
+					<div class="theme-col-0 padding-top-botton-only-10 ng-hide">
+						<div class="ribbons">
+							<span class="ribbon"></span>
+							<span class="ribbon"></span>
+							<span class="ribbon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row-header">Parent Theme</div>
+					<div class="row-content" ng-if="theme.parent_theme">{{theme.parent_theme}}</div>
+					<div class="row-content" ng-if="!theme.parent_theme">&nbsp;</div>
+				</div>
+				<div class="row">
+					<div class="row-header">Revision</div>
+					<div class="row-content">{{theme.version}}</div>
+				</div>
+				<div class="row">
+					<div class="row-header">Last Time Update</div>
+					<div class="row-content">{{theme.updated_at | date: 'mediumDate'}}</div>
+				</div>
+				<div class="row">
+					<div class="button-wrapper flex-grid-view clearfix">
+						<div class="action-button" title="Create Theme">
+  					        <a class="fa fa-code-fork" ui-sref="themes.designer({themeID: theme.id, fork: true})"></a>
+  				        </div>
+						<div class="action-button" ng-click="duplicate(theme)" ng-hide="true" title="Duplicate Theme">
+							<i class="fa fa-code" aria-hidden="true"></i>
+						</div>
+						<div class="action-button" title="Preview Theme" ng-hide="true" ng-click="makePreviewTheme(theme)">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+						</div>
+						<div class="action-button" title="Edit Theme" ng-if="theme.locked != 1">
+							<a class="fa fa-pencil" aria-hidden="true" ui-sref="themes.designer({themeID: theme.id})" ng-class="theme.locked == 1 ? 'disabled' : ''"></a>
+						</div>
+						<div class="action-button" ng-if="theme.locked != 1" ng-click="deleteTheme(theme)" title="Delete Theme">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog" ng-show="loading">
+		<ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+	</div>
+</div>

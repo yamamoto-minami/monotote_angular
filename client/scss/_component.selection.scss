@@ -1,0 +1,38 @@
+.selection {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+.selection__item {
+    background: $white;
+    display: inline-block;
+    font-size: rem(17);
+    text-align: center;
+    margin-right: rem(10);
+
+    width: rem(180);
+    padding: rem(40) rem(20);
+
+    .icon {
+        font-size: rem(60);
+        color: $black;
+    }
+
+    strong {
+        color: $black;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+}

@@ -1,0 +1,30 @@
+.product-details-list {
+    list-style: none;
+    padding: 0;
+    border-bottom: 1px solid $color-border;
+}
+
+.product-details-list__item {
+    @include clearfix;
+    width: 100%;
+
+    > span {
+        border-top: 1px solid $color-border;
+        margin: 0;
+        padding: rem(15) 0;
+        font-size: rem(12);
+        line-height: rem(12);
+    }
+
+    > span:nth-child(1n) {
+        font-family: $font-bold;
+        display: inline-block;
+        width: 40%;
+        float: left;
+    }
+
+    > span:nth-child(2n) {
+        display: inline-block;
+        width: 60%;
+    }
+}

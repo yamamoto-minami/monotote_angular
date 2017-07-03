@@ -1,0 +1,53 @@
+$ui-notification-border-radius: 0px;
+
+.ui-notification {
+    border-radius: $ui-notification-border-radius;
+    position: fixed;
+    z-index: 9999;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    color: $white;
+    background: $color-alpha;
+    @include transition(all ease 0.5s);
+    &.clickable {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    &.killed {
+        opacity: 0;
+        @include transition(opacity ease 1s);
+    }
+    & > h3 {
+        display: block;
+        margin: 10px 10px 0 10px;
+        padding: 0 0 5px 0;
+        text-align: left;
+        font-size: 19px;
+        font-weight: bold;
+        border-bottom: 1px solid fadeout($color-primary, 70%);
+    }
+    & a {
+        color: $white;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    & > .message {
+        margin: 10px 10px 10px 10px;
+    }
+    &.warning {
+        background: $color-warning;
+    }
+    &.error {
+        background: $color-bravo;
+    }
+    &.success {
+        background: $color-success;
+    }
+    &.info {
+        background: $color-info;
+    }
+}

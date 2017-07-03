@@ -1,0 +1,129 @@
+<div class="product-browser__mainX product-browser__container">
+
+    <section class="product-overview__header" ng-show="!data.loadedSKU">
+        <div class="product-overview__header-left">
+            <div class="product-overview__category ">
+                <h2 class="product-overview__title">{{data.product.name}}</h2>
+            </div>
+
+            <div class="product-overview__subcategory active">
+                <span class="">Viewing products from <span class="product-overview__subcatback">
+                    <select id="universe" name="universe" ng-model="data.universe" ng-options="k as v for (k, v) in data.universes" ng-change="changeDetailSectionUniverse(data.universe)">
+                    </select>
+                </span></span>
+            </div>
+        </div>
+
+        <div class="product-overview__header-right">
+          <form name="productSearchForm" ng-submit="doSearch(true)" novalidate>
+              <div class="product-overview__search">
+                  <input type="text" class="product-overview__searchbox" placeholder="Search for a product&hellip;" ng-model="data.queryKeywords"/>
+              </div>
+           </form>
+        </div>
+    </section>
+
+    <section class="product-overview__main" ng-class="{'product-overview__no_filters':!data.universeFilters||!data.universeFilters.results||!data.universeFilters.results.length}">
+        <div class="filter filter-boxed product-overview__sort" ng-if="data.sortOptions" ng-show="data.universe!=='monotote'&&data.universe!=='awin'">
+            <div class="filter__item">
+                <label class="filter__label">Sort by</label>
+                <div class="filter__select">
+                    <select class="filter__select product-filter__sort-select" ng-model="data.sort" ng-options="k as v for (k, v) in data.sortOptions" ng-change="changeSortOrder()"></select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-filter__keywords" ng-show="data.keywords.length">
+            <ul class="search-tags__list">
+                <li class="search-tags__item" ng-repeat="keyword in data.keywords">{{keyword}}<a ng-click="removeKeyword(keyword); updateKeywords()" class="search-tags__remove">x</a></li>
+            </ul>
+        </div>
+        
+        <div class="pagination__main pagination__with_items" ng-show="!showProduct && data.pager.show && ((data.queryResult && data.queryResult.length !== 0) || data.pager.start > 1) && data.pager.total">
+            <span class="pagination__total">
+                Showing <span ng-bind="data.pager.start"></span> - <span ng-bind="data.pager.end"></span> of <span ng-bind="data.pager.total"></span>
+            </span>
+            <a class="pagination__prev" ng-show="data.pager.start > 1" ng-click="data.pager.start > 1 && pager('previous')">Previous</a>
+            <a class="pagination__next" ng-show="data.pager.end < data.pager.total" ng-click="data.pager.end < data.pager.total && pager('next')">Next</a>
+            <span class="pagination__pages" ng-if="data.pager.pages && data.pager.pages.length > 1">
+                <a class="pagination__btn" ng-class="{active: data.pager.page === page, pagination__disabled: data.pager.page === page}" ng-repeat="page in data.pager.pages" ng-click="data.pager.page !== page && pager('set', page)">{{page}}</a>
+            </span>
+        </div>
+        
+        <div class="product-overview-quickview__item" ng-if="showProduct">
+            <div class="ngdialog" ng-show="loadingProduct">
+                <ng-include src="templates.loadingIndicator" ng-show="loadingProduct"></ng-include>
+            </div>
+            <product-quick-view ng-show="data.product" real-product="data.product"  product="data.productView" universe="data.universe" detail="data.productDetails" configuration="data.productConfiguration"></product-quick-view>
+            <product-quick-view-images ng-show="data.product" real-product="data.product" product="data.productView"></product-quick-view-images>
+        </div>
+
+        <div ng-if="!showProduct">
+            <div class="product-overview__disabled_info_box" ng-if="getProducts(data.queryResult, true).length < getProducts(data.queryResult, false).length">
+                <span>
+                    <i class="icon icon-exclamation"></i>
+                    <span ng-if="!data.showAvailableOnly">Some of the products can't be tagged</span>
+                    <span ng-if="data.showAvailableOnly">Currently hiding unavailable products</span>
+                </span>
+                <button ng-if="!data.showAvailableOnly" ng-click="data.showAvailableOnly = !0">Show available only</button>
+                <button ng-if="data.showAvailableOnly" ng-click="data.showAvailableOnly = !1">Show all</button>
+            </div>
+            <ul class="product-overview__list">
+                <li class="product-overview__item" ng-class="{product__enabled: !product.disabled, product__disabled: product.disabled}" ng-repeat="product in getProducts(data.queryResult, data.showAvailableOnly)">
+                    <div custom-img src="{{thumbnail(product.thumb)}}" fallback-src="/assets/images/placeholder.png"></div>
+                    <span class="favs-info" ng-class="{product_liked:1}" ng-show="product.likes">{{product.likes}} <i ng-class="['icon-heart'+(!product.likes?'-o':'')]"></i></span>
+                    <div class="product-overview__disabled_info" ng-if="product.disabled">
+                        <span>
+                            <i class="icon icon-exclamation"></i>
+                            <h4 ng-if="product.affiliate">This product is not available through {{product.affiliate}}</h4>
+                            <h4 ng-if="!product.affiliate">This product is not available</h4>
+                        </span>
+                    </div>
+                    <div class="product-overview__description">
+                        <h4 class="product-overview__prodtitle">{{product.name}}</h4>
+                        <span class="product-overview__brand">{{product.partner_line}}</span>
+                        <span class="product-overview__price">
+                            <small ng-if="product.special_price">
+                                <s>{{product.price|CurrencyFilter:product.currency}}</s>
+                            </small>
+                            {{(product.special_price||product.price)|CurrencyFilter:product.currency}}
+                        </span>
+                        <span class="product-overview__stock" ng-show="!product.disabled && product.stock >= 1">{{product.stock}} in stock</span>
+                        <span class="product-overview__stock danger" ng-show="product.stock === 0">Out of stock</span>
+                    </div>
+                    <div class="product-overview__quicklinks">
+                        <a ng-click="quickSelect(data.universe, product)" class="product-overview__quicksel">Select</a>
+                        <a ng-click="showProductDetail(data.universe, product)" class="product-overview__viewprod">View product</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-if="!showProduct && (!data.queryResult || data.queryResult.length === 0)" style="margin: 40px 0 0 0;font-size: 2em;">
+            No products found. Try narrowing down your search with more keywords or SKU numbers
+        </div>
+
+        <div class="pagination__main pagination__with_items" ng-show="!showProduct && data.pager.show && ((data.queryResult && data.queryResult.length !== 0) || data.pager.start > 1) && data.pager.total">
+            <span class="pagination__total">
+                Showing <span ng-bind="data.pager.start"></span> - <span ng-bind="data.pager.end"></span> of <span ng-bind="data.pager.total"></span>
+            </span>
+            <a class="pagination__prev" ng-show="data.pager.start > 1" ng-click="data.pager.start > 1 && pager('previous')">Previous</a>
+            <a class="pagination__next" ng-show="data.pager.end < data.pager.total" ng-click="data.pager.end < data.pager.total && pager('next')">Next</a>
+            <span class="pagination__pages" ng-if="data.pager.pages && data.pager.pages.length > 1">
+                <a class="pagination__btn" ng-class="{active: data.pager.page === page, pagination__disabled: data.pager.page === page}" ng-repeat="page in data.pager.pages" ng-click="data.pager.page !== page && pager('set', page)">{{page}}</a>
+            </span>
+        </div>
+
+    </section>
+
+    <section class="product-overview__filters" style="padding-top: 10px;" ng-if="data.universeFilters&&data.universeFilters.results&&data.universeFilters.results.length">
+        <a ng-click="resetFilters()" class="button--delete"><icon class=""></icon> Clear Filters</a>
+        <product-filter filters="data.universeFilters" selection="data.filter" universe="data.universe"></product-filter>
+
+    </section>
+    
+    <div class="ngdialog" ng-show="data.queryLoading">
+        <ng-include src="templates.loadingIndicator"></ng-include>
+    </div>
+
+</div>

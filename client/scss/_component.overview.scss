@@ -1,0 +1,191 @@
+.overview {
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.overview-shoppables {
+  text-align: center;
+}
+
+.overview__item {
+  color: #FFF;
+  text-align: left;
+  margin-bottom: rem(30);
+
+  @include media($small-tablet) {
+    @include span-columns(6);
+    @include omega(2n);
+    margin-bottom: rem(15);
+  }
+
+  @include media($desktop) {
+    @include span-columns(4);
+    @include omega-reset(2n);
+    @include omega(3n);
+    margin-bottom: rem(15);
+  }
+
+  @include media($large-desktop) {
+    @include span-columns(3);
+    @include omega-reset(3n);
+    @include omega(4n);
+    margin-bottom: rem(30);
+  }
+
+  @include media($xlarge-desktop) {
+    clear: none !important;
+    float: none !important;
+    display: inline-block;
+    width: 300px !important;
+    margin-right: rem(30) !important;
+    margin-bottom: rem(30);
+  }
+
+  .icon {
+    position: absolute;
+    right: rem(25);
+    top: rem(25);
+    font-size: rem(20);
+  }
+}
+
+.overview__box {
+  position: relative;
+}
+
+.overview__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.32) 67%, rgba(0, 0, 0, 0.6) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(28%, rgba(0, 0, 0, 0)), color-stop(67%, rgba(0, 0, 0, 0.32)), color-stop(100%, rgba(0, 0, 0, 0.6)));
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.32) 67%, rgba(0, 0, 0, 0.6) 100%);
+  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.32) 67%, rgba(0, 0, 0, 0.6) 100%);
+  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.32) 67%, rgba(0, 0, 0, 0.6) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.32) 67%, rgba(0, 0, 0, 0.6) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#99000000', GradientType=0);
+}
+
+.overview__extra {
+  position: relative;
+  top: -20px;
+  right: 5px;
+  text-align: right;
+  color: #b1b1b1;
+  //margin-top: rem(14);
+  font-size: rem(12);
+}
+
+.overview__item--image:after {
+  font-family: $font-icon;
+  content: "\e601";
+}
+
+.overview__item--video:after {
+  font-family: $font-icon;
+  content: "\e600";
+  //font-size:
+}
+
+.overview__item .badges {
+  position: absolute;
+  top: rem(25);
+  left: rem(25);
+
+  .badge {
+    margin-bottom: 5px;
+  }
+}
+
+.overview__time {
+  position: absolute;
+  bottom: rem(25);
+  left: rem(25);
+  font-size: rem(13);
+  opacity: 0.5;
+}
+
+.overview__title {
+  position: absolute;
+  z-index: 5;
+  font-size: rem(24);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  left: rem(25);
+  right: rem(25);
+  bottom: rem(60);
+  margin: 0;
+  color: $white;
+}
+
+.overview__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overview__heading {
+  // margin-right: rem(10);
+  margin: rem(11) 0 rem(52) 0;
+  text-align: center;
+  
+  @include media($desktop) {
+    float: left;
+  }
+}
+
+.overview__totals {
+  @include clearfix;
+  list-style: none;
+  margin: 0 0 rem(20) 0;
+  padding: 0;
+  @include media($desktop) {
+    // margin: rem(11) 0;
+    margin: rem(11) 0 rem(52) 0;
+    float: right;
+  }
+  li {
+    padding: 0 rem(15);
+    float: left;
+    border-right: 1px solid $color-border;
+    text-align: center;
+    font-size: 13px;
+    @include media($md-screen) {
+      font-size: inherit;
+    }
+    &:last-child {
+      border-right: 0;
+    }
+    span,
+    em {
+      display: block;
+    }
+    span {
+      color: $black;
+    }
+    em {
+      color: $text-color-light;
+      font-family: $font-alt-regular;
+      @include media($md-screen) {
+        padding-top: rem(5);
+      }
+    }
+    &.overview__totals-attention {
+      span {
+        color: $color-bravo;
+      }
+    }
+    &.overview__totals-inactive {
+      span {
+        color: $color-border;
+      }
+    }
+  }
+}

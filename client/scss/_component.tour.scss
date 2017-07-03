@@ -1,0 +1,183 @@
+$tourTipBorder: transparent;
+$tourTipBackground: #fff;
+$tourTipFontColor: #000;
+$tourTipFontColorHover: #777;
+
+#hidden-surface {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -9999;
+  }
+
+.tour-tip {
+  position: absolute;
+  background: $tourTipBackground;
+  color: $tourTipFontColor;
+  z-index: 999999;
+  top: 0;
+  left: 2.5%;
+  font-weight: 400;
+  max-width: 700px;
+  border-radius: 0;
+  border: 2px solid $tourTipBorder;
+  box-shadow: 0 2px 20px #333;
+
+  .visual-hint {
+    display: none;
+
+    &.mobile {
+      display: block;
+      width: 80%;
+      max-width: 200px;
+      // margin: 0 10px 10px 10px;
+      margin: 0 auto 10px auto;
+      @include media($desktop) {
+        display: none;
+      }
+    }
+
+    &.desktop {
+      @include media($desktop) {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 10px;
+      }
+    }
+  }
+
+
+  .tour-tip-cover {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    opacity: 0.4;
+  }
+  button, .button {
+    background-color: #64cdcd;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition: background-color 300ms ease-out;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 100;
+    line-height: 1;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    font-size: .8em;
+    color: #FFF;
+    border-style: solid;
+    border-width: 0;
+    margin: 0 0 1.25em;
+    padding: .5em 1.25em .6em;
+    text-transform: uppercase;
+    small {
+      padding-top: .625em;
+      padding-bottom: .5625em;
+      -webkit-appearance: none;
+    }
+    &:hover {
+      background-color: lighten(#64cdcd,10);
+    }
+  }
+  .tour-arrow {
+    &.tt-top {
+      border-style: solid;
+      bottom: -28px;
+      border-color: $tourTipBorder transparent transparent !important;
+    }
+    &.tt-bottom, &.tt-center-bottom {
+      border-style: solid;
+      top: -28px;
+      border-color: transparent transparent $tourTipBorder !important;
+    }
+    &.tt-right {
+      border-style: solid;
+      left: -28px;
+      top: 28px;
+      border-color: transparent $tourTipBorder transparent transparent !important;
+    }
+    &.tt-left {
+      border-style: solid;
+      left: 100%;
+      top: 28px;
+      border-color: transparent transparent transparent $tourTipBorder !important;
+    }
+    display: block;
+    position: absolute;
+    left: 22px;
+    width: 0;
+    height: 0;
+    border: inset 14px;
+  }
+  .tour-content-wrapper {
+    padding: 1.125em 1.25em 1.5em;
+    font-size: 24px;
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .button {
+      margin-bottom: 0!important;
+    }
+  }
+  .tour-close-tip {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    color: $tourTipFontColor !important;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: .5!important;
+    cursor: pointer;
+    &:hover, &:focus {
+      color: $tourTipFontColorHover !important;
+    }
+  }
+
+  .tour-rbutton {
+    float: right;
+  }
+  .tour-lbutton {
+    float: left;
+  }
+}
+
+.tour-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 100;
+}
+
+.tour-element-active {
+  z-index: 120 !important;
+  position: relative;
+  background: #fff;
+}
+
+.tour-button.nav-header__item {
+  float: right;
+  padding: 0 5px;
+  .start-tour-button {  
+    line-height: 1em;
+    display: inline-block;
+    background: #64cdcd;
+    border-radius: 5px;
+    margin-top: 50%;
+    //transform: translateY(-50%);
+    padding: 5px;
+  }
+}

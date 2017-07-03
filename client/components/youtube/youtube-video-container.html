@@ -1,0 +1,17 @@
+<div ng-controller="youtubeController">
+	<div class="app-droppable--container" style="position: relative">
+        <youtube video-id="videoId" video-url="formData.videoUrl" control="ytcontrol" player="ytplayer" ></youtube>
+        <div class="app-droppable--area" ng-drop="true" ng-drop-success="onDropComplete($data, $event, $target, $drop)"></div>
+        <div class="wizard__frame-droplets" ng-click="deselect()">
+            <hotspot-view ng-repeat="hotspot in hotspots"></hotspot-view>
+        </div>
+    </div>
+    <div class="app-video-controls" ng-show="state > 0">
+        <div class="wizard__frame-status">
+            <span class="icon-play" ng-click="playVideo()" ng-show="state !== 2"></span>
+            <span class="icon-pause" ng-click="pauseVideo()" ng-show="state === 2"></span>
+        </div>
+        <time class="wizard__frame-time"><span ng-bind="VideoService.formatTime(VideoService.current)"></span> / <span ng-bind="VideoService.formatTime(VideoService.total)"></span></time>
+        <div range-slider range-value="VideoService.current" max="VideoService.total" class="app-video-progress" slide="onVideoRangeSlide(value)"></div>
+    </div>
+</div>

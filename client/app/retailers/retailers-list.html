@@ -1,0 +1,95 @@
+<div class="page-header-menu" ng-init="pageMenu={visible:!1};">
+  <span class="button button--cta button--dropdown" ng-click="pageMenu.visible=!pageMenu.visible" pseudo-focus="pageMenu.visible"
+    on-pseudo-blur="pageMenu.visible=!1">
+    ADD CONTENT
+  </span>
+  <ul class="page-content-menu__list" ng-hide="!pageMenu.visible">
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-image" ui-sref="tagging.image({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-image2"></i>
+        <span>Shoppable Image</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-video" ui-sref="tagging.video({shoppable:null})" ui-sref-opts="{reload:true}">
+        <i class="icon icon-video2"></i>
+        <span>Shoppable Video</span>
+      </a>
+    </li>
+    <li class="page-content-menu__item">
+      <a class="button button--cta button-link" ui-sref="generatelink" ui-sref-opts="{reload:true}">
+        <i class="icon icon-link3"></i>
+        <span>Shoppable social media link</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container" ng-init="currentView='availableRetailers'">
+  <h1 class="heading">Your account</h1>
+
+  <div class="overview container">
+
+      <section class="profile__header">
+          <div class="profile__nav" ng-include="'app/profile/profile-navigation.html'"></div>
+      </section>
+  </div>
+</div>
+
+<div class="retailers__preview desktop-view">
+
+  <h1 ng-if="retailers.connected.length">Connected retailers</h1>
+  <a ng-if="retailers.connected.length" ng-repeat="retailer in retailers.connected" class="retailer" ng-href="{{retailer.url}}" target="_blank">
+    <span>{{retailer.name}}</span>
+    <div class="logo-wrapper" style="background-image: url({{retailer.logo}})"></div>
+    <span class="retailer-link">{{retailer.url}}</span>
+  </a>
+
+  <h1 ng-if="retailers.available.length">Available retailers</h1>
+  <a ng-if="retailers.available.length" ng-repeat="retailer in retailers.available" class="retailer" ng-href="{{retailer.affiliate.url}}" target="_blank">
+    <div class="original-content">
+      <span>{{retailer.name}}</span>
+      <div class="triangle">
+        <span>+</span>
+      </div>
+      <div class="logo-wrapper" style="background-image: url({{retailer.logo}})"></div>
+      <span class="retailer-link">{{retailer.url}}</span>
+    </div>
+    
+    <div class="hover-content">
+      To activate this retailer, go to<span class="link">{{retailer.affiliate.name}}</span>and apply for their program,we will automatically activate this retailer for you.
+    </div>
+  </a>
+</div>
+
+<div class="retailers__preview tablet-mobile-view">
+
+  <div class="button-wrapper clearfix">
+    <div class="retailer-filter-button" ng-class="{active:activeRetailers == retailers.connected}" ng-click="activeRetailers = retailers.connected">Connected retailers</div>
+    <div class="retailer-filter-button" ng-class="{active:activeRetailers == retailers.available}" ng-click="activeRetailers = retailers.available">Available retailers</div>
+  </div>
+
+  <a ng-if="((activeRetailers.length > 0) && (activeRetailers == retailers.connected))" ng-repeat="retailer in activeRetailers" class="retailer" ng-href="{{retailer.url}}" target="_blank">
+    <span>{{retailer.name}}</span>
+    <div class="logo-wrapper" style="background-image: url({{retailer.logo}})"></div>
+    <span class="retailer-link">{{retailer.url}}</span>
+  </a>
+
+  <a ng-if="activeRetailers.length && activeRetailers == retailers.available" ng-repeat="retailer in activeRetailers" class="retailer" ng-href="{{retailer.affiliate.url}}" target="_blank">
+    <div class="original-content">
+      <span>{{retailer.name}}</span>
+      <div class="triangle">
+        <span>+</span>
+      </div>
+      <div class="logo-wrapper" style="background-image: url({{retailer.logo}})"></div>
+      <span class="retailer-link">{{retailer.url}}</span>
+    </div>
+    
+    <div class="hover-content">
+      To activate this retailer, go to<span class="link">{{retailer.affiliate.name}}</span>and apply for their program,we will automatically activate this retailer for you.
+    </div>
+  </a>
+</div>
+
+<div class="ngdialog" ng-show="loading">
+  <ng-include src="'components/loader/loadingIndicator.html'"></ng-include>
+</div>

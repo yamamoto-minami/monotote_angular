@@ -1,0 +1,51 @@
+.tabs, .tabpane-tabs {
+    list-style: none;
+    padding: 0 rem(40);
+    margin-bottom: 0;
+
+    @include clearfix;
+
+    background: $grey;
+}
+
+.tabs__item, .tabpane-tabs__tab {
+    float: left;
+    margin-right: rem(10);
+    color: $text-color-light;
+    padding: rem(20);
+    &:after {
+        margin-left: rem(15);
+    }
+}
+
+.tabs__item--active, .tabpane-tabs__tab--active {
+    background: $white;
+    color: $black;
+    font-size: rem(17);
+    font-family: $font-bold;
+
+    &:after {
+        font-family: $icomoon;
+        content: "\e613";
+        color: $black;
+        font-size: rem(12);
+    }
+}
+
+
+.tabs__item--completed:after {
+    font-family: $icomoon;
+    content: "\e615";
+    color: $color-delta;
+}
+
+.tabs__item--hold:after {
+    font-family: $icomoon;
+    content: "";
+    color: $text-color-light;
+}
+
+.tabs__container, .tabpane__main {
+    background-color: #fff;
+    @include clearfix;
+}

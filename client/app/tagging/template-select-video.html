@@ -1,0 +1,38 @@
+<form class="form--centered" name="msvf" ng-submit="next(msvf)" novalidate>
+    <div class="form__item">
+        <label class="form__label" for="msvf_title" ng-if="modeForm == 'new'">Enter a name for your new shoppable video</label>
+        <label class="form__label" for="msvf_title" ng-if="modeForm == 'edit'">Edit the name of this shoppable video</label>
+        <input type="text" class="input" placeholder="For example: “my new outfit”" id="msvf_title" name="msvf_title" ng-model="formData.title" ng-required="true">
+        <div class="form__notification" ng-show="msvf.$submitted || msvf.msvf_title.$touched">
+              <span class="error" ng-show="msvf.msvf_title.$error.required">Please enter a title.</span>
+        </div>
+    </div>
+
+    <div class="form__item">
+        <label class="form__label" for="msvf_url">Paste the link to your video</label>
+        <input type="text" class="input" id="msvf_url" name="msvf_url" placeholder="https://www.youtube.com/watch?v=ZJPjSaOcVwg" ng-model="formData.videoUrl" ng-required="true">
+        <div class="form__notification" ng-show="msvf.$submitted || msvf.msvf_url.$touched">
+          <span class="error" ng-show="msvf.msvf_url.$error.required">Please enter a video URL.</span>
+        </div>
+    </div>
+
+    <div class="form__item">
+        <label class="form__label" for="msifp_url">Paste links to your preview image(s) (optional)</label>
+        <input type="text" class="input" id="msifp_url" name="msifp_url" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl">
+        <input type="text" class="input" id="msifp_url2" name="msifp_url2" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl2">
+        <input type="text" class="input" id="msifp_url3" name="msifp_url3" placeholder="https://cloudfront.monotote.com/products/5/a/7/d/2/nm-prod148210032.jpg" ng-model="formData.imagePreviewUrl3">
+    </div>
+
+    <div class="form__notification" ng-show="error" style="color:#ff2222">
+      <span class="error">{{error}}</span>
+    </div>
+
+    <p class="supporting">Supporting <i class="icon icon-youtube-large"></i><i class="icon icon-mp4"></i></p>
+
+    <div class="form__actions">
+        <button class="button--delete" ng-click="deleteShoppable($event, shoppable)" ng-show="shoppable.item_hash">Delete shoppable video</button>
+        <a href ng-click="cancel()">Cancel</a>
+        <button type="submit" class="button--default" ng-if="modeForm == 'new'">Add buy buttons</button>
+        <button type="submit" class="button--default" ng-if="modeForm == 'edit'">Edit buy buttons</button>
+    </div>
+</form>

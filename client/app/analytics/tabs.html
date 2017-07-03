@@ -1,0 +1,65 @@
+<tabpane callback="hideUnitSelector(heading)" class="nav-analytics">
+    <tab heading="Revenue" id="revenue-report" tab-ui-state="analytics">
+      <div class="info_boxes block">
+        <div class="info_box">
+          <h2>Number of customers</h2>
+          <h1 class="count">{{revenue.payingUsers}}</h1>
+        </div>
+        <div class="info_box">
+          <h2>Average revenue per customer</h2>
+          <h1 class="arppu">{{revenue.paidAverage}}</h1>
+        </div>
+        <div class="info_box">
+          <h2>Total revenue</h2>
+          <h1 class="total">{{revenue.total}}</h1>
+        </div>
+      </div>
+      <div class="data-grid">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <a style="margin-right:5px;text-decoration:none;" ng-click="sortOrder('number')">Number of visitors</a>
+                <span class="fa" ng-class="(sort.column !== 'number')?'fa-sort':(sort.asc== true)?'fa-sort-asc':'fa-sort-desc'"></span>
+              </th>
+              <th>
+                <a style="margin-right:5px;text-decoration:none;" ng-click="sortOrder('avguser')">Avg. revenue per visitor</a>
+                <span class="fa" ng-class="(sort.column !== 'avguser')?'fa-sort':(sort.asc== true)?'fa-sort-asc':'fa-sort-desc'"></span>
+              </th>
+              <th>
+                <a style="margin-right:5px;text-decoration:none;" ng-click="sortOrder('avgpay')">Avg. revenue per customer</a>
+                <span class="fa" ng-class="(sort.column !== 'avgpay')?'fa-sort':(sort.asc== true)?'fa-sort-asc':'fa-sort-desc'"></span>
+              </th>
+              <th>
+                <a style="margin-right:5px;text-decoration:none;" ng-click="sortOrder('total')">Total revenue</a>
+                <span class="fa" ng-class="(sort.column !== 'total')?'fa-sort':(sort.asc== true)?'fa-sort-asc':'fa-sort-desc'"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="product in revenueData | orderBy:sort.column:sort.asc track by $index">
+              <td>overall</td>
+              <td class="number">{{product.customer_count}}</td>
+              <td class="number">{{product.user_avg | currency:"$"}}</td>
+              <td class="number">{{product.paid_avg | currency:"$"}}</td>
+              <td class="number">{{product.amount | currency:"$"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+
+    <tab heading="Segmentation" id="segmentation-report" tab-ui-state="segmentationChart">
+      <div class="app-alert app-alert--info" ng-show="segmentQuery">
+        <strong>Querying your data</strong>
+      </div>
+      <div class="app-alert app-alert--info" ng-show="emptySegmentData">
+        <strong>No segment data available</strong>
+      </div>
+      <segmentation-chart ng-show="!emptySegmentData" data="segmentation" from="attributes.from" to="attributes.to" display-date-format="displayDateFormat"></segmentation-chart>
+    </tab>
+    <tab heading="Orders" id="orders-report" tab-ui-state="ordersReport">
+	  <div ng-include="'app/analytics/orders-data.html'"></div>
+	</tab>
+</tabpane>

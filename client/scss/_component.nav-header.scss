@@ -1,0 +1,331 @@
+.nav-header {
+    display: block;
+    height: $header-height;
+    overflow-x: hidden;
+
+    > .nav-header__list {
+        overflow-x: hidden;
+    }
+
+    @include media($desktop) {
+        overflow: visible;
+        position: relative;
+
+        > .nav-header__list {
+            overflow: visible;
+        }
+    }
+}
+
+.nav-logo {
+    color: #262626;
+    font-size: 20px;
+    display: inline-block;
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    top: 0;
+    height: $header-height;
+    line-height: $header-height;
+    text-align: center;
+
+    @include media($desktop) {
+        left: 20px;
+        right: auto;
+    }
+}
+
+.nav-header__toggle {
+    display: inline-block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-left: 20px;
+    padding-right: 15px;
+    height: $header-height;
+    line-height: $header-height;
+    font-size: 20px;
+    color: #727272;
+    z-index: 10000;
+
+    &.active {
+        color: #b6b6b6;
+        background: #343434;
+    }
+
+    @include media($desktop) {
+        display: none;
+    }
+}
+
+.nav-header__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background: #343434;
+    color: #b6b6b6;
+
+    display: none;
+    padding-top: 70px;
+    padding-left: 110px;
+
+    &.active {
+        display: block;
+    }
+
+    @include media($desktop) {
+        float: right;
+
+        &, &.active {
+            display: block;
+            position: static;
+            background: transparent;
+            padding: 0;
+            left: auto;
+            top: auto;
+            right: auto;
+            bottom: auto;
+
+        }
+    }
+}
+
+.nav-header__list_dynamic {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include media($desktop) {
+        line-height: $header-height;
+        display: inline-block;
+        position: absolute;
+        right: 65px;
+        top: 0;
+        bottom: 0;
+        left: 210px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: right;
+        * {
+            text-align: left;
+        }
+    }
+}
+
+.nav-header__arrow {
+    display: none;
+
+    i {
+        line-height: $header-height;
+    }
+
+    @include media($desktop) {
+        display: none;
+        position: fixed;
+        top: 0;
+        line-height: $header-height * 0.99;
+        height: $header-height * 0.99;
+        right: $header-page-menu-width-desktop + 65px;
+        width: 40px;
+        text-align: center;
+        z-index: 1;
+        background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 40%);
+        background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 40%);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 40%);
+
+        &.left {
+            transform: rotate(180deg);
+            right: auto;
+            left: 200px;
+        }
+    }   
+}
+
+.navmenu-show-right-scrollbar .nav-header__arrow:not(.left) {
+    @include media($desktop) {
+        display: block;
+    }
+}
+
+.navmenu-show-left-scrollbar .nav-header__arrow.left {
+    @include media($desktop) {
+        display: block;
+    }
+}
+
+.navmenu-show-right-scrollbar .nav-header__list_dynamic {
+    @include media($desktop) {
+        padding-right: 20px;
+    }
+}
+
+.navmenu-show-left-scrollbar .nav-header__list_dynamic {
+    @include media($desktop) {
+        padding-left: 20px;
+    }
+}
+
+.nav-header__list_item {
+    display: block;
+    font-size: 26px;
+    line-height: 30px;
+    text-transform: uppercase;
+
+    @include media($desktop) {
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    a, .nav-button {
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        color: #b6b6b6;
+        position: relative;
+        cursor: pointer;
+
+        > .icon {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-right: 30px;
+            transform: translateY(-50%);
+        }
+
+        &.nav-header__list_item--active {
+            color: $color-alpha;
+        }
+
+        @include media($desktop) {
+            display: inline-block;
+            color: #323232;
+            margin: 0 10px;
+            line-height: $header-height;
+            width: auto;
+
+            > .icon {
+                display: none;
+            }
+        }
+    }
+
+
+
+}
+
+.nav-header__item--active {
+    color: $color-alpha;
+}
+
+.nav-header__menu_item {
+    display: inline-block;
+    float: none;
+    
+    border-left: 1px solid #666666;
+}
+
+.nav-header__toggle {
+    //float: right;
+    
+    &.active {
+        background: #666666;
+    }
+}
+
+.menu_dropdown_toggle {
+    position: absolute;
+    right: 10px;
+
+    @include media($desktop) {
+        position: static;
+    }
+}
+
+.menu_item_dropdown_list {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    transition: max-height 0.2s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+
+    &.active {
+        max-height: 100%;
+
+        li {
+            transform: none;
+        }
+    }
+
+    li {
+        display: block;
+        line-height: 0;
+        font-size: 0.8em;
+        transition: transform 0.2s ease-in-out;
+        transform: translateY(-150%);
+
+        > a, > span {
+            margin: 0 0 10px;
+            line-height: 1.2em;
+            display: block;
+
+            &:list-child {
+                margin-bottom: 0;
+            }
+
+            @include media($desktop) {
+                color: #666666;
+
+                &:hover {
+                    background: $color-alpha;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    @include media($desktop) {
+        position: fixed;
+        top: $header-height - rem(10);
+        transition: none;
+        background: #fff;
+
+        border: 1px solid #727272;
+        color: #666666;
+        font-size: 1.25em;
+        z-index: 1000;
+        pointer-events: none;
+        opacity: 0;
+        padding: rem(20) 0;
+
+        &.active {
+            pointer-events: all;
+            opacity: 1;
+        }
+
+        li {
+            > a, > span {
+                margin: 0;
+                padding: rem(5) rem(20);
+            }
+        }
+    }
+}
+
+#menu_item_support {
+    @include media($desktop) {
+        color: #323232;
+    }
+}
+
+
+

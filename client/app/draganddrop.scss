@@ -1,0 +1,40 @@
+[ng-drag]{
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+[ng-drag]{
+  cursor: move;
+}
+
+.app-draggable-objects:after{
+  display: block;
+  content:"";
+  clear:both;
+}
+
+.app-draggable-disabled {
+  opacity: 0.15;
+}
+
+[ng-drag].drag-over{
+
+}
+
+[ng-drag].dragging{
+  opacity: 0.75;
+  z-index: 999;
+}
+
+[ng-drop]{
+  position: relative;
+}
+
+[ng-drop].drag-enter{
+  border: 2px dotted $gray;
+  opacity: 0.5;
+}
+

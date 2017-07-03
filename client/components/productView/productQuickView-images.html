@@ -1,0 +1,16 @@
+<div class="product-overview-quickview__side">
+    <div class="product-overview-quickview__slider">
+      <wallop-slider images="images" animation="fade" goto="sliderImageIndex"></wallop-slider>
+    </div>
+
+    <div class="product-overview-quickview__thumbs" ng-show="images.length > 1">
+        <div ng-repeat="thumb in images">
+            <img style="border:1px solid #000;margin:2px;" ng-src="{{thumbnail(thumb)}}" ng-click="showImage($index)" />
+        </div>
+    </div>
+
+    <a href="#" ng-click="closeThisDialog()" class="product-overview-quickview__buy" ng-show="data.loadedSKU">Close</a>
+    <a href="#" ng-click="backToSearch()" class="product-overview-quickview__buy" ng-show="!data.loadedSKU">Back to products</a>
+    <a href="#" ng-click="selectProduct(product)" class="product-overview-quickview__buy" ng-show="!data.loadedSKU">Select this product</a>
+
+</div>
